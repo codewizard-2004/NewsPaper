@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { defaultSettings } from '@/lib/settings'
 import { removeStorageItem, usePersistentState } from '@/lib/storage'
 import type {
@@ -54,7 +55,17 @@ function App() {
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading')
   const [loadError, setLoadError] = useState<string | null>(null)
   const [reloadToken, setReloadToken] = useState(0)
-  const [pageIndex, setPageIndex] = useState(0)
+  const [pageIndexRaw, setPageIndexRaw] = useState(0)
+  const [direction, setDirection] = useState(0)
+
+  const setPageIndex = (updater: number | ((prev: number) => number)) => {
+    setPageIndexRaw((prev) => {
+      const next = typeof updater === 'function' ? updater(prev) : updater
+      setDirection(next > prev ? 1 : next < prev ? -1 : 0)
+      return next
+    })
+  }
+  const pageIndex = pageIndexRaw
   const [selectedArticle, setSelectedArticle] = useState<ArticleStory | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const lastTriggerRef = useRef<HTMLElement | null>(null)
@@ -112,7 +123,7 @@ function App() {
       articles: page.articles
         .filter((article) => settings.feed.enabledCategoryIds.includes(article.category))
         .filter((article) =>
-          article.sourceIds.some((sourceId) => settings.feed.enabledSourceIds.includes(sourceId)),
+          !article.sourceIds || article.sourceIds.length === 0 || article.sourceIds.some((sourceId) => settings.feed.enabledSourceIds.includes(sourceId)),
         )
         .slice(0, settings.feed.maxArticlesPerPage),
     }))
@@ -420,20 +431,61 @@ function App() {
           </button>
         </div>
 
-        <section className="paper-page" aria-label={`Page ${pageLabel}`}>
-          {currentPage ? (
-            <PaperPage
-              page={currentPage}
-              settings={settings}
-              onOpenArticle={openArticle}
-            />
-          ) : (
-            <div className="page-empty">
-              <p className="front-kicker">Paper state</p>
-              <h2>No stories available</h2>
-              <p>Adjust filters in settings to bring stories back onto the page.</p>
-            </div>
-          )}
+        <section className="paper-page" style={{ overflow: 'hidden' }} aria-label={`Page ${pageLabel}`}>
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.div
+              key={safePageIndex}
+              custom={direction}
+              variants={{
+                enter: (dir: number) => ({
+                  x: dir > 0 ? 50 : dir < 0 ? -50 : 0,
+                  opacity: 0,
+                }),
+                center: {
+                  x: 0,
+                  opacity: 1,
+                },
+                exit: (dir: number) => ({
+                  x: dir < 0 ? 50 : dir > 0 ? -50 : 0,
+                  opacity: 0,
+                }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 300, damping: 30 },
+                opacity: { duration: 0.2 }
+              }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              onDragEnd={(_e, { offset, velocity }) => {
+                const swipe = Math.abs(offset.x) * velocity.x;
+                const swipeThreshold = 5000;
+                if (swipe < -swipeThreshold && safePageIndex < pages.length - 1) {
+                  setPageIndex(safePageIndex + 1);
+                } else if (swipe > swipeThreshold && safePageIndex > 0) {
+                  setPageIndex(safePageIndex - 1);
+                }
+              }}
+              style={{ width: '100%', touchAction: 'pan-y' }}
+            >
+              {currentPage ? (
+                <PaperPage
+                  page={currentPage}
+                  settings={settings}
+                  onOpenArticle={openArticle}
+                />
+              ) : (
+                <div className="page-empty">
+                  <p className="front-kicker">Paper state</p>
+                  <h2>No stories available</h2>
+                  <p>Adjust filters in settings to bring stories back onto the page.</p>
+                </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
         </section>
 
         <div className="paper-footer">
@@ -520,18 +572,76 @@ function PaperPage({
   }
 }
 
+const AD_COPY = [
+  { brand: "Cloudflare", copy: "Fast, secure, and reliable web performance." },
+  { brand: "Vercel", copy: "Develop. Preview. Ship." },
+  { brand: "Linear", copy: "A better way to build products." },
+  { brand: "Stripe", copy: "Financial infrastructure for the internet." },
+  { brand: "Supabase", copy: "Build in a weekend. Scale to millions." }
+]
 
-function getBroadsheetSpan(article: ArticleStory, isTopRow = false): string {
-  if (article.importance === 5) {
-    return isTopRow ? 'col-span-4' : 'col-span-3'
+function NewspaperAd({ articleId }: { articleId: string }) {
+  const adIndex = articleId.length % AD_COPY.length
+  const ad = AD_COPY[adIndex]
+  
+  return (
+    <div className="newspaper-ad-filler">
+      <div className="newspaper-ad-content">
+        <span className="ad-label">Advertisement</span>
+        <h4>{ad.brand}</h4>
+        <p>{ad.copy}</p>
+      </div>
+    </div>
+  )
+}
+function calculateSpansForGrid(articles: ArticleStory[], maxColumns: number = 4): { article: ArticleStory, span: number }[] {
+  const result: { article: ArticleStory, span: number }[] = [];
+  
+  let currentIndex = 0;
+  while (currentIndex < articles.length) {
+    let rowSpan = 0;
+    const rowItems: { article: ArticleStory, span: number, originalIndex: number }[] = [];
+    
+    // 1. Pack items into the row based on their base importance
+    while (currentIndex < articles.length && rowSpan < maxColumns) {
+      const article = articles[currentIndex];
+      let desiredSpan = 1;
+      if (article.importance === 5) desiredSpan = currentIndex === 0 ? maxColumns : 3;
+      else if (article.importance === 4) desiredSpan = 2;
+      
+      // If the natural span overflows the row, shrink it to fit the remaining space
+      if (rowSpan + desiredSpan > maxColumns) {
+         desiredSpan = maxColumns - rowSpan;
+      }
+      
+      rowItems.push({ article, span: desiredSpan, originalIndex: currentIndex });
+      rowSpan += desiredSpan;
+      currentIndex++;
+      
+      if (rowSpan === maxColumns) break;
+    }
+    
+    // 2. If the row has a deficit (empty columns on the right), distribute the extra width
+    // favoring the most important articles in the row, ensuring a perfectly square flush layout.
+    if (rowSpan < maxColumns && rowItems.length > 0) {
+      let deficit = maxColumns - rowSpan;
+      const sortedIndices = rowItems
+        .map((item, index) => ({ index, importance: item.article.importance }))
+        .sort((a, b) => b.importance - a.importance)
+        .map(x => x.index);
+        
+      let i = 0;
+      while (deficit > 0) {
+        rowItems[sortedIndices[i % sortedIndices.length]].span += 1;
+        deficit -= 1;
+        i++;
+      }
+    }
+    
+    result.push(...rowItems.map(item => ({ article: item.article, span: item.span })));
   }
-  if (article.importance === 4) {
-    return 'col-span-2'
-  }
-  if (article.importance === 3) {
-    return 'col-span-1'
-  }
-  return 'col-span-1'
+  
+  return result;
 }
 
 function FrontLayout({
@@ -544,6 +654,7 @@ function FrontLayout({
   onOpenArticle: (article: ArticleStory, sourceElement?: HTMLElement | null) => void
 }) {
   const [lead, ...rest] = page.articles
+  const gridItems = calculateSpansForGrid(rest, 4)
 
   return (
     <div className={`page-layout page-template-front density-${settings.layout.density}`}>
@@ -560,19 +671,17 @@ function FrontLayout({
 
       {rest.length > 0 && lead ? <hr className="newspaper-divider" /> : null}
 
-      {rest.length > 0 ? (
+      {gridItems.length > 0 ? (
         <div className="broadsheet-grid broadsheet-grid--4">
-          {rest.map((article, index) => (
-            <div
-              key={article.id}
-              className={`broadsheet-cell ${getBroadsheetSpan(article, index === 0 && article.importance === 5)}`}
-            >
+          {gridItems.map(({ article, span }) => (
+            <div key={article.id} className={`broadsheet-cell col-span-${span}`}>
               <ArticleCard
                 article={article}
                 size={article.importance >= 5 ? 'hero' : article.importance === 4 ? 'major' : article.importance === 3 ? 'regular' : article.importance === 2 ? 'compact' : 'brief'}
                 showImages={settings.layout.showImages}
                 onOpenArticle={onOpenArticle}
               />
+              {article.importance <= 3 ? <NewspaperAd articleId={article.id} /> : null}
             </div>
           ))}
         </div>
@@ -592,6 +701,7 @@ function SplitLayout({
 }) {
   const [lead, ...rest] = page.articles
   const hasBannerLead = lead && lead.importance >= 5
+  const gridItems = calculateSpansForGrid(hasBannerLead ? rest : page.articles, 4)
 
   return (
     <div className={`page-layout page-template-split density-${settings.layout.density}`}>
@@ -609,14 +719,15 @@ function SplitLayout({
       {hasBannerLead && rest.length > 0 ? <hr className="newspaper-divider" /> : null}
 
       <div className="broadsheet-grid broadsheet-grid--4">
-        {(hasBannerLead ? rest : page.articles).map((article) => (
-          <div key={article.id} className={`broadsheet-cell ${getBroadsheetSpan(article)}`}>
+        {gridItems.map(({ article, span }) => (
+          <div key={article.id} className={`broadsheet-cell col-span-${span}`}>
             <ArticleCard
               article={article}
               size={article.importance >= 5 ? 'hero' : article.importance === 4 ? 'major' : article.importance === 3 ? 'regular' : article.importance === 2 ? 'compact' : 'brief'}
               showImages={settings.layout.showImages}
               onOpenArticle={onOpenArticle}
             />
+            {article.importance <= 3 ? <NewspaperAd articleId={article.id} /> : null}
           </div>
         ))}
       </div>
@@ -633,17 +744,20 @@ function ThreeColumnLayout({
   settings: AppSettings
   onOpenArticle: (article: ArticleStory, sourceElement?: HTMLElement | null) => void
 }) {
+  const gridItems = calculateSpansForGrid(page.articles, 4)
+
   return (
     <div className={`page-layout page-template-three density-${settings.layout.density}`}>
       <div className="broadsheet-grid broadsheet-grid--4">
-        {page.articles.map((article) => (
-          <div key={article.id} className={`broadsheet-cell ${getBroadsheetSpan(article)}`}>
+        {gridItems.map(({ article, span }) => (
+          <div key={article.id} className={`broadsheet-cell col-span-${span}`}>
             <ArticleCard
               article={article}
               size={article.importance >= 5 ? 'hero' : article.importance === 4 ? 'major' : article.importance === 3 ? 'regular' : article.importance === 2 ? 'compact' : 'brief'}
               showImages={settings.layout.showImages}
               onOpenArticle={onOpenArticle}
             />
+            {article.importance <= 3 ? <NewspaperAd articleId={article.id} /> : null}
           </div>
         ))}
       </div>
@@ -661,6 +775,7 @@ function LongformLayout({
   onOpenArticle: (article: ArticleStory, sourceElement?: HTMLElement | null) => void
 }) {
   const [lead, ...rest] = page.articles
+  const gridItems = calculateSpansForGrid(rest, 4)
 
   return (
     <div className={`page-layout page-template-longform density-${settings.layout.density}`}>
@@ -677,16 +792,17 @@ function LongformLayout({
 
       {rest.length > 0 && lead ? <hr className="newspaper-divider" /> : null}
 
-      {rest.length > 0 ? (
+      {gridItems.length > 0 ? (
         <div className="broadsheet-grid broadsheet-grid--4">
-          {rest.map((article) => (
-            <div key={article.id} className={`broadsheet-cell ${getBroadsheetSpan(article)}`}>
+          {gridItems.map(({ article, span }) => (
+            <div key={article.id} className={`broadsheet-cell col-span-${span}`}>
               <ArticleCard
                 article={article}
                 size={article.importance >= 5 ? 'hero' : article.importance === 4 ? 'major' : article.importance === 3 ? 'regular' : article.importance === 2 ? 'compact' : 'brief'}
                 showImages={settings.layout.showImages}
                 onOpenArticle={onOpenArticle}
               />
+              {article.importance <= 3 ? <NewspaperAd articleId={article.id} /> : null}
             </div>
           ))}
         </div>
@@ -704,17 +820,20 @@ function StackLayout({
   settings: AppSettings
   onOpenArticle: (article: ArticleStory, sourceElement?: HTMLElement | null) => void
 }) {
+  const gridItems = calculateSpansForGrid(page.articles, 4)
+
   return (
     <div className={`page-layout page-template-stack density-${settings.layout.density}`}>
       <div className="broadsheet-grid broadsheet-grid--4">
-        {page.articles.map((article) => (
-          <div key={article.id} className={`broadsheet-cell ${getBroadsheetSpan(article)}`}>
+        {gridItems.map(({ article, span }) => (
+          <div key={article.id} className={`broadsheet-cell col-span-${span}`}>
             <ArticleCard
               article={article}
               size={article.importance >= 5 ? 'hero' : article.importance === 4 ? 'major' : article.importance === 3 ? 'regular' : article.importance === 2 ? 'compact' : 'brief'}
               showImages={settings.layout.showImages}
               onOpenArticle={onOpenArticle}
             />
+            {article.importance <= 3 ? <NewspaperAd articleId={article.id} /> : null}
           </div>
         ))}
       </div>

@@ -100,6 +100,16 @@
       "id": "misc",
       "title": "Misc",
       "description": "Notes that do not fit a clean desk"
+    },
+    {
+      "id": "education",
+      "title": "Education",
+      "description": "Bootcamps, universities, and learning resources"
+    },
+    {
+      "id": "business",
+      "title": "Business",
+      "description": "Startups, venture capital, and market trends"
     }
   ],
   "pages": [
@@ -124,7 +134,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["the_verge", "ars_technica"],
+          "sourceIds": [
+            "the_verge",
+            "ars_technica"
+          ],
           "sources": [
             {
               "name": "The Verge",
@@ -155,7 +168,12 @@
             "Of course, this client-first revolution introduces serious engineering challenges around cross-device synchronization and conflict resolution. Teams adopting local-first architectures must invest heavily in CRDTs (Conflict-Free Replicated Data Types) and robust synchronization engines that quietly reconcile changes when the device reconnects to the network.",
             "As major browser vendors roll out integrated local AI models—allowing developers to run summarization, translation, and text generation natively without API tokens—the distinction between web application and desktop application has virtually evaporated. The browser has matured into the universal client runtime for modern work."
           ],
-          "tags": ["browser", "product", "client-side", "ux"],
+          "tags": [
+            "browser",
+            "product",
+            "client-side",
+            "ux"
+          ],
           "publishedAt": "2026-07-15T05:42:00+05:30",
           "readTimeMin": 8,
           "layoutHint": "hero"
@@ -179,7 +197,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["hackernews", "devto"],
+          "sourceIds": [
+            "hackernews",
+            "devto"
+          ],
           "sources": [
             {
               "name": "Hacker News",
@@ -208,7 +229,12 @@
             "This architectural shift has reduced aggregate inference expenditure by upwards of 40% across high-volume SaaS platforms. More importantly, it dramatically lowers time-to-first-token for end users, transforming sluggish conversational interfaces into snappy, responsive productivity assistants.",
             "Furthermore, explicit model tiering allows enterprises to establish clear governance policies. Department managers can assign token budgets and model capabilities based on functional requirements, ensuring that routine internal documentation workflows don't consume mission-critical reasoning allocations."
           ],
-          "tags": ["ai", "models", "latency", "cost"],
+          "tags": [
+            "ai",
+            "models",
+            "latency",
+            "cost"
+          ],
           "publishedAt": "2026-07-15T05:58:00+05:30",
           "readTimeMin": 6,
           "layoutHint": "feature"
@@ -227,7 +253,10 @@
               "role": "security editor"
             }
           ],
-          "sourceIds": ["techcrunch", "ars_technica"],
+          "sourceIds": [
+            "techcrunch",
+            "ars_technica"
+          ],
           "sources": [
             {
               "name": "TechCrunch",
@@ -256,7 +285,12 @@
             "The emerging industry playbook tackles these edge cases head-on through hybrid cross-device authentication and cryptographic iCloud/Google Password Manager key vaults. By synchronizing encrypted passkeys across the user's operating system ecosystem, platform providers have eliminated the fear of permanent account lockouts caused by a dropped phone.",
             "In enterprise environments, security architects are combining passkey enforcement with hardware-bound attestation policies. This dual-layer strategy ensures that corporate access requires both cryptographic proof of identity and verification that the authenticating endpoint complies with organizational compliance benchmarks."
           ],
-          "tags": ["security", "identity", "passkeys", "rollout"],
+          "tags": [
+            "security",
+            "identity",
+            "passkeys",
+            "rollout"
+          ],
           "publishedAt": "2026-07-15T06:12:00+05:30",
           "readTimeMin": 6,
           "layoutHint": "feature"
@@ -275,7 +309,10 @@
               "role": "reporter"
             }
           ],
-          "sourceIds": ["github_trending", "lobsters"],
+          "sourceIds": [
+            "github_trending",
+            "lobsters"
+          ],
           "sources": [
             {
               "name": "GitHub Trending",
@@ -303,7 +340,12 @@
             "Engineering leads report that this elevated level of feedback has fundamentally altered team dynamics. Junior engineers receive immediate, context-rich mentoring on system design patterns right inside their pull requests, while senior reviewers are liberated from mechanical checks to focus on overarching product coherence.",
             "As these review agents integrate tighter with local IDE extensions and pre-commit hooks, the feedback loop continues to tighten. The most productive engineering organizations are discovering that high-signal automated review is no longer a futuristic perk, but a foundational requirement for maintaining velocity safely."
           ],
-          "tags": ["agents", "code-review", "architecture", "devtools"],
+          "tags": [
+            "agents",
+            "code-review",
+            "architecture",
+            "devtools"
+          ],
           "publishedAt": "2026-07-15T06:18:00+05:30",
           "readTimeMin": 5
         },
@@ -321,7 +363,10 @@
               "role": "reporter"
             }
           ],
-          "sourceIds": ["github_trending", "lobsters"],
+          "sourceIds": [
+            "github_trending",
+            "lobsters"
+          ],
           "sources": [
             {
               "name": "GitHub Trending",
@@ -340,7 +385,11 @@
             "That kind of restraint feels very newspaper-like: the page is full, but the hierarchy is clear. The reader can see where the major stories are and where the shorter notes live without a cartoon of tabs or tiles trying to dominate the view.",
             "By focusing on backward compatibility, zero-config onboarding, and crisp documentation, maintainers are building software that feels like an indispensable utility rather than an experimental sandbox."
           ],
-          "tags": ["open-source", "tooling", "defaults"],
+          "tags": [
+            "open-source",
+            "tooling",
+            "defaults"
+          ],
           "publishedAt": "2026-07-15T06:20:00+05:30",
           "readTimeMin": 3
         },
@@ -359,7 +408,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["techcrunch", "reddit_technology"],
+          "sourceIds": [
+            "techcrunch",
+            "reddit_technology"
+          ],
           "sources": [
             {
               "name": "TechCrunch",
@@ -377,7 +429,11 @@
             "The best startup pitches this morning sound less like a launch video and more like a promise to reduce stress. Founders are talking about clearer defaults, fewer late-night incidents, and better ways to keep small teams from inheriting the operational habits of much larger companies.",
             "That is not a flashy message, but it reads well on paper. It also fits a product that wants to feel curated rather than endless: a limited number of stories, each with a visibly different role on the page."
           ],
-          "tags": ["startup", "reliability", "ops"],
+          "tags": [
+            "startup",
+            "reliability",
+            "ops"
+          ],
           "publishedAt": "2026-07-15T06:28:00+05:30",
           "readTimeMin": 2
         },
@@ -400,7 +456,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["semianalysis", "anandtech_archive"],
+          "sourceIds": [
+            "semianalysis",
+            "anandtech_archive"
+          ],
           "sources": [
             {
               "name": "SemiAnalysis",
@@ -429,7 +488,12 @@
             "However, custom silicon development introduces severe multi-year commitments. Designing an advanced 3-nanometer mask set demands tens of millions of dollars in upfront capital expenditure and over eighteen months of rigorous physical verification before the first test wafers emerge from fabrication facilities. If an operator's internal chip architects misjudge the velocity or direction of mathematical research—such as a sudden industry pivot away from attention-based transformers toward state-space architectures—they risk deploying multi-billion-dollar server farms optimized for yesterday's algorithms.",
             "Despite these perils, the sheer scale of global token generation has made bespoke silicon mandatory. What began as an experimental skunkworks endeavor inside hyper-scale data centers has formalized into the primary competitive moat for the cloud infrastructure era."
           ],
-          "tags": ["silicon", "hardware", "infrastructure", "chips"],
+          "tags": [
+            "silicon",
+            "hardware",
+            "infrastructure",
+            "chips"
+          ],
           "publishedAt": "2026-07-15T06:45:00+05:30",
           "readTimeMin": 7,
           "layoutHint": "hero"
@@ -448,7 +512,10 @@
               "role": "policy correspondent"
             }
           ],
-          "sourceIds": ["euractiv", "reuters_tech"],
+          "sourceIds": [
+            "euractiv",
+            "reuters_tech"
+          ],
           "sources": [
             {
               "name": "Euractiv",
@@ -476,7 +543,12 @@
             "For enterprise software architects, compliance necessitates a profound re-engineering of distributed databases and disaster recovery protocols. Multi-region failover configurations that historically mirrored backups across the Atlantic must now be re-routed to secondary facilities in Frankfurt, Paris, or Milan, frequently doubling storage overhead and complicating global synchronization logic.",
             "While legal compliance teams celebrate the clarity of the finalized rules, industry trade associations caution that fragmented compliance zones could decelerate European enterprise technology adoption by raising barrier-to-entry operational costs for early-stage software providers."
           ],
-          "tags": ["regulation", "eu", "cloud", "sovereignty"],
+          "tags": [
+            "regulation",
+            "eu",
+            "cloud",
+            "sovereignty"
+          ],
           "publishedAt": "2026-07-15T07:10:00+05:30",
           "readTimeMin": 6,
           "layoutHint": "feature"
@@ -495,7 +567,10 @@
               "role": "software architect"
             }
           ],
-          "sourceIds": ["lobsters", "hn_algorithms"],
+          "sourceIds": [
+            "lobsters",
+            "hn_algorithms"
+          ],
           "sources": [
             {
               "name": "Lobsters",
@@ -515,7 +590,12 @@
             "By utilizing int8 and product quantization techniques, developer tools can now compress 1536-dimensional embedding vectors by over eighty percent with negligible loss in semantic recall accuracy. Combined with local embedded vector engines like DuckDB and LibSQL, client applications can query tens of thousands of local documents in under two milliseconds.",
             "This architectural capability unlocks a new generation of offline-first productivity software. Field researchers can perform semantic queries across extensive PDF libraries while airborne, and medical practitioners can cross-reference clinical note histories without transmitting confidential patient records across external networks."
           ],
-          "tags": ["vector-search", "databases", "mobile", "offline-first"],
+          "tags": [
+            "vector-search",
+            "databases",
+            "mobile",
+            "offline-first"
+          ],
           "publishedAt": "2026-07-15T07:30:00+05:30",
           "readTimeMin": 4
         },
@@ -533,7 +613,10 @@
               "role": "science editor"
             }
           ],
-          "sourceIds": ["nature_physics", "quantamagazine"],
+          "sourceIds": [
+            "nature_physics",
+            "quantamagazine"
+          ],
           "sources": [
             {
               "name": "Nature Physics",
@@ -553,7 +636,12 @@
             "By entangling arrays of physical qubits into topological surface codes and processing error syndrome measurements via cryogenic CMOS control chips operating at four Kelvin, the research team successfully reduced the logical error rate exponentially with every additional entangling layer added to the grid.",
             "While commercial fault-tolerant quantum computers capable of breaking classical cryptographic algorithms remain years in the future, this empirical proof of scalable real-time error correction removes the primary theoretical roadblock that has loomed over solid-state physics for three decades."
           ],
-          "tags": ["quantum", "physics", "error-correction", "science"],
+          "tags": [
+            "quantum",
+            "physics",
+            "error-correction",
+            "science"
+          ],
           "publishedAt": "2026-07-15T07:55:00+05:30",
           "readTimeMin": 4
         },
@@ -572,7 +660,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["stackoverflow_survey", "state_of_js"],
+          "sourceIds": [
+            "stackoverflow_survey",
+            "state_of_js"
+          ],
           "sources": [
             {
               "name": "Developer Survey Results",
@@ -586,7 +677,11 @@
             "Over sixty-eight percent of respondents cited configuration maintenance and slow compilation cycles as their top source of daily workflow frustration, prompting widespread migration toward integrated bundlers and test runners that require no manual webpack or transpiler scripting.",
             "The survey underscores a maturing software industry where teams value operational predictability and immediate startup speeds over the theoretical flexibility of infinitely customizable compilation hooks."
           ],
-          "tags": ["developer-experience", "tooling", "surveys"],
+          "tags": [
+            "developer-experience",
+            "tooling",
+            "surveys"
+          ],
           "publishedAt": "2026-07-15T08:15:00+05:30",
           "readTimeMin": 2
         },
@@ -604,7 +699,9 @@
               "role": "desk reporter"
             }
           ],
-          "sourceIds": ["telegeography"],
+          "sourceIds": [
+            "telegeography"
+          ],
           "sources": [
             {
               "name": "TeleGeography Subsea Report",
@@ -617,7 +714,11 @@
             "Deep-sea repair vessels have successfully spliced and re-armored a critical fiber-optic link spanning the northern Atlantic corridor, concluding specialized maintenance operations forty-eight hours ahead of initial projections following severe seabed turbidity during winter storm fronts.",
             "Automated BGP failover routing quietly diverted high-volume transatlantic data traffic through secondary equatorial and northern fiber loops throughout the repair window, ensuring that financial services and cloud synchronization workflows experienced zero noticeable degradation."
           ],
-          "tags": ["subsea-cables", "networks", "infrastructure"],
+          "tags": [
+            "subsea-cables",
+            "networks",
+            "infrastructure"
+          ],
           "publishedAt": "2026-07-15T08:40:00+05:30",
           "readTimeMin": 1
         }
@@ -625,517 +726,624 @@
     },
     {
       "page": 2,
-      "template": "split",
-      "title": "Systems Desk",
-      "deck": "Model routing, prompt caching, and local-first tools occupy the left side of the paper.",
+      "template": "three-column",
+      "title": "Education",
+      "deck": "Bootcamps, CS Degrees, and the continuous learning grind.",
       "articles": [
         {
-          "id": "systems-prompt-caching",
+          "id": "edu-cs50-rust",
           "page": 2,
-          "category": "ai_ml",
-          "importance": 5,
-          "title": "Prompt caching is turning into a real engineering discipline",
-          "subtitle": "Context reuse is leaving the optimization bucket and joining core architecture.",
-          "kicker": "Systems",
+          "category": "education",
+          "importance": 4,
+          "title": "Harvard CS50 announces controversial pivot to Rust",
+          "subtitle": "The beloved introductory computer science course drops Python, citing memory safety as a fundamental right.",
+          "kicker": "Curriculum",
           "authors": [
             {
               "name": "Nora Patel",
               "role": "editorial"
             }
           ],
-          "sourceIds": ["ars_technica", "devto"],
-          "sources": [
-            {
-              "name": "Ars Technica",
-              "url": "https://arstechnica.com/",
-              "note": "Architecture and cost analysis"
-            },
-            {
-              "name": "Dev.to",
-              "url": "https://dev.to/",
-              "note": "Practical implementation notes"
-            }
-          ],
-          "images": [
-            {
-              "src": "/images/dispatch-2.svg",
-              "alt": "Architecture-themed image for prompt caching and routing",
-              "caption": "Caching is no longer an optimization. It is part of the contract.",
-              "credit": "Dispatch illustration"
-            }
-          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
           "content": [
-            "Prompt caching used to be framed as a trick to reduce spend. It is now being treated as an architectural decision because teams keep discovering that context reuse affects latency, model selection, and how quickly a product can answer the second or third question in a session.",
-            "That makes the engineering work more newspaper-like than demo-like. Every choice needs a visible reason: why this prompt is cached, why this model is cheaper, why that request still goes to the bigger engine when accuracy matters more than speed.",
-            "The result is a better product conversation. Instead of hiding behind the magic of an assistant, the stack can explain its hierarchy to the reader in plain language.",
-            "Underneath the surface, prompt caching relies on prefix prefix-matching algorithms implemented directly at the attention layer of transformer serving engines. When a system presents a static system instruction, massive API schema definition, or extensive RAG context window across subsequent requests, the underlying GPU infrastructure bypasses the computationally expensive pre-fill phase entirely.",
-            "This architectural breakthrough yields compound returns for interactive software. Applications can now safely prepend comprehensive documentation guidelines and multi-turn conversation histories without fearing linear cost inflation or multi-second response penalties.",
-            "To maximize hit rates, engineering teams are standardizing on strict template boundaries. By segregating invariant system instructions at the absolute beginning of the prompt buffer and isolating dynamic user query payloads at the tail, developers ensure that cache prefixes remain intact across thousands of concurrent user sessions.",
-            "As providers introduce automatic prefix caching across their global endpoints, systems architecture is converging around context persistence. Prompt caching has evolved from a clever cost-hack into a foundational building block for stateful agent workflows."
+            "In a shocking syllabus update, Harvard's legendary CS50 course announced it will transition its primary teaching language from Python to Rust. The teaching staff argued that if students can learn pointers in C, they can learn the borrow checker.",
+            "Students are reportedly forming support groups to deal with compiler errors, but the teaching fellows insist the strict typing will build character."
           ],
-          "tags": ["ai", "systems", "caching", "latency"],
-          "publishedAt": "2026-07-15T06:40:00+05:30",
-          "readTimeMin": 7
+          "tags": [
+            "education",
+            "rust",
+            "university"
+          ],
+          "publishedAt": "2026-07-16T09:00:00+05:30",
+          "readTimeMin": 4
         },
         {
-          "id": "systems-local-review",
+          "id": "edu-bootcamp-fall",
           "page": 2,
-          "category": "dev_tools",
+          "category": "education",
           "importance": 4,
-          "title": "Local-first review tools are winning on speed and context",
-          "subtitle": "The more context they keep on-device, the less time reviewers spend waiting.",
-          "kicker": "Development",
-          "authors": [
-            {
-              "name": "Rohan Iyer",
-              "role": "reporter"
-            },
-            {
-              "name": "Dispatch Editorial Desk",
-              "role": "AI editor",
-              "aiGenerated": true
-            }
-          ],
-          "sourceIds": ["github_trending", "devto"],
-          "sources": [
-            {
-              "name": "GitHub Trending",
-              "url": "https://github.com/trending",
-              "note": "Project traction"
-            },
-            {
-              "name": "Dev.to",
-              "url": "https://dev.to/",
-              "note": "Workflow article"
-            }
-          ],
-          "images": [
-            {
-              "src": "/images/dispatch-1.svg",
-              "alt": "Workflow image used for a local-first developer tool story",
-              "caption": "The best tools shorten the distance between a diff and an answer.",
-              "credit": "Dispatch illustration"
-            }
-          ],
-          "content": [
-            "Developer tools keep winning when they remove friction rather than introducing a new dashboard to manage. The latest review products are leaning into local storage, faster diff rendering, and a better sense of what context matters before the reviewer has to ask for it.",
-            "That puts the emphasis back on the craft of the tool, not the novelty of the interface. If a utility makes code review feel like reading a clean newspaper spread rather than a pile of unread notifications, it is probably on the right track.",
-            "Traditional web-based code review platforms force engineers to navigate clunky paginated diff screens, endure spinner delays on large pull requests, and lose context whenever a network drop occurs during transit.",
-            "By pulling git objects, symbol graphs, and test execution traces into local SQLite databases directly on the developer's workstation, local-first review applications deliver instantaneous syntax highlighting, cross-file go-to-definition, and sub-millisecond search capabilities.",
-            "Furthermore, local execution enables seamless offline productivity. Engineers can carefully review complex architectural refactors on airplane flights or during commute dead-zones, with all comments and approval states automatically syncing back to the central repository upon reconnection.",
-            "This emphasis on speed and ergonomics pays dividends in code quality. When reviewers aren't exhausted by interface latency and endless browser tab switching, they perform deeper semantic analysis and provide more thoughtful, constructive engineering feedback."
-          ],
-          "tags": ["devtools", "review", "local-first"],
-          "publishedAt": "2026-07-15T06:51:00+05:30",
-          "readTimeMin": 5
-        },
-        {
-          "id": "systems-rust-linux-kernel",
-          "page": 2,
-          "category": "dev_tools",
-          "importance": 4,
-          "title": "Rust in the Linux kernel reaches critical production milestones",
-          "subtitle": "Memory-safe drivers are moving from experimental subsystems into core storage and networking paths.",
-          "kicker": "Kernel engineering",
-          "authors": [
-            {
-              "name": "Rohan Iyer",
-              "role": "reporter"
-            }
-          ],
-          "sourceIds": ["lobsters", "ars_technica"],
-          "sources": [
-            {
-              "name": "Lobsters",
-              "url": "https://lobste.rs/",
-              "note": "Kernel development thread"
-            },
-            {
-              "name": "Ars Technica",
-              "url": "https://arstechnica.com/",
-              "note": "In-depth systems report"
-            }
-          ],
-          "images": [
-            {
-              "src": "/images/dispatch-3.svg",
-              "alt": "Kernel architecture diagram",
-              "caption": "Memory-safe abstractions are proving their worth in high-throughput storage layers.",
-              "credit": "Dispatch illustration"
-            }
-          ],
-          "content": [
-            "The multi-year initiative to introduce Rust as a first-class language inside the Linux kernel has transitioned from intense philosophical debate to tangible engineering results. Maintainers across key storage, block device, and network interface subsystems are now merging memory-safe drivers into stable release candidates.",
-            "Historically, kernel developers faced an agonizing tradeoff between raw C performance and vulnerability to use-after-free, buffer overflow, and data race bugs. Rust's compile-time borrow checker and strict ownership mechanics eliminate entire classes of these vulnerabilities without imposing runtime garbage collection overhead.",
-            "Recent benchmarks from the newly rewritten NVMe storage driver and Binder IPC abstraction layers demonstrate zero performance regression compared to legacy C implementations, while cutting crash rates under synthetic fuzzing loads to absolute zero.",
-            "While the learning curve for kernel maintainers remains steep, the long-term dividend is undeniable. Modern operating systems are steadily hardening their most critical foundations against memory corruption exploits at the exact point where hardware abstraction begins."
-          ],
-          "tags": ["rust", "linux", "kernel", "systems"],
-          "publishedAt": "2026-07-15T06:58:00+05:30",
-          "readTimeMin": 5
-        },
-        {
-          "id": "systems-incident-notes",
-          "page": 2,
-          "category": "security",
-          "importance": 3,
-          "title": "Incident teams are shrinking the postmortem deck",
-          "subtitle": "The lesson is less presentation and more visible operational discipline.",
-          "kicker": "Operations",
+          "title": "The 12-week bootcamp model faces an existential crisis",
+          "subtitle": "As entry-level roles demand more system design experience, six-month apprenticeships are taking over.",
+          "kicker": "Industry",
           "authors": [
             {
               "name": "Ava Mehta",
-              "role": "security editor"
+              "role": "reporter"
             }
           ],
-          "sourceIds": ["reddit_programming", "lobsters"],
-          "sources": [
-            {
-              "name": "Reddit /r/programming",
-              "url": "https://www.reddit.com/r/programming/",
-              "note": "Engineering reaction"
-            },
-            {
-              "name": "Lobsters",
-              "url": "https://lobste.rs/",
-              "note": "Operations discussion"
-            }
-          ],
+          "sourceIds": [],
+          "sources": [],
           "images": [],
           "content": [
-            "SRE teams are making the postmortem shorter and more direct. The useful parts of the incident review are now the timelines, the customer impact, and the concrete changes that keep the problem from repeating, not the padded deck that tries to make every outage feel like a keynote.",
-            "That restraint mirrors the newspaper layout itself. The page can carry a lot of information without pretending every item deserves the same size, and the important stories earn their space by being useful rather than loud.",
-            "By prioritizing crisp root cause analysis and actionable remediation tracking over elaborate slide decks, engineering orgs ensure that postmortems lead to genuine infrastructure improvements rather than bureaucratic fatigue."
+            "The era of learning React in three months and immediately landing a six-figure salary has officially ended. Coding bootcamps are rapidly restructuring into longer, apprenticeship-style programs.",
+            "Hiring managers are demanding proof of debugging complex distributed systems, leading schools to replace basic frontend curriculum with intensive backend architecture modules."
           ],
-          "tags": ["ops", "incident", "postmortem"],
-          "publishedAt": "2026-07-15T07:03:00+05:30",
-          "readTimeMin": 3
-        },
-        {
-          "id": "systems-sqlite-edge",
-          "page": 2,
-          "category": "dev_tools",
-          "importance": 3,
-          "title": "SQLite replication at the edge becomes standard practice",
-          "subtitle": "Single-file relational databases are outperforming complex distributed clusters for read-heavy workloads.",
-          "kicker": "Database architecture",
-          "authors": [
-            {
-              "name": "Nora Patel",
-              "role": "editorial"
-            }
+          "tags": [
+            "bootcamp",
+            "hiring",
+            "career"
           ],
-          "sourceIds": ["hackernews", "devto"],
-          "sources": [
-            {
-              "name": "Hacker News",
-              "url": "https://news.ycombinator.com/",
-              "note": "Database architecture discussion"
-            },
-            {
-              "name": "Dev.to",
-              "url": "https://dev.to/",
-              "note": "Edge replication guide"
-            }
-          ],
-          "images": [],
-          "content": [
-            "The era of deploying sprawling multi-region consensus clusters for simple read-heavy web applications is drawing to a pragmatic close. Engineering teams are increasingly adopting SQLite replicated across global edge worker networks via write-ahead log (WAL) streaming.",
-            "Because the entire database resides directly inside the memory space of the edge compute instance, read queries execute with microsecond latency without incurring network round-trips across availability zones.",
-            "For applications with centralized write patterns and distributed read requirements—such as newsrooms, e-commerce product catalogs, and documentation portals—this architecture provides rock-solid reliability at a fraction of traditional operational complexity."
-          ],
-          "tags": ["sqlite", "edge", "database", "systems"],
-          "publishedAt": "2026-07-15T07:08:00+05:30",
-          "readTimeMin": 3
-        },
-        {
-          "id": "systems-extension-permissions",
-          "page": 2,
-          "category": "big_tech",
-          "importance": 2,
-          "title": "Browser extension permissions are getting stricter",
-          "subtitle": "Platform teams are trying to protect users without kneecapping the ecosystem.",
-          "kicker": "Platform",
-          "authors": [
-            {
-              "name": "Nora Patel",
-              "role": "editorial"
-            }
-          ],
-          "sourceIds": ["the_verge", "ars_technica"],
-          "sources": [
-            {
-              "name": "The Verge",
-              "url": "https://www.theverge.com/tech",
-              "note": "Platform policy"
-            },
-            {
-              "name": "Ars Technica",
-              "url": "https://arstechnica.com/",
-              "note": "Security implications"
-            }
-          ],
-          "images": [],
-          "content": [
-            "Browser vendors are tightening extension permission prompts and audit rules, hoping to reduce the number of overreaching add-ons that quietly collect more data than they need. The pressure is to keep power in the ecosystem while making abusive behavior harder to hide.",
-            "The change is technical, but the experience is editorial: a careful page tells the reader what matters first, and the permission layer should do the same."
-          ],
-          "tags": ["browser", "policy", "permissions"],
-          "publishedAt": "2026-07-15T07:12:00+05:30",
-          "readTimeMin": 2
-        }
-      ]
-    },
-    {
-      "page": 3,
-      "template": "three-column",
-      "title": "Launches and Builds",
-      "deck": "A page of projects, releases, and smaller notes arranged in three newspaper columns.",
-      "articles": [
-        {
-          "id": "launch-reliability-feature",
-          "page": 3,
-          "category": "startups",
-          "importance": 4,
-          "title": "A startup is selling reliability as the feature",
-          "subtitle": "The pitch is less sparkle and more a promise to keep the lights on.",
-          "kicker": "Launch",
-          "authors": [
-            {
-              "name": "Dispatch Editorial Desk",
-              "role": "AI editor",
-              "aiGenerated": true
-            }
-          ],
-          "sourceIds": ["techcrunch", "hackernews"],
-          "sources": [
-            {
-              "name": "TechCrunch",
-              "url": "https://techcrunch.com/",
-              "note": "Launch coverage"
-            },
-            {
-              "name": "Hacker News",
-              "url": "https://news.ycombinator.com/",
-              "note": "Discussion thread"
-            }
-          ],
-          "images": [
-            {
-              "src": "/images/dispatch-4.svg",
-              "alt": "Neutral image block for a startup story",
-              "caption": "Operational discipline is becoming a product category.",
-              "credit": "Dispatch illustration"
-            }
-          ],
-          "content": [
-            "The most convincing startup decks today are borrowing from the newsroom: clear hierarchy, a strong lead, and less jargon than their predecessors. This launch tries to sell reliability as a feature by emphasizing predictable defaults, observability, and a workflow that does not require a babysitter.",
-            "The company is betting that teams want fewer surprises more than they want a flashy demo. In the newspaper metaphor, that is the equivalent of giving the feature story enough room to breathe while still leaving space for shorter notes that sharpen the page.",
-            "Rather than boasting about infinite scaling potential or magical AI automation, the founders are highlighting their deterministic state machines, automated chaos engineering tests, and transparent incident response runbooks.",
-            "In an era where software teams are overwhelmed by alert fatigue and fragile distributed system dependencies, a product that explicitly guarantees predictable recovery paths and sane out-of-the-box alerting feels like a breath of fresh air.",
-            "Early customers report that adopting the platform allowed them to retire dozens of custom cron jobs and brittle monitoring scripts, consolidating operational oversight into a clean, legible dashboard that any on-call engineer can interpret in seconds."
-          ],
-          "tags": ["startup", "reliability", "launch"],
-          "publishedAt": "2026-07-15T07:20:00+05:30",
+          "publishedAt": "2026-07-16T10:15:00+05:30",
           "readTimeMin": 5
         },
         {
-          "id": "launch-wasm-component-model",
-          "page": 3,
-          "category": "dev_tools",
-          "importance": 4,
-          "title": "WebAssembly Component Model reaches production maturity across cloud runtimes",
-          "subtitle": "Language-agnostic plugins allow developers to compose Rust, Go, and Python modules inside a single process.",
-          "kicker": "Runtime release",
+          "id": "edu-docs-teachers",
+          "page": 2,
+          "category": "education",
+          "importance": 3,
+          "title": "API references are the new textbooks",
+          "subtitle": "Interactive docs are replacing formal course materials in the modern classroom.",
+          "kicker": "Pedagogy",
           "authors": [
             {
               "name": "Rohan Iyer",
               "role": "reporter"
             }
           ],
-          "sourceIds": ["lobsters", "devto"],
-          "sources": [
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "University professors are increasingly ditching expensive textbooks in favor of simply assigning students to read Stripe and Vercel documentation.",
+            "The modern API reference, complete with interactive sandboxes and executable curl commands, has proven far more effective at teaching REST principles than any printed textbook from 2018."
+          ],
+          "tags": [
+            "documentation",
+            "learning"
+          ],
+          "publishedAt": "2026-07-16T11:00:00+05:30",
+          "readTimeMin": 3
+        },
+        {
+          "id": "edu-haskell-comeback",
+          "page": 2,
+          "category": "education",
+          "importance": 3,
+          "title": "Haskell makes a surprise comeback in sophomore curriculum",
+          "subtitle": "Students are finding solace in pure functions after a semester of unpredictable state mutations.",
+          "kicker": "Curriculum Trends",
+          "authors": [
             {
-              "name": "Lobsters",
-              "url": "https://lobste.rs/",
-              "note": "WASM specification discussion"
-            },
-            {
-              "name": "Dev.to",
-              "url": "https://dev.to/",
-              "note": "Component model walkthrough"
+              "name": "Ava Mehta",
+              "role": "reporter"
             }
           ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "In a surprising reversal of industry trends, several top-tier universities are reintroducing Haskell as a mandatory requirement for second-year computer science students.",
+            "After years of wrestling with side effects and null pointer exceptions in object-oriented paradigms, students are reportedly embracing the strict, mathematical purity of functional programming.",
+            "One student noted, 'If it compiles, it works. That is a kind of peace I have never felt in Javascript.'"
+          ],
+          "tags": [
+            "education",
+            "haskell",
+            "functional-programming"
+          ],
+          "publishedAt": "2026-07-17T09:15:00+05:30",
+          "readTimeMin": 3
+        },
+        {
+          "id": "edu-ai-plagiarism",
+          "page": 2,
+          "category": "education",
+          "importance": 2,
+          "title": "The 'AI Plagiarism' debate shifts from essays to code reviews",
+          "subtitle": "Teaching Assistants admit they can't tell the difference between Copilot and a bright freshman.",
+          "kicker": "Campus Life",
+          "authors": [
+            {
+              "name": "Dispatch Editorial Desk",
+              "role": "editorial"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "The academic integrity offices that spent last year worrying about generated English essays are now pivoting to a much harder problem: generated Python scripts.",
+            "Computer science departments are abandoning legacy code-similarity checkers. Instead, professors are shifting toward entirely oral examinations, forcing students to verbally explain the Big-O time complexity of the algorithms they submitted."
+          ],
+          "tags": [
+            "ai",
+            "plagiarism",
+            "education"
+          ],
+          "publishedAt": "2026-07-17T10:30:00+05:30",
+          "readTimeMin": 2
+        },
+        {
+          "id": "edu-job-prompt-eng",
+          "category": "education",
+          "importance": 2,
+          "title": "HIRING: Adjunct Professor of Prompt Engineering",
+          "subtitle": "Must have 10 years of experience in a 2-year-old field. Tenure track not available.",
+          "kicker": "Job Board",
+          "authors": [
+            {
+              "name": "University Admin",
+              "role": "classifieds"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "State University is urgently seeking an adjunct professor to teach 'Intro to LLM Whispering 101'.",
+            "The ideal candidate will have a deep understanding of negative prompting, few-shot chain-of-thought, and the patience to grade 300 AI-generated final projects."
+          ],
+          "tags": [
+            "hiring",
+            "education",
+            "jobs"
+          ],
+          "publishedAt": "2026-07-18T09:00:00+05:30",
+          "readTimeMin": 1,
+          "page": 2
+        },
+        {
+          "id": "edu-job-systems",
+          "category": "education",
+          "importance": 1,
+          "title": "HIRING: Teaching Assistant for Distributed Systems",
+          "subtitle": "Required: Master's Degree. Compensation: Minimum wage and free pizza.",
+          "kicker": "Job Board",
+          "authors": [
+            {
+              "name": "University Admin",
+              "role": "classifieds"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "The Computer Science department is looking for someone to help students debug their Raft consensus implementations.",
+            "Warning: 90% of your time will be spent explaining why their network partitions are failing the autograder."
+          ],
+          "tags": [
+            "hiring",
+            "education",
+            "jobs"
+          ],
+          "publishedAt": "2026-07-18T09:15:00+05:30",
+          "readTimeMin": 1,
+          "page": 2
+        }
+      ]
+    },
+    {
+      "template": "split",
+      "title": "AI & Machine Learning",
+      "deck": "Frontier models, inference economics, and the quest for artificial general intelligence.",
+      "articles": [
+        {
+          "id": "ai-model-collapse",
+          "category": "ai_ml",
+          "importance": 5,
+          "title": "Model Collapse becomes a reality as AI trains on AI",
+          "subtitle": "The internet is running out of human-generated text, forcing frontier models into an inescapable feedback loop.",
+          "kicker": "Research",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
           "images": [
             {
               "src": "/images/dispatch-2.svg",
-              "alt": "WebAssembly component diagram",
-              "caption": "Interoperable components break down traditional programming language silos.",
-              "credit": "Dispatch illustration"
+              "alt": "AI feedback loop",
+              "caption": "The recursive training loop degrades output quality over generations.",
+              "credit": "Dispatch"
             }
           ],
           "content": [
-            "The WebAssembly Component Model has officially graduated from draft status to stable implementation across major cloud runtime providers and serverless platforms. This milestone fulfills the long-awaited vision of true language interoperability without heavy inter-process communication overhead.",
-            "Using standardized WebAssembly Interface Types (WIT), developers can now compile high-performance image processing algorithms written in Rust, business logic written in Go, and data science utilities written in Python into secure, isolated `.wasm` components.",
-            "These individual components are linked together at startup into a unified application binary where boundary calls execute with native memory-passing speeds while preserving strict sandboxing boundaries between modules.",
-            "For plugin ecosystems and serverless edge functions, the implications are profound. Platforms can permit untrusted user code to execute alongside core system infrastructure with mathematically verified memory safety and microsecond cold-start initialization."
+            "Researchers at top labs have confirmed their worst fears: the latest generation of language models is actively deteriorating due to 'model collapse.'",
+            "Because the internet is now predominantly filled with AI-generated SEO spam, newer models are ingesting synthetic data during their pre-training phase. This recursive loop acts like a digital photocopy of a photocopy, gradually smoothing out the nuances of human language.",
+            "In response, data brokers are now selling 'certified pre-2022 artisanal human text' at massive premiums, treating it like digital gold."
           ],
-          "tags": ["wasm", "webassembly", "runtime", "devtools"],
-          "publishedAt": "2026-07-15T07:25:00+05:30",
-          "readTimeMin": 5
+          "tags": [
+            "ai",
+            "research",
+            "data"
+          ],
+          "publishedAt": "2026-07-18T10:00:00+05:30",
+          "readTimeMin": 5,
+          "page": 3
         },
         {
-          "id": "launch-creator-tools",
-          "page": 3,
-          "category": "big_tech",
-          "importance": 3,
-          "title": "Big platforms are simplifying creator tools",
-          "subtitle": "The emphasis is moving from raw reach to clearer controls and better retention.",
-          "kicker": "Platforms",
-          "authors": [
-            {
-              "name": "Nora Patel",
-              "role": "editorial"
-            }
-          ],
-          "sourceIds": ["the_verge", "techcrunch"],
-          "sources": [
-            {
-              "name": "The Verge",
-              "url": "https://www.theverge.com/tech",
-              "note": "Platform feature coverage"
-            },
-            {
-              "name": "TechCrunch",
-              "url": "https://techcrunch.com/",
-              "note": "Product notes"
-            }
-          ],
-          "images": [],
-          "content": [
-            "Large platforms are trimming complicated control surfaces and replacing them with simpler dashboards. That sounds like a product cleanup, but it is also a policy move: the company wants creators to keep posting while the platform retains a cleaner grip on moderation, visibility, and monetization.",
-            "The best editorial design has always been about tradeoffs. Put the important thing where it can be found quickly, and do not bury the most useful controls three clicks deep.",
-            "By consolidating revenue analytics, audience segmentation, and content scheduling into a single uncluttered workspace, platform architects are removing friction and helping independent creators focus on storytelling."
-          ],
-          "tags": ["platform", "creator-tools", "policy"],
-          "publishedAt": "2026-07-15T07:29:00+05:30",
-          "readTimeMin": 3
-        },
-        {
-          "id": "launch-cli-workflows",
-          "page": 3,
-          "category": "dev_tools",
-          "importance": 2,
-          "title": "CLI ergonomics keep out-performing fancier dashboards",
-          "subtitle": "A short command with a clear failure mode still beats a sprawling settings panel.",
-          "kicker": "Workflow",
+          "id": "ai-local-inference",
+          "category": "ai_ml",
+          "importance": 4,
+          "title": "The Macbook Pro is the new GPU cluster",
+          "subtitle": "Apple Silicon’s unified memory architecture makes local inference the default for developers.",
+          "kicker": "Hardware",
           "authors": [
             {
               "name": "Rohan Iyer",
               "role": "reporter"
             }
           ],
-          "sourceIds": ["lobsters", "github_trending"],
-          "sources": [
-            {
-              "name": "Lobsters",
-              "url": "https://lobste.rs/",
-              "note": "Workflow discussion"
-            },
-            {
-              "name": "GitHub Trending",
-              "url": "https://github.com/trending",
-              "note": "Popular repos"
-            }
-          ],
+          "sourceIds": [],
+          "sources": [],
           "images": [],
           "content": [
-            "Tools that ask for less ceremony are still winning the room. The CLI remains the right answer whenever the task is repetitive, inspectable, and best expressed as a command that either works or explains exactly why it does not.",
-            "The result is not glamorous, but it is durable. And durability is the invisible virtue of a good newspaper page too: the reader notices the clarity first and the design second."
+            "Cloud inference providers are seeing a sharp decline in developer usage as engineering teams realize they can run highly quantized 70B models directly on their M4 Max laptops.",
+            "The ability to iterate on complex local workflows without incurring massive API bills or compromising user data privacy has triggered a renaissance in on-device AI tooling."
           ],
-          "tags": ["cli", "ux", "workflow"],
-          "publishedAt": "2026-07-15T07:37:00+05:30",
-          "readTimeMin": 2
+          "tags": [
+            "ai",
+            "hardware",
+            "mac"
+          ],
+          "publishedAt": "2026-07-18T11:00:00+05:30",
+          "readTimeMin": 4,
+          "page": 3
         },
         {
-          "id": "launch-ai-notes",
-          "page": 3,
+          "id": "ai-context-windows",
           "category": "ai_ml",
-          "importance": 2,
-          "title": "New AI note tools are trying to earn trust",
-          "subtitle": "The selling point is less magic and more controlled output.",
-          "kicker": "Product",
+          "importance": 3,
+          "title": "Context windows reach 10 million tokens",
+          "subtitle": "You can now paste your entire codebase, your Slack history, and 'War and Peace'.",
+          "kicker": "Engineering",
+          "authors": [
+            {
+              "name": "Ava Mehta",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "Model providers have officially solved the context length problem, pushing limits to 10 million tokens.",
+            "However, developers are quickly discovering the 'needle in a haystack' problem: just because the model can ingest an entire codebase doesn't mean it won't hallucinate the implementation details."
+          ],
+          "tags": [
+            "ai",
+            "context",
+            "llm"
+          ],
+          "publishedAt": "2026-07-18T11:30:00+05:30",
+          "readTimeMin": 3,
+          "page": 3
+        }
+      ],
+      "page": 3
+    },
+    {
+      "template": "longform",
+      "title": "Security & Privacy",
+      "deck": "Zero-days, identity architecture, and the never-ending battle against supply-chain attacks.",
+      "articles": [
+        {
+          "id": "sec-supply-chain",
+          "category": "security",
+          "importance": 5,
+          "title": "Another NPM package compromised, millions of CI pipelines halt",
+          "subtitle": "A rogue maintainer injected a cryptominer into a library that pads strings, reminding us the supply chain is terrifyingly fragile.",
+          "kicker": "Incident",
           "authors": [
             {
               "name": "Dispatch Editorial Desk",
-              "role": "AI editor",
-              "aiGenerated": true
+              "role": "editorial"
             }
           ],
-          "sourceIds": ["devto", "reddit_technology"],
-          "sources": [
+          "sourceIds": [],
+          "sources": [],
+          "images": [
             {
-              "name": "Dev.to",
-              "url": "https://dev.to/",
-              "note": "How-to and adoption notes"
-            },
-            {
-              "name": "Reddit /r/technology",
-              "url": "https://www.reddit.com/r/technology/",
-              "note": "Community feedback"
+              "src": "/images/dispatch-4.svg",
+              "alt": "Supply chain pipeline",
+              "caption": "A single compromised dependency can break thousands of builds.",
+              "credit": "Dispatch"
             }
           ],
-          "images": [],
           "content": [
-            "The newest AI note apps are not trying to impress with fireworks. They are trying to look safe, keep a stable file format, and explain exactly what is summarized versus what is copied, because trust is now part of the feature set.",
-            "That is a useful editorial lesson. The strongest products read like a careful layout rather than a pile of floating content."
+            "At 3:00 AM UTC, the maintainer of 'left-pad-ultra'—a package downloaded 40 million times a week—pushed a minor version bump that included an obfuscated Monero miner.",
+            "Within minutes, automated Dependabot PRs propagated the malicious code into the CI/CD pipelines of Fortune 500 companies.",
+            "The incident has sparked renewed calls for rigorous Software Bill of Materials (SBOM) enforcement and the outright banning of transitive dependencies in sensitive enterprise environments."
           ],
-          "tags": ["ai", "notes", "trust"],
-          "publishedAt": "2026-07-15T07:45:00+05:30",
-          "readTimeMin": 2
+          "tags": [
+            "security",
+            "npm",
+            "supply-chain"
+          ],
+          "publishedAt": "2026-07-18T12:00:00+05:30",
+          "readTimeMin": 6,
+          "page": 4
         },
         {
-          "id": "launch-community-note",
-          "page": 3,
-          "category": "misc",
-          "importance": 1,
-          "title": "A tiny launch note from the community",
-          "subtitle": "Nothing flashy, just a useful utility landing in the morning feed.",
-          "kicker": "Brief",
+          "id": "sec-passkeys",
+          "category": "security",
+          "importance": 4,
+          "title": "Passwords are officially dead. Long live the Passkey.",
+          "subtitle": "Major banks and consumer apps have aggressively mandated WebAuthn, ending the era of 'Password123!'.",
+          "kicker": "Identity",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "In a coordinated push by Apple, Google, and Microsoft, the traditional password is being phased out of consumer interfaces. Passkeys, built on public key cryptography, are now the default.",
+            "Phishing attacks have plummeted by 80% on platforms that enforce passkey logins, proving that moving security to the hardware level is the only viable path forward."
+          ],
+          "tags": [
+            "security",
+            "passkeys",
+            "identity"
+          ],
+          "publishedAt": "2026-07-18T13:00:00+05:30",
+          "readTimeMin": 4,
+          "page": 4
+        },
+        {
+          "id": "sec-quantum",
+          "category": "security",
+          "importance": 3,
+          "title": "NIST finalizes post-quantum cryptographic standards",
+          "subtitle": "The countdown to 'Q-Day' begins as enterprises scramble to upgrade their TLS certificates.",
+          "kicker": "Cryptography",
+          "authors": [
+            {
+              "name": "Rohan Iyer",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "The National Institute of Standards and Technology has officially standardized the algorithms designed to withstand attacks from future quantum computers.",
+            "Chief Information Security Officers are now facing the daunting task of auditing decades of legacy infrastructure to rip and replace RSA and Elliptic Curve cryptography before a cryptographically relevant quantum computer comes online."
+          ],
+          "tags": [
+            "security",
+            "crypto",
+            "quantum"
+          ],
+          "publishedAt": "2026-07-18T14:30:00+05:30",
+          "readTimeMin": 5,
+          "page": 4
+        },
+        {
+          "id": "sec-zero-trust",
+          "category": "security",
+          "importance": 2,
+          "title": "VPNs replaced by Zero-Trust overlays",
+          "subtitle": "The corporate perimeter is gone, replaced by continuous identity verification.",
+          "kicker": "Architecture",
+          "authors": [
+            {
+              "name": "Ava Mehta",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "Traditional VPNs are being rapidly decommissioned. IT departments are instead deploying Zero-Trust Network Access (ZTNA) overlays that authenticate every single internal request.",
+            "Employees can no longer trust being 'on the network'; their device posture and identity are re-evaluated continuously."
+          ],
+          "tags": [
+            "security",
+            "zero-trust",
+            "vpn"
+          ],
+          "publishedAt": "2026-07-18T15:00:00+05:30",
+          "readTimeMin": 3,
+          "page": 4
+        }
+      ],
+      "page": 4
+    },
+    {
+      "page": 5,
+      "template": "longform",
+      "title": "Economics",
+      "deck": "SaaS pricing, venture capital, and the macro trends affecting the tech industry.",
+      "articles": [
+        {
+          "id": "econ-saas-tiers",
+          "page": 5,
+          "category": "business",
+          "importance": 5,
+          "title": "The ZIRP-era of free SaaS tiers is officially over",
+          "subtitle": "Companies are quietly removing 'Forever Free' from their pricing pages as interest rates stabilize.",
+          "kicker": "Markets",
           "authors": [
             {
               "name": "Dispatch Editorial Desk",
-              "role": "AI editor",
-              "aiGenerated": true
+              "role": "editorial"
             }
           ],
-          "sourceIds": ["hackernews"],
-          "sources": [
+          "sourceIds": [],
+          "sources": [],
+          "images": [
             {
-              "name": "Hacker News",
-              "url": "https://news.ycombinator.com/",
-              "note": "Short thread"
+              "src": "/images/dispatch-1.svg",
+              "alt": "Chart showing decline of free tiers",
+              "caption": "The freemium funnel is getting much narrower.",
+              "credit": "Dispatch"
             }
           ],
+          "content": [
+            "The zero-interest rate phenomenon (ZIRP) funded a decade of incredibly generous free tiers. Startups offered unlimited bandwidth, gigabytes of storage, and endless compute just to acquire users.",
+            "That era is dead. Over the last quarter, 40% of the top developer tools have quietly introduced hard caps on their hobby tiers, nudging users toward $10/month pro plans.",
+            "Economists note that this return to fundamental unit economics is healthy for the industry, even if developers are mourning the loss of their massive free server fleets."
+          ],
+          "tags": [
+            "pricing",
+            "saas",
+            "economics"
+          ],
+          "publishedAt": "2026-07-16T12:00:00+05:30",
+          "readTimeMin": 6
+        },
+        {
+          "id": "econ-api-pricing",
+          "page": 5,
+          "category": "business",
+          "importance": 4,
+          "title": "The great API token price war continues",
+          "subtitle": "Another 50% price cut sends shockwaves through the inference market.",
+          "kicker": "Commodities",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
           "images": [],
           "content": [
-            "Not every note deserves a picture. Some belong in the paper precisely because they are small, precise, and easy to scan without interrupting the rhythm of the larger stories."
+            "Intelligence is becoming cheaper than electricity. As inference providers optimize their GPU utilization, the cost per million tokens has plummeted yet again.",
+            "Startups building wrappers around these APIs are struggling to capture value as the underlying commodity becomes practically free."
           ],
-          "tags": ["brief", "utility"],
-          "publishedAt": "2026-07-15T07:52:00+05:30",
-          "readTimeMin": 1
+          "tags": [
+            "api",
+            "pricing",
+            "ai"
+          ],
+          "publishedAt": "2026-07-16T13:30:00+05:30",
+          "readTimeMin": 4
+        },
+        {
+          "id": "econ-agent-bubble",
+          "page": 5,
+          "category": "business",
+          "importance": 4,
+          "title": "Investors pour billions into 'Agentic' startups lacking a moat",
+          "subtitle": "The term 'Agent' is doing incredibly heavy lifting in Series A pitch decks this quarter.",
+          "kicker": "Venture Capital",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "Sand Hill Road is currently experiencing a gold rush funded almost entirely by semantic ambiguity. Venture capitalists are actively deploying billions of dollars into seed-stage startups whose entire product architecture consists of a thin system prompt wrapped around an upstream language model API.",
+            "Founders are quickly learning that prepending the word 'Autonomous' to a standard Python script can increase a company's valuation by a factor of ten.",
+            "Market analysts warn that once the foundation model providers vertically integrate these basic agentic loops into their base offerings, this entire cohort of heavily funded startups will face an existential threat."
+          ],
+          "tags": [
+            "vc",
+            "startups",
+            "ai",
+            "economics"
+          ],
+          "publishedAt": "2026-07-17T11:45:00+05:30",
+          "readTimeMin": 5
+        },
+        {
+          "id": "econ-open-source-labor",
+          "page": 5,
+          "category": "business",
+          "importance": 3,
+          "title": "The open-source subsidy model is cracking under commercial pressure",
+          "subtitle": "Maintainers of critical infrastructure packages are increasingly putting their work behind commercial licenses.",
+          "kicker": "Labor Economics",
+          "authors": [
+            {
+              "name": "Rohan Iyer",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "For two decades, the modern internet has been heavily subsidized by the unpaid weekend labor of open-source maintainers. That social contract is currently unraveling.",
+            "Following a string of high-profile burnout cases and supply-chain attacks, the developers maintaining the foundational libraries used by Fortune 500 companies are demanding equitable compensation. Many are transitioning their projects from permissive MIT licenses to dual-license models that force enterprise users to pay for usage.",
+            "The shift represents a fundamental restructuring of how digital public goods are funded, moving the ecosystem away from corporate charity and toward sustainable, contractual business relationships."
+          ],
+          "tags": [
+            "open-source",
+            "economics",
+            "licensing"
+          ],
+          "publishedAt": "2026-07-17T14:15:00+05:30",
+          "readTimeMin": 4
+        },
+        {
+          "id": "econ-cloud-repatriation",
+          "page": 5,
+          "category": "business",
+          "importance": 3,
+          "title": "The hidden macroeconomic costs of cloud repatriation",
+          "subtitle": "Leaving managed cloud services for bare metal saves millions in compute, until you have to hire a platform team.",
+          "kicker": "Infrastructure",
+          "authors": [
+            {
+              "name": "Ava Mehta",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "content": [
+            "The great 'Cloud Exit' trend is facing its first major reality check. Mid-sized enterprises that successfully migrated their workloads from managed AWS services to rented bare-metal server racks are indeed seeing an 80% reduction in their monthly compute bills.",
+            "However, those savings are being rapidly consumed by payroll. Operating bare metal requires a specialized in-house platform engineering team capable of managing hardware failures, network peering, and distributed storage arrays—skills that command a massive premium in the current labor market.",
+            "Chief Financial Officers are learning the hard way that you are always paying someone for reliability; you are just choosing whether to pay a cloud provider's margin or a senior engineer's base salary."
+          ],
+          "tags": [
+            "cloud",
+            "infrastructure",
+            "economics"
+          ],
+          "publishedAt": "2026-07-17T16:00:00+05:30",
+          "readTimeMin": 4
         }
       ]
     },
     {
-      "page": 4,
+      "page": 6,
       "template": "longform",
-      "title": "Security and Policy",
-      "deck": "A long read on rollout paths, identity recovery, and the parts of the stack that readers usually ignore until they matter.",
+      "title": "Classifieds",
+      "deck": "Looking for co-founders, trading legacy servers, and selling premium domain names.",
       "articles": [
         {
           "id": "security-passkey-rollout",
-          "page": 4,
+          "page": 6,
           "category": "security",
           "importance": 5,
           "title": "Security teams are enforcing recovery paths before passkeys go live",
@@ -1147,7 +1355,10 @@
               "role": "security editor"
             }
           ],
-          "sourceIds": ["ars_technica", "techcrunch"],
+          "sourceIds": [
+            "ars_technica",
+            "techcrunch"
+          ],
           "sources": [
             {
               "name": "Ars Technica",
@@ -1178,13 +1389,18 @@
             "Furthermore, policy frameworks are shifting away from all-or-nothing authentication mandates. Risk-engine scoring algorithms now continuously evaluate user context—assessing IP reputation, device compliance posture, and behavior heuristics—allowing familiar devices to sign in smoothly while triggering rigorous verification ladders only when anomalies occur.",
             "As consumer applications follow suit, the broader industry is realizing that the ultimate measure of passwordless security isn't how fast a user signs in on day one, but how gracefully they recover access on day seven hundred when their laptop drops into the ocean."
           ],
-          "tags": ["security", "identity", "passkeys", "policy"],
+          "tags": [
+            "security",
+            "identity",
+            "passkeys",
+            "policy"
+          ],
           "publishedAt": "2026-07-15T08:02:00+05:30",
           "readTimeMin": 8
         },
         {
           "id": "security-sbom-mandates",
-          "page": 4,
+          "page": 6,
           "category": "security",
           "importance": 4,
           "title": "Software Bill of Materials (SBOM) verification becomes automated inside CI/CD pipelines",
@@ -1196,7 +1412,10 @@
               "role": "security editor"
             }
           ],
-          "sourceIds": ["ars_technica", "reddit_technology"],
+          "sourceIds": [
+            "ars_technica",
+            "reddit_technology"
+          ],
           "sources": [
             {
               "name": "Ars Technica",
@@ -1223,25 +1442,33 @@
             "When a deployment pipeline attempts to promote a container image into staging or production, policy enforcement agents verify the attached SBOM against real-time vulnerability databases. If a newly discovered zero-day exploit affects a nested dependency four layers deep, the deployment is blocked automatically before reaching live servers.",
             "While developers initially feared that SBOM mandates would create bureaucratic friction, the integration of automated tooling has actually streamlined compliance. Security teams gain instantaneous visibility into organizational software inventory, turning what used to be a months-long emergency audit into a simple SQL query across artifact metadata."
           ],
-          "tags": ["security", "sbom", "supply-chain", "compliance"],
+          "tags": [
+            "security",
+            "sbom",
+            "supply-chain",
+            "compliance"
+          ],
           "publishedAt": "2026-07-15T08:08:00+05:30",
           "readTimeMin": 5
         },
         {
           "id": "security-audit-trails",
-          "page": 4,
+          "page": 6,
           "category": "misc",
           "importance": 4,
-          "title": "Policy teams are asking for clearer audit trails",
-          "subtitle": "The best compliance tools are becoming easier to read, not harder.",
-          "kicker": "Policy",
+          "title": "SEEKING: 10x Rust Developer for 'The Next Google'",
+          "subtitle": "Must have 15 years experience in a language that is 10 years old. Equity only.",
+          "kicker": "Classifieds",
           "authors": [
             {
               "name": "Nora Patel",
               "role": "editorial"
             }
           ],
-          "sourceIds": ["reddit_technology", "lobsters"],
+          "sourceIds": [
+            "reddit_technology",
+            "lobsters"
+          ],
           "sources": [
             {
               "name": "Reddit /r/technology",
@@ -1268,18 +1495,22 @@
             "By structuring audit events with standardized JSON schemas and clear contextual correlation IDs, compliance officers can reconstruct complex user workflows across distributed systems without hiring specialized forensic analysts.",
             "Modern audit platforms are also integrating tamper-evident cryptographic hashing, ensuring that once an event is recorded on the compliance ledger, neither privileged administrators nor malicious actors can quietly alter the historical timeline."
           ],
-          "tags": ["policy", "audit", "compliance"],
+          "tags": [
+            "policy",
+            "audit",
+            "compliance"
+          ],
           "publishedAt": "2026-07-15T08:11:00+05:30",
           "readTimeMin": 4
         },
         {
           "id": "security-privacy-settings",
-          "page": 4,
+          "page": 6,
           "category": "big_tech",
           "importance": 3,
-          "title": "Privacy settings are being redesigned around clearer defaults",
-          "subtitle": "Platform teams are trying to cut confusion without removing choice.",
-          "kicker": "Product policy",
+          "title": "LOST: One API Key. Answers to 'sk_live_...'",
+          "subtitle": "Last seen accidentally committed to a public GitHub repository. Please return, AWS bill is getting high.",
+          "kicker": "Classifieds",
           "authors": [
             {
               "name": "Dispatch Editorial Desk",
@@ -1287,7 +1518,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["the_verge", "ars_technica"],
+          "sourceIds": [
+            "the_verge",
+            "ars_technica"
+          ],
           "sources": [
             {
               "name": "The Verge",
@@ -1306,25 +1540,32 @@
             "When the UI is orderly, the policy is easier to understand. When the policy is easier to understand, the user is more likely to trust the page.",
             "By replacing convoluted opt-out toggles with plain-language privacy nutrition labels, product teams are building long-term user goodwill while staying ahead of shifting international regulatory expectations."
           ],
-          "tags": ["privacy", "defaults", "platforms"],
+          "tags": [
+            "privacy",
+            "defaults",
+            "platforms"
+          ],
           "publishedAt": "2026-07-15T08:19:00+05:30",
           "readTimeMin": 3
         },
         {
           "id": "security-oauth-refresh-tokens",
-          "page": 4,
+          "page": 6,
           "category": "security",
           "importance": 3,
-          "title": "OAuth refresh token rotation becomes mandatory across cloud platforms",
-          "subtitle": "Long-lived static access tokens are being deprecated to limit blast radius during security incidents.",
-          "kicker": "Identity architecture",
+          "title": "WANTED: Someone to explain OAuth to me",
+          "subtitle": "I have read the RFC three times and I am still confused. Will pay in pizza.",
+          "kicker": "Classifieds",
           "authors": [
             {
               "name": "Ava Mehta",
               "role": "security editor"
             }
           ],
-          "sourceIds": ["techcrunch", "ars_technica"],
+          "sourceIds": [
+            "techcrunch",
+            "ars_technica"
+          ],
           "sources": [
             {
               "name": "TechCrunch",
@@ -1343,13 +1584,18 @@
             "If an attacker manages to exfiltrate a refresh token from a developer's workstation or CI variable store, the token's useful lifespan is strictly bounded. The moment the legitimate client or the attacker uses the credential, any concurrent or subsequent attempt instantly triggers a security revocation alarm.",
             "This structural hardening requires developers to implement robust retry and locking mechanics in background jobs, but the dramatic reduction in identity theft risk makes it a non-negotiable standard for modern software engineering."
           ],
-          "tags": ["security", "oauth", "identity", "tokens"],
+          "tags": [
+            "security",
+            "oauth",
+            "identity",
+            "tokens"
+          ],
           "publishedAt": "2026-07-15T08:22:00+05:30",
           "readTimeMin": 3
         },
         {
           "id": "security-supply-chain",
-          "page": 4,
+          "page": 6,
           "category": "dev_tools",
           "importance": 2,
           "title": "Open-source maintainers are tightening release hygiene",
@@ -1361,7 +1607,10 @@
               "role": "reporter"
             }
           ],
-          "sourceIds": ["github_trending", "reddit_programming"],
+          "sourceIds": [
+            "github_trending",
+            "reddit_programming"
+          ],
           "sources": [
             {
               "name": "GitHub Trending",
@@ -1379,26 +1628,30 @@
             "Maintainers are increasingly adding signing, dependency pinning, and release hygiene to the default checklist. The work is unglamorous, but it is becoming part of what a respectable project is expected to do before calling itself stable.",
             "That is another example of the newspaper rule in miniature: the shortest notes are still worth their place if they make the rest of the page more trustworthy."
           ],
-          "tags": ["security", "open-source", "supply-chain"],
+          "tags": [
+            "security",
+            "open-source",
+            "supply-chain"
+          ],
           "publishedAt": "2026-07-15T08:24:00+05:30",
           "readTimeMin": 2
         }
       ]
     },
     {
-      "page": 5,
+      "page": 7,
       "template": "stack",
-      "title": "Inside the Newsroom",
-      "deck": "Shorter notes, side items, and smaller findings arranged like the back half of a physical newspaper.",
+      "title": "Weather & Puzzles",
+      "deck": "Cloud forecasts, outage reports, and the daily LeetCode crossword.",
       "articles": [
         {
           "id": "inside-inference-bills",
-          "page": 5,
+          "page": 7,
           "category": "ai_ml",
           "importance": 4,
-          "title": "Model teams are trimming inference bills with smaller defaults",
-          "subtitle": "The cost curve is forcing product teams to rethink what the default model should be.",
-          "kicker": "Inside",
+          "title": "Cloud Forecast: Heavy AWS Outages expected in US-East-1",
+          "subtitle": "Grab an umbrella and a multi-region failover strategy.",
+          "kicker": "Weather",
           "authors": [
             {
               "name": "Dispatch Editorial Desk",
@@ -1406,7 +1659,10 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["devto", "hackernews"],
+          "sourceIds": [
+            "devto",
+            "hackernews"
+          ],
           "sources": [
             {
               "name": "Dev.to",
@@ -1434,70 +1690,71 @@
             "Over the past six months, a quiet correction has taken hold across the SaaS industry. Engineering organizations are fine-tuning open-weight 8-billion parameter models specifically tailored to their proprietary domain schemas. Once deployed on dedicated inference clusters, these compact models execute up to ten times faster at a fraction of the per-token cost.",
             "Furthermore, product designers are updating interface expectations. By clearly indicating when a fast local summary is running versus when a deep analytical reasoning task is executing on a frontier model, software sets accurate user expectations around both speed and capability."
           ],
-          "tags": ["ai", "cost", "defaults"],
+          "tags": [
+            "ai",
+            "cost",
+            "defaults"
+          ],
           "publishedAt": "2026-07-15T08:31:00+05:30",
           "readTimeMin": 5
         },
         {
-          "id": "inside-postgres-extensions",
-          "page": 5,
-          "category": "dev_tools",
+          "id": "puzzle-dsa-rain-water",
+          "page": 7,
+          "category": "misc",
           "importance": 4,
-          "title": "PostgreSQL extensions solidify its position as the universal data platform",
-          "subtitle": "From vector embeddings to time-series and graph analytics, single-database architectures are reclaiming the server room.",
-          "kicker": "Data engineering",
+          "title": "The Daily DSA: The Trapping Rain Water Enigma",
+          "subtitle": "O(N) time complexity is required. Solution printed in tomorrow's edition.",
+          "kicker": "Daily Puzzle",
           "authors": [
             {
-              "name": "Rohan Iyer",
-              "role": "reporter"
+              "name": "The Algorithms Desk",
+              "role": "editorial"
             }
           ],
-          "sourceIds": ["lobsters", "hackernews"],
-          "sources": [
-            {
-              "name": "Lobsters",
-              "url": "https://lobste.rs/",
-              "note": "Database architecture discussion"
-            },
-            {
-              "name": "Hacker News",
-              "url": "https://news.ycombinator.com/",
-              "note": "Community benchmarks"
-            }
-          ],
+          "sourceIds": [],
+          "sources": [],
           "images": [
             {
               "src": "/images/dispatch-3.svg",
-              "alt": "PostgreSQL ecosystem diagram",
-              "caption": "Extensions like pgvector enable specialized queries without operational fragmentation.",
-              "credit": "Dispatch illustration"
+              "alt": "Rainwater elevation map",
+              "caption": "Can you compute the trapped water in a single pass?",
+              "credit": "Dispatch Graphics"
             }
           ],
           "content": [
-            "A decade ago, industry consensus suggested that polyglot persistence was the inevitable future of enterprise engineering. Architecture diagrams were littered with specialized document stores, dedicated graph databases, standalone search indices, and separate time-series engines—each requiring its own cluster management, backup pipelines, and synchronization queues.",
-            "Today, PostgreSQL has effectively absorbed all of these specialized domains through its robust, extensible extension API. With tools like `pgvector` for similarity search, `TimescaleDB` for high-frequency time-series telemetry, and `pg_cron` for scheduled internal workers, developers can fulfill almost every data requirement within a single ACID-compliant transactional engine.",
-            "The operational benefits of this consolidation cannot be overstated. Engineering teams can execute complex JOIN operations between relational user tables and high-dimensional semantic vector embeddings in a single atomic query, eliminating the fragile event-driven ETL pipelines that previously synchronized data across disparate datastores.",
-            "As hardware density increases and NVMe storage speeds rival legacy RAM throughput, the single-node PostgreSQL instance has proven capable of scaling to millions of queries per second, proving once again that architectural simplicity is the ultimate scalability strategy."
+            "Welcome to the Daily DSA! Just as physical newspapers have their daily crosswords and Sudokus, The Dispatch presents a daily test of pointer manipulation and algorithmic efficiency.",
+            "**The Problem:** Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.",
+            "**Example:** Input: `height = [0,1,0,2,1,0,1,3,2,1,2,1]`. Expected Output: `6`.",
+            "**Hint:** You could easily use two arrays to pre-compute the maximum heights to the left and right of every index. But can you solve this puzzle using exactly `O(1)` extra space?",
+            "Grab a coffee and a whiteboard. The optimal `O(N)` two-pointer solution will be published in tomorrow's edition (Vol. 1, No. 128) at the bottom of the Classifieds page."
           ],
-          "tags": ["postgres", "database", "extensions", "systems"],
-          "publishedAt": "2026-07-15T08:35:00+05:30",
-          "readTimeMin": 5
+          "tags": [
+            "dsa",
+            "puzzle",
+            "algorithms"
+          ],
+          "publishedAt": "2026-07-18T05:00:00+05:30",
+          "readTimeMin": 2
         },
         {
           "id": "inside-terminal-cleanup",
-          "page": 5,
+          "page": 7,
           "category": "dev_tools",
           "importance": 3,
-          "title": "A cleaner terminal workflow keeps winning the room",
-          "subtitle": "The newest release notes read like apologies for having been too fancy.",
-          "kicker": "Toolbox",
+          "title": "Comics: 'The Junior Dev and the Force Push'",
+          "subtitle": "A tragicomedy in three git commands.",
+          "kicker": "Comics",
           "authors": [
             {
               "name": "Rohan Iyer",
               "role": "reporter"
             }
           ],
-          "sourceIds": ["lobsters", "github_trending"],
+          "sourceIds": [
+            "lobsters",
+            "github_trending"
+          ],
           "sources": [
             {
               "name": "Lobsters",
@@ -1516,13 +1773,17 @@
             "That also suits the newspaper page. The reader should be able to scan the article, understand the hierarchy, and move on without wondering whether the content is hiding behind a collapsed panel.",
             "By offering crisp keyboard shortcuts, structured JSON output flags for scripting, and sensible terminal color palettes, modern command-line utilities honor developer focus and respect system resources."
           ],
-          "tags": ["cli", "terminal", "workflow"],
+          "tags": [
+            "cli",
+            "terminal",
+            "workflow"
+          ],
           "publishedAt": "2026-07-15T08:38:00+05:30",
           "readTimeMin": 3
         },
         {
           "id": "inside-edge-hardware",
-          "page": 5,
+          "page": 7,
           "category": "misc",
           "importance": 2,
           "title": "Edge hardware is starting to matter again",
@@ -1534,7 +1795,10 @@
               "role": "editorial"
             }
           ],
-          "sourceIds": ["ars_technica", "reddit_technology"],
+          "sourceIds": [
+            "ars_technica",
+            "reddit_technology"
+          ],
           "sources": [
             {
               "name": "Ars Technica",
@@ -1552,13 +1816,17 @@
             "A fresh crop of tools is relying on faster local devices instead of pushing every action through a remote server. That changes the hardware conversation, because battery life, memory, and thermal headroom start to matter in product planning again.",
             "It is a small note, but it belongs in the paper because it helps explain why the bigger stories are changing shape."
           ],
-          "tags": ["hardware", "edge", "local-ai"],
+          "tags": [
+            "hardware",
+            "edge",
+            "local-ai"
+          ],
           "publishedAt": "2026-07-15T08:46:00+05:30",
           "readTimeMin": 2
         },
         {
           "id": "inside-dev-documentation",
-          "page": 5,
+          "page": 7,
           "category": "dev_tools",
           "importance": 2,
           "title": "Executable documentation platforms replace static wikis",
@@ -1570,7 +1838,10 @@
               "role": "reporter"
             }
           ],
-          "sourceIds": ["devto", "lobsters"],
+          "sourceIds": [
+            "devto",
+            "lobsters"
+          ],
           "sources": [
             {
               "name": "Dev.to",
@@ -1588,13 +1859,17 @@
             "Static documentation wikis that inevitably drift out of sync with production codebases are being phased out in favor of executable markdown environments. By running embedded code samples directly within browser sandboxes during CI builds, engineering teams guarantee that tutorial commands never rot or fail.",
             "This approach treats documentation with the same analytical rigor as production source code, ensuring that developers can copy and run onboarding examples with absolute confidence."
           ],
-          "tags": ["documentation", "devtools", "markdown"],
+          "tags": [
+            "documentation",
+            "devtools",
+            "markdown"
+          ],
           "publishedAt": "2026-07-15T08:48:00+05:30",
           "readTimeMin": 2
         },
         {
           "id": "inside-weekend-note",
-          "page": 5,
+          "page": 7,
           "category": "misc",
           "importance": 1,
           "title": "Weekend note from the desk",
@@ -1607,7 +1882,9 @@
               "aiGenerated": true
             }
           ],
-          "sourceIds": ["hackernews"],
+          "sourceIds": [
+            "hackernews"
+          ],
           "sources": [
             {
               "name": "Hacker News",
@@ -1619,8 +1896,601 @@
           "content": [
             "Some things are best left short. This note exists to keep the page honest: not every item needs a photograph, a long deck, or a special treatment."
           ],
-          "tags": ["brief", "note"],
+          "tags": [
+            "brief",
+            "note"
+          ],
           "publishedAt": "2026-07-15T08:51:00+05:30",
+          "readTimeMin": 1
+        }
+      ]
+    },
+    {
+      "page": 8,
+      "template": "split",
+      "title": "Obituaries & Births",
+      "deck": "Mourning deprecated frameworks and celebrating the birth of new standards in the ecosystem.",
+      "articles": [
+        {
+          "id": "systems-prompt-caching",
+          "page": 8,
+          "category": "ai_ml",
+          "importance": 5,
+          "title": "Birth Announcement: Native Prompt Caching Framework",
+          "subtitle": "The standard library welcomes a healthy, 2MB-optimized context reuse module.",
+          "kicker": "Births",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "editorial"
+            }
+          ],
+          "sourceIds": [
+            "ars_technica",
+            "devto"
+          ],
+          "sources": [
+            {
+              "name": "Ars Technica",
+              "url": "https://arstechnica.com/",
+              "note": "Architecture and cost analysis"
+            },
+            {
+              "name": "Dev.to",
+              "url": "https://dev.to/",
+              "note": "Practical implementation notes"
+            }
+          ],
+          "images": [
+            {
+              "src": "/images/dispatch-2.svg",
+              "alt": "Architecture-themed image for prompt caching and routing",
+              "caption": "Caching is no longer an optimization. It is part of the contract.",
+              "credit": "Dispatch illustration"
+            }
+          ],
+          "content": [
+            "The developer community rejoiced yesterday as Native Prompt Caching was officially delivered into the core architectural stack. Weighing in at a highly optimized 2MB and boasting sub-millisecond response times, the new framework is already making friends across the ecosystem.",
+            "Proud parents at the major AI labs report that the caching layer is sleeping soundly through the night, successfully bypassing the pre-fill phase for thousands of concurrent sessions without waking the PagerDuty on-call rotation.",
+            "The result is a better product conversation. Instead of hiding behind the magic of an assistant, the stack can explain its hierarchy to the reader in plain language.",
+            "Underneath the surface, prompt caching relies on prefix prefix-matching algorithms implemented directly at the attention layer of transformer serving engines. When a system presents a static system instruction, massive API schema definition, or extensive RAG context window across subsequent requests, the underlying GPU infrastructure bypasses the computationally expensive pre-fill phase entirely.",
+            "This architectural breakthrough yields compound returns for interactive software. Applications can now safely prepend comprehensive documentation guidelines and multi-turn conversation histories without fearing linear cost inflation or multi-second response penalties.",
+            "To maximize hit rates, engineering teams are standardizing on strict template boundaries. By segregating invariant system instructions at the absolute beginning of the prompt buffer and isolating dynamic user query payloads at the tail, developers ensure that cache prefixes remain intact across thousands of concurrent user sessions.",
+            "As providers introduce automatic prefix caching across their global endpoints, systems architecture is converging around context persistence. Prompt caching has evolved from a clever cost-hack into a foundational building block for stateful agent workflows."
+          ],
+          "tags": [
+            "ai",
+            "systems",
+            "caching",
+            "latency"
+          ],
+          "publishedAt": "2026-07-15T06:40:00+05:30",
+          "readTimeMin": 7
+        },
+        {
+          "id": "systems-local-review",
+          "page": 8,
+          "category": "dev_tools",
+          "importance": 4,
+          "title": "Birth Announcement: Local-First SQLite Code Reviewer",
+          "subtitle": "A speedy bundle of joy arrives to save engineers from network latency.",
+          "kicker": "Births",
+          "authors": [
+            {
+              "name": "Rohan Iyer",
+              "role": "reporter"
+            },
+            {
+              "name": "Dispatch Editorial Desk",
+              "role": "AI editor",
+              "aiGenerated": true
+            }
+          ],
+          "sourceIds": [
+            "github_trending",
+            "devto"
+          ],
+          "sources": [
+            {
+              "name": "GitHub Trending",
+              "url": "https://github.com/trending",
+              "note": "Project traction"
+            },
+            {
+              "name": "Dev.to",
+              "url": "https://dev.to/",
+              "note": "Workflow article"
+            }
+          ],
+          "images": [
+            {
+              "src": "/images/dispatch-1.svg",
+              "alt": "Workflow image used for a local-first developer tool story",
+              "caption": "The best tools shorten the distance between a diff and an answer.",
+              "credit": "Dispatch illustration"
+            }
+          ],
+          "content": [
+            "We are thrilled to announce the arrival of Local-First Review, a beautiful new tool that keeps git objects and symbol graphs right where they belong: on the developer's workstation.",
+            "Unlike its cloud-based siblings, this new arrival requires no internet connection to thrive, happily rendering complex architectural refactors at 30,000 feet.",
+            "Traditional web-based code review platforms force engineers to navigate clunky paginated diff screens, endure spinner delays on large pull requests, and lose context whenever a network drop occurs during transit.",
+            "By pulling git objects, symbol graphs, and test execution traces into local SQLite databases directly on the developer's workstation, local-first review applications deliver instantaneous syntax highlighting, cross-file go-to-definition, and sub-millisecond search capabilities.",
+            "Furthermore, local execution enables seamless offline productivity. Engineers can carefully review complex architectural refactors on airplane flights or during commute dead-zones, with all comments and approval states automatically syncing back to the central repository upon reconnection.",
+            "This emphasis on speed and ergonomics pays dividends in code quality. When reviewers aren't exhausted by interface latency and endless browser tab switching, they perform deeper semantic analysis and provide more thoughtful, constructive engineering feedback."
+          ],
+          "tags": [
+            "devtools",
+            "review",
+            "local-first"
+          ],
+          "publishedAt": "2026-07-15T06:51:00+05:30",
+          "readTimeMin": 5
+        },
+        {
+          "id": "systems-rust-linux-kernel",
+          "page": 8,
+          "category": "dev_tools",
+          "importance": 4,
+          "title": "Milestone: Rust officially takes its first steps in Linux Kernel",
+          "subtitle": "The memory-safe prodigy moves out of experimental and into core networking paths.",
+          "kicker": "Milestones",
+          "authors": [
+            {
+              "name": "Rohan Iyer",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [
+            "lobsters",
+            "ars_technica"
+          ],
+          "sources": [
+            {
+              "name": "Lobsters",
+              "url": "https://lobste.rs/",
+              "note": "Kernel development thread"
+            },
+            {
+              "name": "Ars Technica",
+              "url": "https://arstechnica.com/",
+              "note": "In-depth systems report"
+            }
+          ],
+          "images": [
+            {
+              "src": "/images/dispatch-3.svg",
+              "alt": "Kernel architecture diagram",
+              "caption": "Memory-safe abstractions are proving their worth in high-throughput storage layers.",
+              "credit": "Dispatch illustration"
+            }
+          ],
+          "content": [
+            "The multi-year initiative to introduce Rust as a first-class language inside the Linux kernel has transitioned from intense philosophical debate to tangible engineering results. Maintainers across key storage, block device, and network interface subsystems are now merging memory-safe drivers into stable release candidates.",
+            "Historically, kernel developers faced an agonizing tradeoff between raw C performance and vulnerability to use-after-free, buffer overflow, and data race bugs. Rust's compile-time borrow checker and strict ownership mechanics eliminate entire classes of these vulnerabilities without imposing runtime garbage collection overhead.",
+            "Recent benchmarks from the newly rewritten NVMe storage driver and Binder IPC abstraction layers demonstrate zero performance regression compared to legacy C implementations, while cutting crash rates under synthetic fuzzing loads to absolute zero.",
+            "While the learning curve for kernel maintainers remains steep, the long-term dividend is undeniable. Modern operating systems are steadily hardening their most critical foundations against memory corruption exploits at the exact point where hardware abstraction begins."
+          ],
+          "tags": [
+            "rust",
+            "linux",
+            "kernel",
+            "systems"
+          ],
+          "publishedAt": "2026-07-15T06:58:00+05:30",
+          "readTimeMin": 5
+        },
+        {
+          "id": "systems-incident-notes",
+          "page": 8,
+          "category": "security",
+          "importance": 3,
+          "title": "Obituary: The 50-Page Incident Postmortem Deck (2014-2026)",
+          "subtitle": "Survived by crisp timelines and actionable remediation tracking.",
+          "kicker": "Obituaries",
+          "authors": [
+            {
+              "name": "Ava Mehta",
+              "role": "security editor"
+            }
+          ],
+          "sourceIds": [
+            "reddit_programming",
+            "lobsters"
+          ],
+          "sources": [
+            {
+              "name": "Reddit /r/programming",
+              "url": "https://www.reddit.com/r/programming/",
+              "note": "Engineering reaction"
+            },
+            {
+              "name": "Lobsters",
+              "url": "https://lobste.rs/",
+              "note": "Operations discussion"
+            }
+          ],
+          "images": [],
+          "content": [
+            "The 50-Page Incident Postmortem Deck passed away peacefully this week, surrounded by exhausted SREs. It was known for padded keynotes, endless root cause analysis diagrams, and taking up entirely too much space on Google Drive.",
+            "In lieu of flowers, operations teams ask that you please just write a one-page summary of what broke and how you plan to fix it.",
+            "By prioritizing crisp root cause analysis and actionable remediation tracking over elaborate slide decks, engineering orgs ensure that postmortems lead to genuine infrastructure improvements rather than bureaucratic fatigue."
+          ],
+          "tags": [
+            "ops",
+            "incident",
+            "postmortem"
+          ],
+          "publishedAt": "2026-07-15T07:03:00+05:30",
+          "readTimeMin": 3
+        },
+        {
+          "id": "systems-sqlite-edge",
+          "page": 8,
+          "category": "dev_tools",
+          "importance": 3,
+          "title": "Obituary: The Sprawling Multi-Region Consensus Cluster",
+          "subtitle": "Complex, expensive, and ultimately outlived by single-file edge databases.",
+          "kicker": "Obituaries",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "editorial"
+            }
+          ],
+          "sourceIds": [
+            "hackernews",
+            "devto"
+          ],
+          "sources": [
+            {
+              "name": "Hacker News",
+              "url": "https://news.ycombinator.com/",
+              "note": "Database architecture discussion"
+            },
+            {
+              "name": "Dev.to",
+              "url": "https://dev.to/",
+              "note": "Edge replication guide"
+            }
+          ],
+          "images": [],
+          "content": [
+            "The Sprawling Multi-Region Consensus Cluster, 12, passed away Tuesday due to complications from network partitions and excessive AWS billing.",
+            "It is survived by a much simpler, cheaper, and faster SQLite edge replication architecture.",
+            "For applications with centralized write patterns and distributed read requirements—such as newsrooms, e-commerce product catalogs, and documentation portals—this architecture provides rock-solid reliability at a fraction of traditional operational complexity."
+          ],
+          "tags": [
+            "sqlite",
+            "edge",
+            "database",
+            "systems"
+          ],
+          "publishedAt": "2026-07-15T07:08:00+05:30",
+          "readTimeMin": 3
+        },
+        {
+          "id": "systems-extension-permissions",
+          "page": 8,
+          "category": "big_tech",
+          "importance": 2,
+          "title": "Obituary: Unrestricted DOM Access for Extensions",
+          "subtitle": "Quietly collecting data since 2008, finally laid to rest by platform policies.",
+          "kicker": "Obituaries",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "editorial"
+            }
+          ],
+          "sourceIds": [
+            "the_verge",
+            "ars_technica"
+          ],
+          "sources": [
+            {
+              "name": "The Verge",
+              "url": "https://www.theverge.com/tech",
+              "note": "Platform policy"
+            },
+            {
+              "name": "Ars Technica",
+              "url": "https://arstechnica.com/",
+              "note": "Security implications"
+            }
+          ],
+          "images": [],
+          "content": [
+            "Unrestricted DOM Access, a long-time resident of the browser ecosystem, was forcibly retired yesterday following a prolonged battle with security auditors and platform policy enforcers.",
+            "The change is technical, but the experience is editorial: a careful page tells the reader what matters first, and the permission layer should do the same."
+          ],
+          "tags": [
+            "browser",
+            "policy",
+            "permissions"
+          ],
+          "publishedAt": "2026-07-15T07:12:00+05:30",
+          "readTimeMin": 2
+        }
+      ]
+    },
+    {
+      "page": 9,
+      "template": "three-column",
+      "title": "Sports",
+      "deck": "Play-by-play coverage of the fierce competition between tech giants and framework champions.",
+      "articles": [
+        {
+          "id": "launch-reliability-feature",
+          "page": 9,
+          "category": "startups",
+          "importance": 4,
+          "title": "Team Vercel pushes past Netlify in the Edge Compute Finals",
+          "subtitle": "A stunning fourth-quarter rally in caching metrics secures the championship.",
+          "kicker": "Sports",
+          "authors": [
+            {
+              "name": "Dispatch Editorial Desk",
+              "role": "AI editor",
+              "aiGenerated": true
+            }
+          ],
+          "sourceIds": [
+            "techcrunch",
+            "hackernews"
+          ],
+          "sources": [
+            {
+              "name": "TechCrunch",
+              "url": "https://techcrunch.com/",
+              "note": "Launch coverage"
+            },
+            {
+              "name": "Hacker News",
+              "url": "https://news.ycombinator.com/",
+              "note": "Discussion thread"
+            }
+          ],
+          "images": [
+            {
+              "src": "/images/dispatch-4.svg",
+              "alt": "Neutral image block for a startup story",
+              "caption": "Operational discipline is becoming a product category.",
+              "credit": "Dispatch illustration"
+            }
+          ],
+          "content": [
+            "In a breathtaking display of engineering athleticism, Team Vercel dominated the edge compute finals yesterday, out-caching their longtime rivals at Netlify with a sub-20ms TTFB average.",
+            "The company is betting that teams want fewer surprises more than they want a flashy demo. In the newspaper metaphor, that is the equivalent of giving the feature story enough room to breathe while still leaving space for shorter notes that sharpen the page.",
+            "Rather than boasting about infinite scaling potential or magical AI automation, the founders are highlighting their deterministic state machines, automated chaos engineering tests, and transparent incident response runbooks.",
+            "In an era where software teams are overwhelmed by alert fatigue and fragile distributed system dependencies, a product that explicitly guarantees predictable recovery paths and sane out-of-the-box alerting feels like a breath of fresh air.",
+            "Early customers report that adopting the platform allowed them to retire dozens of custom cron jobs and brittle monitoring scripts, consolidating operational oversight into a clean, legible dashboard that any on-call engineer can interpret in seconds."
+          ],
+          "tags": [
+            "startup",
+            "reliability",
+            "launch"
+          ],
+          "publishedAt": "2026-07-15T07:20:00+05:30",
+          "readTimeMin": 5
+        },
+        {
+          "id": "launch-wasm-component-model",
+          "page": 9,
+          "category": "dev_tools",
+          "importance": 4,
+          "title": "WASM takes Gold in the Database Extension Decathlon",
+          "subtitle": "Shattering previous records for cross-language query execution.",
+          "kicker": "Sports",
+          "authors": [
+            {
+              "name": "Rohan Iyer",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [
+            "lobsters",
+            "devto"
+          ],
+          "sources": [
+            {
+              "name": "Lobsters",
+              "url": "https://lobste.rs/",
+              "note": "WASM specification discussion"
+            },
+            {
+              "name": "Dev.to",
+              "url": "https://dev.to/",
+              "note": "Component model walkthrough"
+            }
+          ],
+          "images": [
+            {
+              "src": "/images/dispatch-2.svg",
+              "alt": "WebAssembly component diagram",
+              "caption": "Interoperable components break down traditional programming language silos.",
+              "credit": "Dispatch illustration"
+            }
+          ],
+          "content": [
+            "The WebAssembly Component Model has officially graduated from draft status to stable implementation across major cloud runtime providers and serverless platforms. This milestone fulfills the long-awaited vision of true language interoperability without heavy inter-process communication overhead.",
+            "Using standardized WebAssembly Interface Types (WIT), developers can now compile high-performance image processing algorithms written in Rust, business logic written in Go, and data science utilities written in Python into secure, isolated `.wasm` components.",
+            "These individual components are linked together at startup into a unified application binary where boundary calls execute with native memory-passing speeds while preserving strict sandboxing boundaries between modules.",
+            "For plugin ecosystems and serverless edge functions, the implications are profound. Platforms can permit untrusted user code to execute alongside core system infrastructure with mathematically verified memory safety and microsecond cold-start initialization."
+          ],
+          "tags": [
+            "wasm",
+            "webassembly",
+            "runtime",
+            "devtools"
+          ],
+          "publishedAt": "2026-07-15T07:25:00+05:30",
+          "readTimeMin": 5
+        },
+        {
+          "id": "launch-creator-tools",
+          "page": 9,
+          "category": "big_tech",
+          "importance": 3,
+          "title": "Big platforms are simplifying creator tools",
+          "subtitle": "The emphasis is moving from raw reach to clearer controls and better retention.",
+          "kicker": "Platforms",
+          "authors": [
+            {
+              "name": "Nora Patel",
+              "role": "editorial"
+            }
+          ],
+          "sourceIds": [
+            "the_verge",
+            "techcrunch"
+          ],
+          "sources": [
+            {
+              "name": "The Verge",
+              "url": "https://www.theverge.com/tech",
+              "note": "Platform feature coverage"
+            },
+            {
+              "name": "TechCrunch",
+              "url": "https://techcrunch.com/",
+              "note": "Product notes"
+            }
+          ],
+          "images": [],
+          "content": [
+            "Large platforms are trimming complicated control surfaces and replacing them with simpler dashboards. That sounds like a product cleanup, but it is also a policy move: the company wants creators to keep posting while the platform retains a cleaner grip on moderation, visibility, and monetization.",
+            "The best editorial design has always been about tradeoffs. Put the important thing where it can be found quickly, and do not bury the most useful controls three clicks deep.",
+            "By consolidating revenue analytics, audience segmentation, and content scheduling into a single uncluttered workspace, platform architects are removing friction and helping independent creators focus on storytelling."
+          ],
+          "tags": [
+            "platform",
+            "creator-tools",
+            "policy"
+          ],
+          "publishedAt": "2026-07-15T07:29:00+05:30",
+          "readTimeMin": 3
+        },
+        {
+          "id": "launch-cli-workflows",
+          "page": 9,
+          "category": "dev_tools",
+          "importance": 2,
+          "title": "CLI ergonomics keep out-performing fancier dashboards",
+          "subtitle": "A short command with a clear failure mode still beats a sprawling settings panel.",
+          "kicker": "Workflow",
+          "authors": [
+            {
+              "name": "Rohan Iyer",
+              "role": "reporter"
+            }
+          ],
+          "sourceIds": [
+            "lobsters",
+            "github_trending"
+          ],
+          "sources": [
+            {
+              "name": "Lobsters",
+              "url": "https://lobste.rs/",
+              "note": "Workflow discussion"
+            },
+            {
+              "name": "GitHub Trending",
+              "url": "https://github.com/trending",
+              "note": "Popular repos"
+            }
+          ],
+          "images": [],
+          "content": [
+            "Tools that ask for less ceremony are still winning the room. The CLI remains the right answer whenever the task is repetitive, inspectable, and best expressed as a command that either works or explains exactly why it does not.",
+            "The result is not glamorous, but it is durable. And durability is the invisible virtue of a good newspaper page too: the reader notices the clarity first and the design second."
+          ],
+          "tags": [
+            "cli",
+            "ux",
+            "workflow"
+          ],
+          "publishedAt": "2026-07-15T07:37:00+05:30",
+          "readTimeMin": 2
+        },
+        {
+          "id": "launch-ai-notes",
+          "page": 9,
+          "category": "ai_ml",
+          "importance": 2,
+          "title": "New AI note tools are trying to earn trust",
+          "subtitle": "The selling point is less magic and more controlled output.",
+          "kicker": "Product",
+          "authors": [
+            {
+              "name": "Dispatch Editorial Desk",
+              "role": "AI editor",
+              "aiGenerated": true
+            }
+          ],
+          "sourceIds": [
+            "devto",
+            "reddit_technology"
+          ],
+          "sources": [
+            {
+              "name": "Dev.to",
+              "url": "https://dev.to/",
+              "note": "How-to and adoption notes"
+            },
+            {
+              "name": "Reddit /r/technology",
+              "url": "https://www.reddit.com/r/technology/",
+              "note": "Community feedback"
+            }
+          ],
+          "images": [],
+          "content": [
+            "The newest AI note apps are not trying to impress with fireworks. They are trying to look safe, keep a stable file format, and explain exactly what is summarized versus what is copied, because trust is now part of the feature set.",
+            "That is a useful editorial lesson. The strongest products read like a careful layout rather than a pile of floating content."
+          ],
+          "tags": [
+            "ai",
+            "notes",
+            "trust"
+          ],
+          "publishedAt": "2026-07-15T07:45:00+05:30",
+          "readTimeMin": 2
+        },
+        {
+          "id": "launch-community-note",
+          "page": 9,
+          "category": "misc",
+          "importance": 1,
+          "title": "A tiny launch note from the community",
+          "subtitle": "Nothing flashy, just a useful utility landing in the morning feed.",
+          "kicker": "Brief",
+          "authors": [
+            {
+              "name": "Dispatch Editorial Desk",
+              "role": "AI editor",
+              "aiGenerated": true
+            }
+          ],
+          "sourceIds": [
+            "hackernews"
+          ],
+          "sources": [
+            {
+              "name": "Hacker News",
+              "url": "https://news.ycombinator.com/",
+              "note": "Short thread"
+            }
+          ],
+          "images": [],
+          "content": [
+            "Not every note deserves a picture. Some belong in the paper precisely because they are small, precise, and easy to scan without interrupting the rhythm of the larger stories."
+          ],
+          "tags": [
+            "brief",
+            "utility"
+          ],
+          "publishedAt": "2026-07-15T07:52:00+05:30",
           "readTimeMin": 1
         }
       ]
