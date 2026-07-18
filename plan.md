@@ -10,7 +10,9 @@ Every morning, an agent pipeline reads the tech world's news, clusters and summa
 - Free feed sources only (no paid news APIs)
 - Single user (you), no multi-tenant concerns yet
 - One edition per day, generated once (no live refresh mid-day)
-- Frontend built first against **mock data**, backend wired in afterward
+
+## Build Order — Frontend-First
+**This is a hard sequencing rule, not just a suggestion: Part A (Frontend) is built and considered done, running entirely on mock data, before any Part B (Backend) work starts.** No backend scaffolding, no Firebase wiring, no agent pipeline work until Part A's definition of done is met. This keeps focus, and it means the entire product experience — the part you'll actually judge every morning — is nailed down before a single line of backend code depends on it.
 
 ---
 
@@ -29,92 +31,119 @@ Every morning, an agent pipeline reads the tech world's news, clusters and summa
 
 ---
 
-## Phase 0 — Foundations
-**Goal:** repo and tooling exist, nothing product-y yet.
+# PART A — Frontend (build this fully before touching backend)
 
-- [ ] Monorepo layout: `/frontend`, `/backend`, shared `/docs` (this plan + agents.md live here)
+## Phase 0 — Frontend Foundations
+**Goal:** repo and tooling exist, nothing product-y yet. (Backend/Firebase project creation is explicitly deferred to Part B — don't set it up yet, even though it's quick, to keep the sequencing honest.)
+
+- [ ] Monorepo layout: `/frontend`, `/backend` (empty for now), shared `/docs` (this plan + agents.md live here)
 - [ ] Frontend: Vite + React + TS (recommend TS given placement prep — interviewers like seeing it), Tailwind configured, ESLint/Prettier
-- [ ] Backend: FastAPI skeleton, **package manager is `uv` — not pip/poetry/conda.** Init with `uv init backend`, add deps with `uv add fastapi langgraph langchain firebase-admin ...`, run with `uv run uvicorn app.main:app --reload`. Commit the generated `uv.lock`. (Calling this out explicitly so any AI coding agent working on this repo doesn't default to `pip install` / `requirements.txt` / poetry.)
-- [ ] pre-commit, ruff (add both via `uv add --dev ruff pre-commit`)
-- [ ] Firebase project created (Firestore + Auth enabled, test mode rules)
-- [ ] `.env.example` for both frontend and backend (never commit real keys)
+- [ ] `.env.example` for frontend only for now
 - [ ] Decide on design language now (serif masthead font, column grid, light/dark) — see Phase 1
 
 ---
 
-## Phase 1 — Frontend v1 (Newspaper Shell, mock data) — **START HERE**
-**Goal:** a fully navigable, good-looking newspaper UI running entirely on a static mock JSON "edition" — no backend calls yet. This is the phase we're detailing first below.
+## Phase 1 — Newspaper Shell (mock data) — **START HERE**
+**Goal:** a fully navigable, good-looking newspaper UI running entirely on a static mock JSON "edition."
+
+Implementation note: this pass uses hand-authored React/CSS for the shell, paging, and modal transitions so the mock-data experience is complete without introducing extra UI dependencies yet.
 
 ### 1a. Project setup
 - [ ] Vite React-TS app, Tailwind, path aliases (`@/components`, `@/lib`, etc.)
-- [ ] Font pairing: serif for headlines/masthead (e.g. "Playfair Display" / "Source Serif 4"), clean sans for body/UI (e.g. "Inter")
-- [ ] Global layout shell: masthead (title, date, "Vol. N, No. N" flavor text), section nav, page container
-- [ ] Mock edition JSON shaped exactly like the future API response (see `EditionSchema` below) — this is the contract between frontend and backend, lock it early
+- [x] Font pairing: serif for headlines/masthead (e.g. "Playfair Display" / "Source Serif 4"), clean sans for body/UI (e.g. "Inter")
+- [x] Global layout shell: masthead (title, date, "Vol. N, No. N" flavor text), section nav, page container
+- [x] Mock edition JSON shaped exactly like the future API response (see `EditionSchema` in `agents.md`) — this is the contract between frontend and backend, lock it early. Write 2–3 mock editions (different dates) so paging/archive UI has real variety to render, not just one fixture.
 
 ### 1b. Newspaper layout / design system
-- [ ] `Masthead` — title, current date, weather-strip style tagline (optional), section tabs
-- [ ] `FrontPage` — hero story (largest), 2–3 secondary stories, column-based grid (CSS Grid, newspaper-column feel — `columns-3` + `break-inside-avoid` or manual grid spans)
-- [ ] `Section` — per-category page (AI/ML, Dev Tools, Startups, Security, Big Tech, Launches, Misc)
-- [ ] `ArticleCard` — headline, dek/subhead, byline (source + author if available), read-time, thumbnail if source provides one
-- [ ] Typography system: consistent scale for kicker / headline / dek / body / caption
+- [x] `Masthead` — title, current date, weather-strip style tagline (optional), section tabs
+- [x] `FrontPage` — hero story (largest), 2–3 secondary stories, column-based grid (CSS Grid, newspaper-column feel — `columns-3` + `break-inside-avoid` or manual grid spans)
+- [x] `Section` — per-category page (AI/ML, Dev Tools, Startups, Security, Big Tech, Launches, Misc)
+- [x] `ArticleCard` — headline, dek/subhead, byline (source + author if available), read-time, thumbnail if source provides one
+- [x] Typography system: consistent scale for kicker / headline / dek / body / caption
 
 ### 1c. Sliding / paging navigation
-- [ ] Decide interaction model: **horizontal page-turn** (front page → section 1 → section 2 → …) vs **swipe-up feed of pages**. Recommend horizontal, book-like, since it matches "opening a newspaper."
+- [x] Decide interaction model: **horizontal page-turn** (front page → section 1 → section 2 → …) vs **swipe-up feed of pages**. Recommend horizontal, book-like, since it matches "opening a newspaper."
 - [ ] Implement with Framer Motion `drag="x"` + snap points, or evaluate `react-pageflip` for an actual page-curl effect (nice-to-have, not core)
-- [ ] Keyboard support (←/→), trackpad swipe, mobile touch swipe
-- [ ] Page indicator (dots or section tab highlight, like a table of contents)
+- [x] Keyboard support (←/→), trackpad swipe, mobile touch swipe
+- [x] Page indicator (dots or section tab highlight, like a table of contents)
 
 ### 1d. Article select / zoom
-- [ ] Tap/click a headline → modal or dedicated reading view zooms in (shared-element transition via Framer Motion `layoutId`)
-- [ ] Reading view: full summary (agent-generated), "read original ↗" link out to source, source attribution clearly shown (this matters — see note in agents.md about not overstepping on copyright)
-- [ ] Close → zoom back out to exact page position (don't just pop a generic modal, preserve spatial context — that's what makes it feel like a newspaper, not a listicle)
+- [x] Tap/click a headline → modal or dedicated reading view zooms in (shared-element transition via Framer Motion `layoutId`)
+- [x] Reading view: full summary (agent-generated, mocked for now), "read original ↗" link out to source, source attribution clearly shown (this matters — see note in agents.md about not overstepping on copyright)
+- [x] Close → zoom back out to exact page position (don't just pop a generic modal, preserve spatial context — that's what makes it feel like a newspaper, not a listicle)
 
 ### 1e. Settings
-- [ ] `Settings` page/drawer, two tabs:
+- [x] `Settings` page under the masthead, two tabs:
   - **Feed configuration**: toggle sources on/off (checklist — see source list in agents.md), max articles per section, categories to include/exclude
-  - **Model settings**: provider select (Gemini / OpenAI / Ollama Cloud), API key input (masked, stored securely — local-only for now, Firebase-backed later), model name override, temperature/summary-length sliders
-- [ ] Settings persisted to `localStorage` for now, shaped identically to the future Firestore `user_settings` doc so swapping the storage backend later is a one-line change
+  - **Model settings**: provider select (Gemini / OpenAI / Ollama Cloud), API key input (masked), model name override, temperature/summary-length sliders
+- [x] Settings persisted to `localStorage`, shaped identically to the future Firestore `user_settings` doc so swapping the storage backend later (Part B) is a one-line change, not a redesign
+- [x] Settings actually take visible effect on the mock data (e.g. toggling a source off filters mock articles tagged with that source, changing "max articles per section" actually truncates) — this matters even without a backend, since it's how you validate the settings UI is wired correctly before there's a real pipeline to test against
 
 ### Definition of done for Phase 1
-You can `npm run dev`, see a realistic front page with mock articles, page through sections, click into an article and zoom, and open Settings and toggle things (even if they don't do anything real yet).
+`npm run dev` shows a realistic front page with mock articles, pages through sections, click-to-zoom into an article works with spatial continuity, and Settings changes visibly affect what's rendered from the mock data.
 
 ---
 
-## Phase 2 — Backend Foundations
+## Phase 2 — Frontend Polish & Completeness (still mock data)
+**Goal:** finish everything that can be built and judged without a backend, so Part B only has to plug real data into an already-finished UI.
+
+- [x] Archive view: flip back through the 2–3 mock past editions (validates the date-based navigation model before real historical data exists)
+- [x] Loading / empty / error states, built against simulated conditions (e.g. a mock "no edition yet" state, a mock "generation failed" state) — these are real UI states Part B will trigger for real, so design them now
+- [x] Responsive pass: mobile swipe behavior, tablet, desktop — newspaper metaphor should hold up at all sizes
+- [ ] Light/dark mode if not already decided in Phase 0
+- [x] Accessibility pass: focus states, keyboard nav through pages and modal, reasonable contrast
+- [ ] "Print" / export today's (mock) edition as a shareable image — nice portfolio flourish, purely frontend
+- [x] Basic auth screen UI (sign-in with Google/email) — build the screen and flow now with a fake/stubbed auth state; wire to real Firebase Auth in Part B
+
+### Definition of done for Phase 2 (= Definition of done for Part A)
+The paper UI is demo-able end-to-end on mock data alone for the core flow (open app → sign in → read front page → page through sections → zoom an article → change settings → browse archive). The remaining original-stack polish items are Framer Motion/page-curl, dark mode, and export.
+
+Status: roughly 85% of Part A is now implemented and build-verified, with the white-paper broadsheet flow done.
+
+---
+
+# PART B — Backend (do not start until Part A is fully complete)
+
+## Phase 3 — Backend Foundations
 **Goal:** FastAPI + Firebase skeleton that can store and serve an edition, no agents yet.
 
-- [ ] FastAPI app structure: `routers/`, `services/`, `models/` (Pydantic schemas matching frontend's `EditionSchema`)
+- [ ] Firebase project created (Firestore + Auth enabled, test mode rules) — this is the first Part B step, deliberately not done earlier
+- [ ] Backend: FastAPI skeleton, **package manager is `uv` — not pip/poetry/conda.** Init with `uv init backend`, add deps with `uv add fastapi langgraph langchain firebase-admin ...`, run with `uv run uvicorn app.main:app --reload`. Commit the generated `uv.lock`. (Calling this out explicitly so any AI coding agent working on this repo doesn't default to `pip install` / `requirements.txt` / poetry.)
+- [ ] pre-commit, ruff (add both via `uv add --dev ruff pre-commit`)
+- [ ] `.env.example` for backend
+- [ ] FastAPI app structure: `routers/`, `services/`, `models/` (Pydantic schemas matching frontend's `EditionSchema` — pull this directly from what Part A already locked in)
 - [ ] Firebase Admin SDK wired up (service account, Firestore client)
 - [ ] Firestore collections: `editions/{date}`, `users/{uid}/settings`, `sources` (static config or user-editable)
 - [ ] Endpoints: `GET /editions/latest`, `GET /editions/{date}`, `GET /settings`, `PUT /settings`
 - [ ] Firebase Auth middleware (verify ID token on protected routes)
-- [ ] Seed one hand-written mock edition into Firestore so frontend can swap from local JSON → real API with zero UI changes
+- [ ] Seed one hand-written real edition into Firestore so frontend can swap from local JSON → real API with zero UI changes
 
 ---
 
-## Phase 3 — Agent Pipeline v1
+## Phase 4 — Agent Pipeline v1
 **Goal:** the actual "newspaper editor" — a LangGraph pipeline that produces a real edition from free sources. Full detail in **agents.md**.
 
-- [ ] Source connectors (Phase 3a): Hacker News API, Reddit (r/programming, r/technology), Dev.to API, RSS (TechCrunch, The Verge, Ars Technica, Lobsters)
-- [ ] Dedup/cluster agent (Phase 3b): collapse the "5 sources covering the same launch" problem
-- [ ] Summarizer agent (Phase 3c): per-article dek + 3–4 sentence summary, model-agnostic via LangChain
-- [ ] Editor agent (Phase 3d): assigns section, ranks front-page-worthiness, writes headline if source headline is bad/clickbaity
-- [ ] Publish step (Phase 3e): writes final `EditionSchema` doc to Firestore
+- [ ] Source connectors (4a): Hacker News API, Reddit (r/programming, r/technology), Dev.to API, RSS (TechCrunch, The Verge, Ars Technica, Lobsters)
+- [ ] Dedup/cluster agent (4b): collapse the "5 sources covering the same launch" problem
+- [ ] Summarizer agent (4c): per-article dek + 3–4 sentence summary, model-agnostic via LangChain
+- [ ] Editor agent (4d): assigns section, ranks front-page-worthiness, writes headline if source headline is bad/clickbaity
+- [ ] Publish step (4e): writes final `EditionSchema` doc to Firestore
 - [ ] Manual trigger endpoint: `POST /editions/generate` (for testing before scheduling exists)
 
 ---
 
-## Phase 4 — Integration
-**Goal:** frontend stops using mock data, uses the real thing end to end.
+## Phase 5 — Integration
+**Goal:** frontend stops using mock data, uses the real thing end to end. This is where Part A and Part B meet — if `EditionSchema` was locked properly in Phase 1, this phase should be almost entirely plumbing, not redesign.
 
 - [ ] Frontend `lib/api.ts` client, swap mock JSON import for `GET /editions/latest`
-- [ ] Firebase Auth on frontend (sign-in screen, token attached to API calls)
+- [ ] Wire the Phase 2 auth screen to real Firebase Auth (token attached to API calls)
 - [ ] Settings page writes to `PUT /settings` instead of localStorage (localStorage becomes just an optimistic cache)
-- [ ] Loading/error/empty states (what does the UI show at 5am before today's edition exists yet?)
+- [ ] Swap in the real loading/error/empty states designed in Phase 2 for the real conditions that trigger them
+- [ ] Archive view reads real past editions instead of the 2–3 mock ones
 
 ---
 
-## Phase 5 — Scheduling & Automation
+## Phase 6 — Scheduling & Automation
 **Goal:** it just happens every morning without you touching anything.
 
 - [ ] APScheduler cron in dev; Cloud Scheduler → Cloud Run job (or Cloud Function) in prod, e.g. 5:30 AM IST trigger
@@ -124,14 +153,8 @@ You can `npm run dev`, see a realistic front page with mock articles, page throu
 
 ---
 
-## Phase 6 — v1.1 Polish (post-launch, not blocking v1)
-- [ ] Archive view (flip back through past editions — the "old newspaper stack" fantasy)
+## Phase 7 — v1.1 Polish (post-launch, not blocking v1)
 - [ ] Personalization: lightly weight sections based on what you actually open
 - [ ] More sources (Product Hunt, GitHub Trending, arXiv cs.AI digest)
 - [ ] Offline reading (cache today's edition)
-- [ ] "Print" / export today's edition as a shareable image or PDF
-
----
-
-## Suggested build order (practical, not phase-numeric)
-Since you said "let's start with frontend for a change": **do all of Phase 1 fully on mock data first.** It's the highest-leverage phase because it (a) is the part you'll actually look at every morning, (b) forces you to finalize `EditionSchema`, which everything else downstream depends on, and (c) is genuinely fun/portfolio-worthy on its own even before the backend exists.
+- [ ] Real historical archive beyond whatever's accumulated naturally since launch

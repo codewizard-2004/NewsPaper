@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#efe6d3"/>
+      <stop offset="1" stop-color="#c8b79c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <rect x="70" y="80" width="1060" height="640" rx="24" fill="#f8f4eb" stroke="#222" stroke-opacity=".18"/>
+  <circle cx="920" cy="250" r="135" fill="#e8d5b5" opacity=".9"/>
+  <path d="M210 620C310 500 430 410 590 385c150-24 280 6 390 86" fill="none" stroke="#635a4d" stroke-width="26" stroke-linecap="round"/>
+  <path d="M195 585c90-70 160-102 245-109 79-7 164 10 246 54" fill="none" stroke="#8d7b63" stroke-width="14" stroke-linecap="round"/>
+  <rect x="250" y="260" width="700" height="24" fill="#111" opacity=".16"/>
+  <rect x="250" y="308" width="530" height="18" fill="#111" opacity=".16"/>
+  <text x="255" y="185" font-family="Georgia, serif" font-size="72" fill="#111">Dispatch Photo</text>
+  <text x="255" y="230" font-family="Inter, sans-serif" font-size="24" fill="#5d564d">Field image for lead or feature stories</text>
+</svg>
