@@ -11,8 +11,54 @@
 .auth-card,
 .boot-card,
 .reading-modal {
-  background: #fff;
+  background: var(--paper);
   border: 1px solid rgba(17, 17, 17, 0.16);
+}
+
+/* Simulate CMYK printing on absorbent newsprint */
+.paper-frame img {
+  /* Reduce contrast and brightness slightly, desaturate, and add a hint of paper tone */
+  filter: contrast(0.85) brightness(0.95) saturate(0.8) sepia(0.1);
+  /* The magic trick: multiply blend mode makes the paper texture show through the image's whites! */
+  mix-blend-mode: multiply;
+}
+
+/* Authentic Paper Wrinkles & Folds */
+.paper-frame {
+  position: relative;
+}
+
+/* Organic, soft crumpled paper texture */
+.paper-frame::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 49;
+  mix-blend-mode: multiply;
+  opacity: 0.25; /* Very subtle so it's not overwhelming */
+  /* SVG Fractal Noise for authentic crumpled paper displacement */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='4' stitchTiles='stitch' result='noise'/%3E%3CfeDiffuseLighting in='noise' lighting-color='%23fff' surfaceScale='2' result='light'%3E%3CfeDistantLight azimuth='60' elevation='30'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' fill='%23fff' filter='url(%23w)'/%3E%3C/svg%3E");
+}
+
+/* Sharp, structural geometric folds */
+.paper-frame::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0.8;
+  /* Use multiple gradients to simulate physical creases in the paper */
+  background: 
+    /* Primary Vertical Fold (center) */
+    linear-gradient(to right, transparent 49.7%, rgba(0,0,0,0.06) 49.9%, rgba(255,255,255,0.4) 50.1%, rgba(0,0,0,0.02) 50.3%, transparent 50.5%),
+    /* Primary Horizontal Fold (above the fold line) */
+    linear-gradient(to bottom, transparent 35%, rgba(0,0,0,0.05) 35.2%, rgba(255,255,255,0.3) 35.4%, transparent 35.6%),
+    /* Secondary Diagonal Wrinkle 1 */
+    linear-gradient(12deg, transparent 60%, rgba(0,0,0,0.03) 60.1%, rgba(255,255,255,0.2) 60.3%, transparent 60.5%),
+    /* Secondary Diagonal Wrinkle 2 */
+    linear-gradient(-24deg, transparent 25%, rgba(0,0,0,0.02) 25.1%, rgba(255,255,255,0.15) 25.3%, transparent 25.5%);
 }
 
 .masthead {
@@ -190,8 +236,8 @@
 .mini-button {
   font: inherit;
   border: 1px solid rgba(17, 17, 17, 0.2);
-  background: #fff;
-  color: #111;
+  background: var(--paper);
+  color: var(--ink);
   border-radius: 0;
 }
 
@@ -523,7 +569,7 @@
   display: block;
   object-fit: cover;
   border: 1px solid rgba(17, 17, 17, 0.16);
-  background: #fff;
+  background: var(--paper);
 }
 
 .article-media figcaption,
@@ -761,7 +807,7 @@
   min-height: 42px;
   padding: 8px 10px;
   border: 1px solid rgba(17, 17, 17, 0.18);
-  background: #fff;
+  background: var(--paper);
 }
 
 .slider-row input {
@@ -770,7 +816,7 @@
 
 .tab-pill.active {
   background: #111;
-  color: #fff;
+  color: var(--paper);
 }
 
 .settings-footer {
