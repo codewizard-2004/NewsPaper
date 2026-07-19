@@ -84,14 +84,6 @@ export interface UserLayoutSettings {
   showImages: boolean
 }
 
-export interface UserModelSettings {
-  provider: 'Gemini' | 'OpenAI' | 'Ollama Cloud'
-  apiKey: string
-  modelName: string
-  temperature: number
-  maxSummarySentences: number
-}
-
 export interface UserInterfaceSettings {
   theme: 'newsprint' | 'night'
   demoMode: 'live' | 'loading' | 'empty' | 'error'
@@ -99,7 +91,6 @@ export interface UserInterfaceSettings {
 
 export interface AppSettings {
   feed: UserFeedSettings
-  model: UserModelSettings
   layout: UserLayoutSettings
   ui: UserInterfaceSettings
 }
@@ -108,4 +99,5 @@ export interface AuthState {
   signedIn: boolean
   name: string
   email: string
+  photoURL?: string
 }

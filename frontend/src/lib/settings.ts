@@ -6,13 +6,7 @@ export const defaultSettings: AppSettings = {
     enabledCategoryIds: [],
     maxArticlesPerPage: 6,
   },
-  model: {
-    provider: 'Gemini',
-    apiKey: '',
-    modelName: 'gemini-2.5-flash',
-    temperature: 0.3,
-    maxSummarySentences: 4,
-  },
+
   layout: {
     density: 'balanced',
     showImages: true,

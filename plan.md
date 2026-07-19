@@ -120,14 +120,14 @@ Status: roughly 85% of Part A is now implemented and build-verified, with the wh
 
 ---
 
-## Phase 4 — Agent Pipeline v1
-**Goal:** the actual "newspaper editor" — a LangGraph pipeline that produces a real edition from free sources. Full detail in **agents.md**.
+## Phase 4 — The Multi-Agent Newsroom (LangGraph v1)
+**Goal:** A hierarchical LangGraph multi-agent system that simulates a physical newsroom. Full detail in **agents.md**.
 
-- [ ] Source connectors (4a): Hacker News API, Reddit (r/programming, r/technology), Dev.to API, RSS (TechCrunch, The Verge, Ars Technica, Lobsters)
-- [ ] Dedup/cluster agent (4b): collapse the "5 sources covering the same launch" problem
-- [ ] Summarizer agent (4c): per-article dek + 3–4 sentence summary, model-agnostic via LangChain
-- [ ] Editor agent (4d): assigns section, ranks front-page-worthiness, writes headline if source headline is bad/clickbaity
-- [ ] Publish step (4e): writes final `EditionSchema` doc to Firestore
+- [ ] Fetcher Tools (4a): Hacker News API, Reddit (r/programming, r/technology), Dev.to API, RSS (TechCrunch, The Verge, Ars Technica, Lobsters) exposed as LangChain tools.
+- [ ] The Chief Editor (Supervisor Agent) (4b): Orchestrates the graph. Determines layout needs (e.g., "I need 4 AI articles"), dispatches tasks to Desks, reviews drafts for quality, assigns priority ranking (`importance` span), and approves publication.
+- [ ] The Section Desks (Worker Agents) (4c): e.g., AI/ML Desk, Security Desk, Puzzles Desk. Each agent receives a beat, uses Fetcher Tools to hunt for news autonomously, groups related stories, and writes the article.
+- [ ] Byline / Pen Name Engine (4d): Dynamically assigns author names based on the LLM powering that specific desk (e.g., "G. Flash, AI Correspondent" or "C. GPT, Senior Editor").
+- [ ] Publish step (4e): Compiles all approved drafts into the final `EditionSchema` and writes to Firestore.
 - [ ] Manual trigger endpoint: `POST /editions/generate` (for testing before scheduling exists)
 
 ---

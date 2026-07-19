@@ -12,6 +12,7 @@ import type {
   UserFeedSettings,
   UserLayoutSettings,
 } from '@/lib/types'
+import { auth as firebaseAuth, onAuthStateChanged, signInWithGoogle, signOut } from '@/lib/firebase'
 import './App.css'
 
 const STORAGE_SETTINGS_KEY = 'daily-dispatch-settings'
@@ -70,6 +71,22 @@ function App() {
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const lastTriggerRef = useRef<HTMLElement | null>(null)
   const hydratedSettingsRef = useRef(false)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
+      if (user) {
+        setAuth({
+          signedIn: true,
+          name: user.displayName || 'Reader',
+          email: user.email || 'reader@dailydispatch.dev',
+          photoURL: user.photoURL || undefined,
+        })
+      } else {
+        setAuth({ ...DEFAULT_AUTH, signedIn: false })
+      }
+    })
+    return () => unsubscribe()
+  }, [setAuth])
 
   useEffect(() => {
     let active = true
@@ -225,16 +242,6 @@ function App() {
     }))
   }
 
-  const updateModel = (patch: Partial<AppSettings['model']>) => {
-    setSettings((current) => ({
-      ...current,
-      model: {
-        ...current.model,
-        ...patch,
-      },
-    }))
-  }
-
   const updateLayout = (patch: Partial<UserLayoutSettings>) => {
     setSettings((current) => ({
       ...current,
@@ -314,13 +321,13 @@ function App() {
   if (!auth.signedIn) {
     return (
       <AuthScreen
-        onSignIn={() =>
-          setAuth({
-            signedIn: true,
-            name: 'Nora Patel',
-            email: 'nora@dailydispatch.dev',
-          })
-        }
+        onSignIn={async () => {
+          try {
+            await signInWithGoogle()
+          } catch (error) {
+            console.error("Sign in failed", error)
+          }
+        }}
       />
     )
   }
@@ -339,15 +346,22 @@ function App() {
   if (screen === 'settings') {
     return (
       <SettingsScreen
+        auth={auth}
         edition={edition}
         settings={settings}
         onBack={() => setScreen('paper')}
         onToggleSource={toggleSource}
         onToggleCategory={toggleCategory}
         onUpdateFeed={updateFeed}
-        onUpdateModel={updateModel}
         onUpdateLayout={updateLayout}
         onReset={resetDemo}
+        onSignOut={async () => {
+          try {
+            await signOut()
+          } catch (e) {
+            console.error("Failed to sign out", e)
+          }
+        }}
       />
     )
   }
@@ -1023,25 +1037,27 @@ function ReadingModal({
 }
 
 function SettingsScreen({
+  auth,
   edition,
   settings,
   onBack,
   onToggleSource,
   onToggleCategory,
   onUpdateFeed,
-  onUpdateModel,
   onUpdateLayout,
   onReset,
+  onSignOut,
 }: {
+  auth: AuthState
   edition: DummyEdition
   settings: AppSettings
   onBack: () => void
   onToggleSource: (sourceId: string) => void
   onToggleCategory: (categoryId: string) => void
   onUpdateFeed: (patch: Partial<UserFeedSettings>) => void
-  onUpdateModel: (patch: Partial<AppSettings['model']>) => void
   onUpdateLayout: (patch: Partial<UserLayoutSettings>) => void
   onReset: () => void
+  onSignOut: () => void
 }) {
   return (
     <div className="settings-shell">
@@ -1118,69 +1134,31 @@ function SettingsScreen({
         </section>
 
         <section className="settings-card">
-          <h2>Model settings</h2>
+          <h2>Account</h2>
           <div className="settings-block">
-            <h3>Provider</h3>
-            <div className="button-row">
-              {(['Gemini', 'OpenAI', 'Ollama Cloud'] as const).map((provider) => (
-                <button
-                  key={provider}
-                  type="button"
-                  className={settings.model.provider === provider ? 'tab-pill active' : 'tab-pill'}
-                  onClick={() => onUpdateModel({ provider })}
-                >
-                  {provider}
-                </button>
-              ))}
+            <h3>Profile</h3>
+            {auth.photoURL && (
+              <div style={{ marginBottom: '1rem' }}>
+                <img 
+                  src={auth.photoURL} 
+                  alt="Profile" 
+                  style={{ width: '48px', height: '48px', borderRadius: '50%', objectFit: 'cover' }} 
+                />
+              </div>
+            )}
+            <div className="field">
+              <span>Name</span>
+              <strong>{auth.name}</strong>
+            </div>
+            <div className="field">
+              <span>Email</span>
+              <strong>{auth.email}</strong>
             </div>
           </div>
-
           <div className="settings-block">
-            <label className="field">
-              <span>API key</span>
-              <input
-                type="password"
-                value={settings.model.apiKey}
-                onChange={(event) => onUpdateModel({ apiKey: event.target.value })}
-              />
-            </label>
-            <label className="field">
-              <span>Model name</span>
-              <input
-                type="text"
-                value={settings.model.modelName}
-                onChange={(event) => onUpdateModel({ modelName: event.target.value })}
-              />
-            </label>
-          </div>
-
-          <div className="settings-block">
-            <label className="slider-row">
-              <span>Temperature</span>
-              <strong>{settings.model.temperature.toFixed(1)}</strong>
-              <input
-                type="range"
-                min={0}
-                max={1}
-                step={0.1}
-                value={settings.model.temperature}
-                onChange={(event) => onUpdateModel({ temperature: Number(event.target.value) })}
-              />
-            </label>
-            <label className="slider-row">
-              <span>Summary sentences</span>
-              <strong>{settings.model.maxSummarySentences}</strong>
-              <input
-                type="range"
-                min={2}
-                max={6}
-                step={1}
-                value={settings.model.maxSummarySentences}
-                onChange={(event) =>
-                  onUpdateModel({ maxSummarySentences: Number(event.target.value) })
-                }
-              />
-            </label>
+            <button type="button" className="tab-pill" onClick={onSignOut}>
+              Sign out
+            </button>
           </div>
         </section>
 
