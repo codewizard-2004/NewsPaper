@@ -1,7 +1,7 @@
 import os
 import firebase_admin
 from firebase_admin import auth, credentials
-from fastapi import Request, HTTPException, Security
+from fastapi import HTTPException, Security
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from dotenv import load_dotenv
 

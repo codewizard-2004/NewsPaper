@@ -46,7 +46,11 @@ def fetch_reddit_technology(limit: int = 5) -> str:
         stories = []
         for subreddit in ["technology", "programming"]:
             url = f"https://www.reddit.com/r/{subreddit}/top.json?limit={limit}&t=day"
-            req = urllib.request.Request(url, headers={'User-Agent': 'DailyDispatch/1.0'})
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Accept': 'application/json',
+            }
+            req = urllib.request.Request(url, headers=headers)
             with urllib.request.urlopen(req) as response:
                 data = json.loads(response.read().decode())
                 
@@ -129,7 +133,7 @@ def fetch_techcrunch_rss(limit: int = 5) -> str:
             stories.append({
                 "title": entry.get("title"),
                 "url": entry.get("link"),
-                "summary": entry.get("summary", "")[:200] + "...",
+                "summary": entry.get("summary", ""),
                 "source": feed.feed.get("title", "TechCrunch")
             })
         return json.dumps(stories, indent=2)
@@ -149,7 +153,7 @@ def fetch_theverge_rss(limit: int = 5) -> str:
             stories.append({
                 "title": entry.get("title"),
                 "url": entry.get("link"),
-                "summary": entry.get("summary", "")[:200] + "...",
+                "summary": entry.get("summary", ""),
                 "source": feed.feed.get("title", "The Verge")
             })
         return json.dumps(stories, indent=2)
@@ -163,8 +167,8 @@ def fetch_image_duckduckgo(query: str) -> dict:
     Returns a dictionary containing src, alt, caption, and credit.
     """
     try:
-        from duckduckgo_search import DDGS
-        results = DDGS().images(keywords=query, max_results=1)
+        from ddgs import DDGS
+        results = DDGS().images(query=query, max_results=1)
         if results:
             img = results[0]
             return {
@@ -177,3 +181,28 @@ def fetch_image_duckduckgo(query: str) -> dict:
     except Exception as e:
         print(f"Image search failed: {e}")
         return {}
+
+@tool(description="Fetches the full text content of an article from a given URL.")
+def read_article_content(url: str) -> str:
+    """
+    Fetches the full markdown text of an article from a given URL.
+    Use this to read the entire story after finding an interesting URL from the news feeds.
+    """
+    try:
+        req = urllib.request.Request(f"https://r.jina.ai/{url}", headers={'User-Agent': 'DailyDispatch/1.0'})
+        with urllib.request.urlopen(req) as response:
+            return response.read().decode('utf-8')
+    except Exception as e:
+        return f"Failed to fetch article content: {str(e)}"
+
+ALL_TOOLS = [
+    fetch_hacker_news_top,
+    #fetch_reddit_technology,
+    fetch_dev_to_articles,
+    fetch_github_trending,
+    fetch_techcrunch_rss,
+    fetch_theverge_rss
+]
+
+# if __name__ == "__main__":
+#     print(fetch_reddit_technology.invoke({}))
