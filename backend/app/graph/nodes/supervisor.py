@@ -93,8 +93,10 @@ def chief_editor_node(state: NewsroomState) -> Dict[str, Any]:
         )
     )
 
-    llm = get_llm("chief_editor")
+    assignments = state.get("assignments", [])
     drafts = state.get("drafts", [])
+
+    llm = get_llm("chief_editor")
     context_lines = [f"Current Date: {state.get('date', 'Unknown')}\n"]
 
     if drafts:
@@ -229,6 +231,10 @@ def chief_editor_node(state: NewsroomState) -> Dict[str, Any]:
         result: Dict[str, Any] = {"assignments": final_assignments}
         if updated_drafts:
             result["drafts"] = updated_drafts
+
+        # Reset completed_desks accumulator for the next dispatch cycle.
+        result["completed_desks"] = []
+
         return result
 
     except Exception as e:

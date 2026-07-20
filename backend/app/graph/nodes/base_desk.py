@@ -12,7 +12,7 @@ from app.graph.models import get_llm
 
 console = Console()
 
-ARTICLES_PER_BATCH = 6
+ARTICLES_PER_BATCH = 1
 
 
 def _summarise_tool_result(tool_name: str, raw: str) -> str:
@@ -109,13 +109,16 @@ def create_desk_node(desk_name: str, byline: str, system_prompt: str, tools: lis
         console.print(Panel(header, border_style="cyan", subtitle="📰 Newsroom Desk"))
 
         # ── Skip checks ─────────────────────────────────────────────────────
+        def _remove_from_pending() -> dict:
+            return {"completed_desks": [desk_name]}
+
         if not my_assignment:
             console.print(Panel(
                 "[dim]⏭️  No assignment from the Chief Editor this cycle. Sleeping until called.[/dim]",
                 border_style="dim",
                 title=f"{display_name} — Idle",
             ))
-            return {}
+            return _remove_from_pending()
 
         if all_approved and my_drafts:
             console.print(Panel(
@@ -123,7 +126,7 @@ def create_desk_node(desk_name: str, byline: str, system_prompt: str, tools: lis
                 border_style="green",
                 title=f"{display_name} — Done",
             ))
-            return {}
+            return _remove_from_pending()
 
         # ── Assignment brief ────────────────────────────────────────────────
         brief = Table.grid(padding=(0, 1))
@@ -349,7 +352,7 @@ def create_desk_node(desk_name: str, byline: str, system_prompt: str, tools: lis
                 title="Batch Complete",
             ))
 
-            return {"drafts": new_drafts}
+            return {"drafts": new_drafts, "completed_desks": [desk_name]}
 
         except Exception as e:
             console.print(Panel(
@@ -359,6 +362,6 @@ def create_desk_node(desk_name: str, byline: str, system_prompt: str, tools: lis
             ))
             errors = state.get("errors", [])
             errors.append({"desk": desk_name, "error": str(e)})
-            return {"errors": errors}
+            return {"errors": errors, "completed_desks": [desk_name]}
 
     return desk_node

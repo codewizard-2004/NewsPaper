@@ -22,3 +22,5 @@ class NewsroomState(TypedDict):
     messages: Annotated[List[Any], operator.add]
     errors: Annotated[List[dict], update_errors]
     compiled_edition: Optional[dict]  # Final EditionSchema after publish step
+    pending_desks: List[str]        # Desks currently executing (for barrier tracking) — only written by Chief_Editor
+    completed_desks: Annotated[List[str], operator.add]  # Desks that finished a run — appended by desk nodes

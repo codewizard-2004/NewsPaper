@@ -96,6 +96,8 @@ def generate_edition():
             "messages": [],
             "errors": [],
             "compiled_edition": None,
+            "pending_desks": [],
+            "completed_desks": [],
         }
 
         final_state = newsroom_graph.invoke(
