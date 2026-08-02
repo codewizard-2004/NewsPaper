@@ -15,13 +15,13 @@ import type {
 import { auth as firebaseAuth, onAuthStateChanged, signInWithGoogle, signOut } from '@/lib/firebase'
 import './App.css'
 
-const STORAGE_SETTINGS_KEY = 'daily-dispatch-settings'
-const STORAGE_AUTH_KEY = 'daily-dispatch-auth'
+const STORAGE_SETTINGS_KEY = 'kernel-gazette-settings'
+const STORAGE_AUTH_KEY = 'kernel-gazette-auth'
 
 const DEFAULT_AUTH: AuthState = {
   signedIn: false,
   name: 'Nora Patel',
-  email: 'nora@dailydispatch.dev',
+  email: 'nora@kernelgazette.dev',
 }
 
 const clamp = (value: number, min: number, max: number) =>
@@ -78,7 +78,7 @@ function App() {
         setAuth({
           signedIn: true,
           name: user.displayName || 'Reader',
-          email: user.email || 'reader@dailydispatch.dev',
+          email: user.email || 'reader@kernelgazette.dev',
           photoURL: user.photoURL || undefined,
         })
       } else {
@@ -904,7 +904,7 @@ function ArticleCard({
           <p className="article-subtitle">{article.subtitle}</p>
 
           <div className="article-meta">
-            <span>{authors || 'Dispatch desk'}</span>
+            <span>{authors || 'Gazette desk'}</span>
             <span>Page {formatPageLabel(article.page)}</span>
           </div>
 
@@ -1214,7 +1214,7 @@ function AuthScreen({ onSignIn }: { onSignIn: () => void }) {
   return (
     <div className="auth-screen">
       <section className="auth-card">
-        <p className="front-kicker">Daily Dispatch</p>
+        <p className="front-kicker">The Kernel Gazette</p>
         <h1>Open the morning paper</h1>
         <p className="auth-copy">
           Frontend-only sign-in for the mock edition. The newspaper is live; the backend comes
@@ -1234,7 +1234,7 @@ function BootScreen() {
   return (
     <div className="auth-screen">
       <section className="boot-card">
-        <p className="front-kicker">The Daily Dispatch</p>
+        <p className="front-kicker">The Kernel Gazette</p>
         <h1>Setting the presses...</h1>
         <p>Loading the dummy edition and assembling the paper spread.</p>
       </section>
