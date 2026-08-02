@@ -32,21 +32,32 @@ kernel-gazette/
         __init__.py            # re-exports build_graph, build_initial_state, GazetteState
         state.py               # shared GazetteState TypedDict; build_initial_state()
         graph.py               # StateGraph assembly + fan-out/fan-in edges
-      nodes/
+nodes/
         __init__.py            # re-exports each node entrypoint
-        research.py            # parallel fan-out across source tools + same-day dedup
+        research.py            # parallel fan-out across source tools + same-day merge/cluster
         filter.py               # drops stories already published on a prior day
         editor.py               # selects a range per page, categorizes
         journalist.py           # build_journalist(page): one node body per page bucket
         publisher.py            # confidence filter, thin-section handling, images, Firestore write
-      tools/                    # (later phases) sources.py, search_tool.py, image_search_tool.py
+      tools/
+        __init__.py             # re-exports SourceRecord + fetch_all_sources
+        base.py                 # shared HTTP helpers + SourceRecord
+        sources.py              # fetch_all_sources(): runs all 6 in parallel
+        hacker_news.py reddit.py devto.py github.py techcrunch.py theverge.py
+        search_tool.py          # journalist fallback only (Phase 5)
+        image_search_tool.py     # publisher-only (Phase 6)
     firebase/
-      __init__.py              # re-exports all accessors
-      firebase.py              # the ONLY module importing firebase_admin; exports firebase/firestore/db + story_hash
-      seen.py                  # seen_stories: get_seen, mark_published
-      issues.py                # issues: read_issue, write_issue
-      dsa.py                   # dsa_bank: get_next_dsa_question, mark_dsa_used
-      comic.py                 # comic_state: get_comic_state, save_comic_state
+      __init__.py               # re-exports all accessors
+      firebase.py               # the ONLY module importing firebase_admin; exports firebase/firestore/db + story_hash
+      seen.py                   # seen_stories: get_seen, mark_published
+      issues.py                 # issues: read_issue, write_issue
+      dsa.py                    # dsa_bank: get_next_dsa_question, mark_dsa_used
+      comic.py                  # comic_state: get_comic_state, save_comic_state
+    fixtures/                   # seed data (Phase 2)
+      dsa_bank.json             # 25 DSA questions
+      comic_state.json          # starting comic storyline
+      issue.json                # hand-written sample issue (date filled at seed-time)
+    seed.py                     # one-off: bulk-load fixtures into Firestore (not a node)
     run.py                     # entrypoint: builds graph, invokes it
     kernel-gazette.timer       # systemd timer (6:30am daily)
     kernel-gazette.service     # systemd service, calls run.py

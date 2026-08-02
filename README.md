@@ -201,12 +201,15 @@ kernel-gazette/
         state.py           # GazetteState TypedDict + build_initial_state()
         graph.py           # StateGraph assembly + fan-out/fan-in edges (topology is stable)
       nodes/
-        research.py        # parallel source fan-out + same-day dedup
+        research.py        # parallel source fan-out + same-day merge/cluster
         filter.py          # cross-day "seen" dedup
         editor.py          # range-per-page categorization
         journalist.py      # build_journalist(page): one body for all four buckets
         publisher.py       # confidence filter, thin pages, images, Firestore write
-      tools/               # (later phases) sources.py, search_tool.py, image_search_tool.py
+      tools/
+        base.py            # shared HTTP helpers + SourceRecord
+        sources.py         # fetch_all_sources(): runs all 6 sources in parallel
+        hacker_news.py reddit.py devto.py github.py techcrunch.py theverge.py
     firebase/
       firebase.py          # ONLY module importing firebase_admin; exports clients + story_hash
       seen.py              # seen_stories
@@ -313,33 +316,34 @@ The canonical architecture lives in **`agents.md`** (which wins over both this f
 |---|---|---|---|
 | 0 | Knock-out old system | Done | 100% |
 | 1 | Backend skeleton + provider abstraction | Done | 100% |
-| 2 | Firestore layer + run entrypoint | In progress | ~80% |
-| 3 | Research + Filter nodes | Not started | 0% |
+| 2 | Firestore layer + run entrypoint | Done | 100% |
+| 3 | Research + Filter nodes | Done | 100% |
 | 4 | Editor node | Not started | 0% |
 | 5 | Journalist nodes | Not started | 0% |
 | 6 | Publisher node | Not started | 0% |
 | 7 | Integration & scheduling | Not started | 0% |
 | 8 | Hardening & polish | Not started | 0% |
 
-**Overall: ~20%**
+**Overall: ~40%**
 
 ### What's done vs. what's next
 
 **✅ Done**
 - Phase 0 — old "Daily Dispatch" system fully removed; strings renamed.
 - Phase 1 — backend skeleton, provider abstraction (`call_llm` for all 4 tasks), `ruff` clean.
-- Phase 2 (mostly) — modular packages (`core/ schema/ graph/ nodes/ firebase/`), Firestore access
-  layer split per collection, graph scaffolding (linear spine + editor → 4 journalists →
-  publisher fan-out/in) executes end-to-end with stub node bodies.
+- Phase 2 — modular packages (`core/ schema/ graph/ nodes/ firebase/`), Firestore access layer
+  split per collection, graph scaffolding (linear spine + editor → 4 journalists →
+  publisher fan-out/in) with stub bodies, and collection seeding (`seed.py` + `fixtures/`).
+- Phase 3 — Research + Filter live: `agent/tools/` fetches all 6 sources in parallel,
+  `research_node` clusters same-event stories (`cluster_sources` → `raw_stories`), and
+  `filter_node` dedups against `seen_stories` → `fresh_stories`. `--dry-run` shows real stories.
 
 **⏭️ Next (in priority order)**
-1. Finish Phase 2 — seed `seen_stories`, `dsa_bank`, `comic_state`, an `issues/{today}` fixture.
-2. Phase 3 — Research + Filter node bodies (deterministic, no LLM).
-3. Phase 4 — Editor node (ranges, categorization).
-4. Phase 5 — Journalist bodies + DSA/comic continuity for Misc.
-5. Phase 6 — Publisher: confidence filter, thin-page folding, images, publish.
-6. Phase 7 — frontend wiring + systemd scheduling + idempotency.
-7. Phase 8 — hardening (graceful source/model failure, timeouts, optional notify hook).
+1. Phase 4 — Editor node (ranges, categorization).
+2. Phase 5 — Journalist bodies + DSA/comic continuity for Misc.
+3. Phase 6 — Publisher: confidence filter, thin-page folding, images, publish.
+4. Phase 7 — frontend wiring + systemd scheduling + idempotency.
+5. Phase 8 — hardening (graceful source/model failure, timeouts, optional notify hook).
 
 ---
 

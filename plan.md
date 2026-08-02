@@ -10,17 +10,19 @@
 |---|---|---|---|
 | 0 | Knock-out old system | ✅ Done | 100% |
 | 1 | Backend skeleton + provider abstraction | ✅ Done | 100% |
-| 2 | Firestore layer + run entrypoint | ⬜ In progress | 80% |
-| 3 | Research + Filter nodes | ⬜ Not started | 0% |
+| 2 | Firestore layer + run entrypoint | ✅ Done | 100% |
+| 3 | Research + Filter nodes | ✅ Done | 100% |
 | 4 | Editor node | ⬜ Not started | 0% |
 | 5 | Journalist nodes | ⬜ Not started | 0% |
 | 6 | Publisher node | ⬜ Not started | 0% |
 | 7 | Integration & scheduling | ⬜ Not started | 0% |
 | 8 | Hardening & polish | ⬜ Not started | 0% |
 
-**Overall: ~20%**
+**Overall: ~40%**
 
-_Updated 2026-08-02 — Phase 1 complete; Phase 2 scaffolded (nodes stub, Firestore layer done)._
+_Updated 2026-08-02 — Phases 1-3 complete: packages, Firestore, seeding, and a live
+research+filter (`--dry-run` fetches + clusters 6 sources, dedups against `seen_stories`).
+Phase 4 (Editor) next._
 
 The authoritative contract for this repo is **`agents.md`** — it defines the graph flow, the
 data model, and the hard "do / don't" rules. This plan is the sequenced work breakdown to build
@@ -100,10 +102,12 @@ backend/
       editor.py
       journalist.py          # build_journalist(node/page): one body for all four buckets
       publisher.py
-    tools/                   # (later phases)
-      sources.py             # Dev.to, HN, GitHub, Reddit, TechCrunch, The Verge
-      search_tool.py         # journalist fallback only
-      image_search_tool.py   # publisher-only
+    tools/
+      base.py                  # shared HTTP helpers + SourceRecord
+      sources.py               # fetch_all_sources(): runs all 6 in parallel
+      hacker_news.py reddit.py devto.py github.py techcrunch.py theverge.py
+      search_tool.py           # journalist fallback only (Phase 5)
+      image_search_tool.py     # publisher-only (Phase 6)
   firebase/
     firebase.py              # the ONLY module importing firebase_admin; exports firebase/firestore/db + story_hash
     seen.py                  # seen_stories
@@ -145,22 +149,29 @@ backend/
       Expose: `get_seen(url)`, `mark_published(url, date)`, `read_issue(date)`,
       `write_issue(date, doc)`, `get_next_dsa_question()`, `mark_dsa_used(id)`,
       `get_comic_state()`, `save_comic_state(synopsis)`.
-- [ ] Collections seeded: `seen_stories`, `dsa_bank` (≤25 questions), `comic_state`, and a
-      hand-written `issues/{today}` fixture so the frontend can swap from mock → real.
-- [ ] `run.py` — CLI with `--dry-run` (research → filter → editor only, skip LLM/image spend)
+- [x] Collections seeded: `seed.py` + `fixtures/` (`dsa_bank.json` with 25 questions,
+      `comic_state.json`, `issue.json` with a date placeholder). Run
+      `uv run python seed.py --dry-run` to inspect, `uv run python seed.py` to write to
+      Firestore. `seen_stories` intentionally starts empty — it's an append-only log the
+      Publisher fills over time. Verify at the console (see note below).
+- [x] `run.py` — CLI with `--dry-run` (research → filter → editor only, skip LLM/image spend)
       and normal mode; wraps a `build_graph().invoke(initial_state)`.
       - Graph scaffolding done: `agent/graph/` linear spine + Editor→(4 journalists)→Publisher
         fan-out/in, all stub bodies in `agent/nodes/`; `--dry-run` and full run both execute. ✅
 
 ### Phase 3 — Research + Filter (deterministic, no LLM)
 **Goal:** `--dry-run` shows freshly researched, deduped, un-published stories.
-- [ ] `tools/sources.py` — 6 source tools (Dev.to, HN, Reddit, TechCrunch, The Verge,
-      GitHub Trending) each returning a normalized list of `{source,title,url,score,summary}`.
-- [ ] `nodes/research.py` — parallel fan-out across the 6 tools (LangGraph fan-out or
-      `concurrent.futures`), then same-day merge: cluster multiple sources covering one event,
-      emitting `cluster_sources: [str]` per merged story → `raw_stories`.
-- [ ] `nodes/filter.py` — pure Firestore lookup, no LLM; drop any raw story whose canonical
-      url/hash already exists in `seen_stories`; output `fresh_stories`.
+- [x] `agent/tools/` package — `base.py` (shared HTTP + `SourceRecord`), one module per
+      source (`hacker_news.py`, `reddit.py`, `devto.py`, `github.py`, `techcrunch.py`,
+      `theverge.py`), and `sources.py` (`fetch_all_sources`) aggregating all 6 in parallel.
+      Each returns normalized `{source,title,url,score,summary}`.
+- [x] `nodes/research.py` — parallel fan-out across the 6 tools, then same-day merge: clusters
+      same-event titles via `cluster_same_day()` emitting `cluster_sources: [str]`,
+      `cluster_sources_semaphores` → `raw_stories`. Deterministic, no LLM.
+- [x] `nodes/filter.py` — pure Firestore lookup via `firebase/seen.get_seen()`; drops any raw
+      story whose canonical url/hash already exists in `seen_stories` → `fresh_stories`.
+      Degrades to keep-all when Firestore is unavailable (no creds / offline).
+      - Real run: 25 clustered stories, ~6s end-to-end. ✅
 
 ### Phase 4 — Editor (the only editorial judgment)
 **Goal:** `--dry-run` now shows a categorized, ranged selection.

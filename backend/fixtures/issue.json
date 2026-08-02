@@ -1,0 +1,37 @@
+{
+  "date": "ISSUE_DATE_PLACEHOLDER",
+  "sections": [
+    {
+      "name": "Front page",
+      "items": [
+        {
+          "id": "seed-front-001",
+          "type": "article",
+          "headline": "Morning, Reader: A Fixture to Build On",
+          "body": "This is a hand-written seed issue so the frontend can swap from mock data to real Firestore before the full pipeline is finished. Replace me with the first real run.",
+          "sources": ["Kernel Gazette"],
+          "confidence_rating": 1.0,
+          "importance_rating": 5.0,
+          "image_url": null
+        }
+      ]
+    },
+    {
+      "name": "Misc",
+      "items": [
+        {
+          "id": "dsa-sample-001",
+          "type": "dsa_question",
+          "prompt": "Given an array of integers, return indices of the two numbers that add up to a target.",
+          "difficulty": "medium"
+        },
+        {
+          "id": "comic-sample-001",
+          "type": "comic",
+          "image_url": null,
+          "caption": "Panel 1: The monorail is agreed upon. Nobody remembers why."
+        }
+      ]
+    }
+  ]
+}

@@ -76,8 +76,9 @@ def main() -> int:
     result = _run(stage, today, args.debug)
 
     _banner(
-        f"Phase 2 complete. Nodes are scaffolds — real bodies arrive Phases 3-6. "
-        f"issue={result.get('issue')}",
+        f"[Phase 3] research+filter live: {len(result.get('raw_stories') or [])} raw, "
+        f"{len(result.get('fresh_stories') or [])} fresh. "
+        f"Editor/journalists/publisher are stubs until Phases 4-6. issue={result.get('issue')}",
         "green",
     )
     return 0

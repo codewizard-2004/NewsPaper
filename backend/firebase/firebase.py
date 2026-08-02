@@ -26,20 +26,43 @@ def story_hash(url: str) -> str:
     return hashlib.sha256(url.strip().encode("utf-8")).hexdigest()
 
 
-def _credential():
-    cert_path = (
+def _credential_path() -> str | None:
+    return (
         os.getenv("FIREBASE_SERVICE_ACCOUNT")
         or os.getenv("FIREBASE_CREDENTIALS_PATH")
         or os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
     )
+
+
+def _credential():
+    cert_path = _credential_path()
     if cert_path and os.path.exists(cert_path):
         return credentials.Certificate(cert_path)
     return None
 
 
+def _no_credentials() -> bool:
+    """True if no local service-account file AND no well-known ADC file exists.
+
+    When this is True we short-circuit *before* touching the SDK, avoiding a
+    slow (~12s) default-credentials metadata probe that would otherwise fire on
+    every call during local dev without Firebase access.
+    """
+    if _credential_path():
+        return False
+    well_known = os.path.expanduser("~/.config/gcloud/application_default_credentials.json")
+    return not os.path.exists(well_known)
+
+
 @lru_cache(maxsize=1)
 def _init() -> None:
     """Lazily initialize the Firebase app once (safe to call repeatedly)."""
+    if _no_credentials():
+        raise RuntimeError(
+            "No Firebase credentials found. Set FIREBASE_SERVICE_ACCOUNT or "
+            "GOOGLE_APPLICATION_CREDENTIALS to a service-account JSON, or run "
+            "`gcloud auth application-default login`."
+        )
     if not firebase._apps:  # noqa: SLF001
         cred = _credential()
         if cred:
