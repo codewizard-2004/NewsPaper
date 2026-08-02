@@ -35,6 +35,10 @@ and stores the finished issue so a single web page can display it.
 Designed as a single-recipient product: **no accounts, no multi-tenancy, no algorithm** — just a
 morning read.
 
+
+![image1](frontend/public/screenshots/1.png)
+
+
 ---
 
 ## Tech stack
