@@ -13,6 +13,7 @@ import type {
   UserLayoutSettings,
 } from '@/lib/types'
 import { auth as firebaseAuth, onAuthStateChanged, signInWithGoogle, signOut } from '@/lib/firebase'
+import { getLocalISODate, subscribeToIssue, transformIssue } from '@/lib/issues'
 import './App.css'
 
 const STORAGE_SETTINGS_KEY = 'kernel-gazette-settings'
@@ -53,6 +54,7 @@ function App() {
   const [auth, setAuth] = usePersistentState<AuthState>(STORAGE_AUTH_KEY, DEFAULT_AUTH)
   const [screen, setScreen] = useState<'paper' | 'settings'>('paper')
   const [edition, setEdition] = useState<DummyEdition | null>(null)
+  const [editionSource, setEditionSource] = useState<'live' | 'dummy' | null>(null)
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'error'>('loading')
   const [loadError, setLoadError] = useState<string | null>(null)
   const [reloadToken, setReloadToken] = useState(0)
@@ -70,7 +72,6 @@ function App() {
   const [selectedArticle, setSelectedArticle] = useState<ArticleStory | null>(null)
   const closeButtonRef = useRef<HTMLButtonElement | null>(null)
   const lastTriggerRef = useRef<HTMLElement | null>(null)
-  const hydratedSettingsRef = useRef(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (user) => {
@@ -91,54 +92,87 @@ function App() {
   useEffect(() => {
     let active = true
 
-    fetch('/dummy.json', { cache: 'no-store' })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Unable to load dummy edition (${response.status})`)
-        }
+    const loadDummy = () => {
+      fetch('/dummy.json', { cache: 'no-store' })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Unable to load demo edition (${response.status})`)
+          }
 
-        return response.json() as Promise<DummyEdition>
-      })
-      .then((data) => {
-        if (!active) {
-          return
-        }
+          return response.json() as Promise<DummyEdition>
+        })
+        .then((data) => {
+          if (!active) {
+            return
+          }
 
-        setEdition(data)
-        setLoadState('ready')
-      })
-      .catch((error: unknown) => {
-        if (!active) {
-          return
-        }
+          setEdition(data)
+          setEditionSource('dummy')
+          setLoadState('ready')
+        })
+        .catch((error: unknown) => {
+          if (!active) {
+            return
+          }
 
-        setLoadState('error')
-        setLoadError(error instanceof Error ? error.message : 'Unable to load the edition.')
-      })
+          setLoadState('error')
+          setLoadError(
+            error instanceof Error ? error.message : 'Unable to load the edition.',
+          )
+        })
+    }
+
+    const handleLiveIssue = (doc: unknown) => {
+      if (!active) {
+        return
+      }
+
+      const live = transformIssue(doc, getLocalISODate())
+      if (!live) {
+        loadDummy()
+        return
+      }
+
+      setEdition(live)
+      setEditionSource('live')
+      setLoadState('ready')
+    }
+
+    const unsubscribe = subscribeToIssue(getLocalISODate(), {
+      onData: handleLiveIssue,
+      onMissing: loadDummy,
+      onError: loadDummy,
+    })
 
     return () => {
       active = false
+      unsubscribe()
     }
   }, [reloadToken])
 
   useEffect(() => {
-    if (!edition || hydratedSettingsRef.current) {
+    if (!edition) {
       return
     }
 
-    hydratedSettingsRef.current = true
     setSettings((current) => normalizeSettings(current, edition))
-  }, [edition, setSettings])
+  }, [edition, editionSource, setSettings])
 
   const pages = useMemo(() => {
     if (!edition) {
       return []
     }
 
+    const enabledCategoryTitles = new Set(
+      edition.categories
+        .filter((category) => settings.feed.enabledCategoryIds.includes(category.id))
+        .map((category) => category.title),
+    )
+
     return edition.pages.map((page) => ({
       ...page,
       articles: page.articles
-        .filter((article) => settings.feed.enabledCategoryIds.includes(article.category))
+        .filter((article) => enabledCategoryTitles.has(article.category))
         .filter((article) =>
           !article.sourceIds || article.sourceIds.length === 0 || article.sourceIds.some((sourceId) => settings.feed.enabledSourceIds.includes(sourceId)),
         )
@@ -296,8 +330,8 @@ function App() {
   }
 
   const retryLoad = () => {
-    hydratedSettingsRef.current = false
     setEdition(null)
+    setEditionSource(null)
     setLoadState('loading')
     setLoadError(null)
     setReloadToken((current) => current + 1)
@@ -411,6 +445,14 @@ function App() {
         <div className="masthead-subline">
           <span>Vol.&nbsp;{edition.volume} &middot; No.&nbsp;{edition.issue}</span>
           <span className="masthead-subline-motto">All the signal that&rsquo;s fit to read</span>
+          {editionSource ? (
+            <span
+              className={`edition-source-badge edition-source-badge--${editionSource}`}
+              title={editionSource === 'live' ? 'Rendering the published issue from Firestore' : 'Rendering the bundled demo edition'}
+            >
+              {editionSource === 'live' ? 'Live issue' : 'Demo edition'}
+            </span>
+          ) : null}
           <button type="button" className="masthead-link" onClick={() => setScreen('settings')}>
             ⚙ Settings
           </button>

@@ -50,6 +50,17 @@ class ComicItem(BaseModel):
     caption: str = ""
 
 
+class ComicScript(BaseModel):
+    """Next strip installment, written by the Misc journalist (task ``write``)."""
+
+    synopsis: str = Field(
+        description="1-3 sentence continuation of the arc, advancing the story one beat",
+    )
+    caption: str = Field(
+        description="Short witty caption/tagline for today's panel",
+    )
+
+
 Item = Union[ArticleItem, DSAItem, ComicItem]
 
 

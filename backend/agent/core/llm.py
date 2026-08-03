@@ -60,6 +60,46 @@ def call_llm(prompt: str, *, task: str, model: str | None = None, system: str | 
     return _extract_text(response)
 
 
+def call_llm_structured(
+    schema,
+    prompt: str,
+    *,
+    task: str,
+    model: str | None = None,
+    system: str | None = None,
+):
+    """Ask the LLM for a ``schema``-shaped reply via ``with_structured_output``.
+
+    Returns a validated instance of ``schema``. Raises if the provider rejects
+    the call or the structured output fails to parse, so the caller can choose
+    a deterministic fallback (the Editor node does exactly that).
+
+    Ollama's default ``json_schema`` method is unreliable against models that
+    answer in prose (minimax-m3:cloud does), so we force ``function_calling``
+    there — the schema becomes a tool call, which those models honor.
+    """
+    cfg = resolve_config(task, model=model)
+    chat = _build_chat_model(cfg)
+    if cfg.provider == "ollama":
+        runnable = chat.with_structured_output(schema, method="function_calling", include_raw=True)
+    else:
+        runnable = chat.with_structured_output(schema, include_raw=True)
+
+    if system:
+        messages = [SystemMessage(content=system), HumanMessage(content=prompt)]
+    else:
+        messages = [HumanMessage(content=prompt)]
+
+    raw = runnable.invoke(messages)
+    error = raw.get("parsing_error")
+    if error is not None:
+        raise RuntimeError(f"Structured output for task '{task}' failed to parse: {error}")
+    parsed = raw.get("parsed")
+    if parsed is None:
+        raise RuntimeError(f"Structured output for task '{task}' returned no value")
+    return parsed
+
+
 def _extract_text(response) -> str:
     content = getattr(response, "content", None)
     if content is None:

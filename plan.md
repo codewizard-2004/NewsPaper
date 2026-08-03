@@ -12,17 +12,22 @@
 | 1 | Backend skeleton + provider abstraction | ✅ Done | 100% |
 | 2 | Firestore layer + run entrypoint | ✅ Done | 100% |
 | 3 | Research + Filter nodes | ✅ Done | 100% |
-| 4 | Editor node | ⬜ Not started | 0% |
-| 5 | Journalist nodes | ⬜ Not started | 0% |
-| 6 | Publisher node | ⬜ Not started | 0% |
-| 7 | Integration & scheduling | ⬜ Not started | 0% |
-| 8 | Hardening & polish | ⬜ Not started | 0% |
+| 4 | Editor node | ✅ Done | 100% |
+| 5 | Journalist nodes | ✅ Done | 100% |
+| 6 | Publisher node | ✅ Done | 100% |
+| 7 | Integration & scheduling | ✅ Done | 100% |
+| 8 | Hardening & polish | 🔄 In progress | 25% |
 
-**Overall: ~40%**
+**Overall: ~85%**
 
-_Updated 2026-08-02 — Phases 1-3 complete: packages, Firestore, seeding, and a live
-research+filter (`--dry-run` fetches + clusters 6 sources, dedups against `seen_stories`).
-Phase 4 (Editor) next._
+_Updated 2026-08-03 — Phases 1-7 complete; Phase 8 started. A Firebase service account
+(`FIREBASE_SERVICE_ACCOUNT` in `.env`, file git-ignored) unblocks live Firestore access, and
+the full pipeline now runs end-to-end for real: `run.py --date 2026-08-03` wrote
+`issues/2026-08-03` (AI/ML + Misc with DSA + comic), marked 22 stories in `seen_stories`,
+consumed a DSA question, and advanced comic continuity. The Publisher is idempotent
+(`read_issue(date)` guard verified live). The frontend subscribes to `issues/{today}` and
+adapts the sections/items doc to its `DummyEdition` render model (bundled `dummy.json` demo
+fallback, Live/Demo masthead badge)._
 
 The authoritative contract for this repo is **`agents.md`** — it defines the graph flow, the
 data model, and the hard "do / don't" rules. This plan is the sequenced work breakdown to build
@@ -83,7 +88,8 @@ Cloud. **No local model dependency.**
 
 ```
 backend/
-  run.py                    # entrypoint: build + invoke graph; --dry-run for research→editor only
+  run.py                    # entrypoint: build + invoke graph; --dry-run runs the full graph
+                            #   but the Publisher is stubbed (no Firestore write / image spend)
   kernel-gazette.timer       # systemd 6:30am daily
   kernel-gazette.service     # calls run.py
   agent/
@@ -175,42 +181,81 @@ backend/
 
 ### Phase 4 — Editor (the only editorial judgment)
 **Goal:** `--dry-run` now shows a categorized, ranged selection.
-- [ ] `nodes/editor.py` — single LLM call (task `edit`) against `fresh_stories`; selects a
+- [x] `nodes/editor.py` — single LLM call (task `edit`) against `fresh_stories`; selects a
       **target range per page** (not a fixed count, e.g. 3–10), categorizes into
       `front_page`, `aiml_page`, `security_page`, `misc_page`. Never pads thin days.
-- [ ] Emit `categorized: Dict[str, List[dict]]` — deterministic output, `with_structured_output`.
-- [ ] Enforce: editor must not invent stories not present in `fresh_stories`.
+      - The model answers with *indices* into `fresh_stories` (via `call_llm_structured`),
+        so fabricated stories are structurally impossible. Degrades to a deterministic
+        keyword bucket if the LLM call fails (provider outage never kills the issue).
+      - Ollama's `json_schema` structured-output method is unreliable (models answer in
+        prose); `call_llm_structured` forces `method="function_calling"` for the ollama
+        provider. Live: 25 fresh → front_page=6, aiml_page=6, security_page=1, misc_page=8. ✅
+- [x] Emit `categorized: Dict[str, List[dict]]` — deterministic output, `with_structured_output`.
+- [x] Enforce: editor must not invent stories not present in `fresh_stories`.
 
 ### Phase 5 — Journalists (parallel fan-out/fan-in)
 **Goal:** full article text with ratings for every assigned story.
-- [ ] 4 journalist nodes via `build_journalist(page)` in `nodes/journalist.py` behind target
+- [x] 4 journalist nodes via `build_journalist(page)` in `nodes/journalist.py` behind target
       `front_page`, `aiml_page`, `security_page`, `misc_page`.
-      [ ] Each writes full `body` per article + emits `confidence_rating` + `importance_rating`.
-- [ ] Journalists call `search_tool` only when the Research snippet is insufficient — define the
-      trigger concretely (e.g. snippet < N words, or a required fact missing) as a helper
-      `research_snippet_sufficient(story)`.
-- [ ] Misc journalist extra jobs (inside `build_journalist("misc_page")`):
+      [x] Each writes full `body` per article + emits `confidence_rating` + `importance_rating`
+          via one structured `write` call per article (`ArticleDraft`); headline stays the
+          source title (deterministic, no drift).
+- [x] Journalists call `search_tool` only when the Research snippet is insufficient — defined
+      concretely as `research_snippet_sufficient(story)`: summary word count < 8 AND not
+      (non-empty AND >= 2 independent sources). `agent/tools/search_tool.py` wraps DuckDuckGo
+      (`ddgs`), normalized to `{title, url, snippet}`, `[]` on failure.
+- [x] Misc journalist extra jobs (inside `build_journalist("misc_page")`):
       `get_next_dsa_question()` / `mark_dsa_used(id)` and `get_comic_state()` /
       `save_comic_state(synopsis)` for continuity (via `firebase/dsa.py` + `firebase/comic.py`).
-- [ ] Accumulate articles into shared `articles` state via `operator.add` reducer.
+      Both degrade to a logged skip (with an entry in `state.errors`) when Firestore is
+      unreachable.
+- [x] Accumulate articles into shared `items` state via `operator.add` reducer (journalist
+      failures land in `errors`, also `operator.add` — never fatal).
+      - Live: 19 articles written for 19 assigned stories; DSA + comic skipped cleanly
+        (no Firebase credentials in dev). ✅
 
 ### Phase 6 — Publisher (confidence, thin-sections, images, publish)
 **Goal:** one complete `issues/{date}` written; seen-marked.
-- [ ] Drop articles below confidence threshold (config).
-- [ ] Thin-section handling: fold sub-minimum pages into `misc_page` — the ONLY place page
-      structure changes; journalists never reassign pages.
-- [ ] Image search tool for articles above importance threshold only.
-- [ ] Compose final issue doc per `data model` (sections[{name, items[{type, ...}]}]) and
-      `write_issue(date, doc)` + `mark_seen` for every published story.
+- [x] Drop articles below confidence threshold (config) — `PUBLISHER_CONFIDENCE_THRESHOLD`
+      (default 0.5) in `agent/core/config.py`; DSA/comic always pass.
+- [x] Thin-section handling: fold sub-minimum pages into `misc_page` via
+      `PUBLISHER_MIN_PAGE_ITEMS` (default 3) — the ONLY place page structure changes;
+      journalists never reassign pages.
+- [x] Image search tool (`agent/tools/image_search_tool.py`, DuckDuckGo images) called only
+      for articles at/above `PUBLISHER_IMAGE_IMPORTANCE` (default 7.0); a miss leaves
+      `image_url=None`, never fails the issue.
+- [x] Compose final issue doc per `data model` (sections[{name, items[{type, ...}]}]) and
+      `write_issue(date, doc)` + `mark_published` for every published story (internal `page`/
+      `url` fields stripped before writing). Write + seen-mark degrade to logged errors when
+      Firestore is unreachable — the issue is still composed into state.
+      - Live: 18 articles -> confidence filter -> 3 sections [Front page=4, AI/ML=4, Misc=4],
+        Security absent (thin day), write skipped cleanly (no creds in dev). ✅
 
 ### Phase 7 — Integration & scheduling
-- [ ] Frontend `firebase.js` subscribes to `issues/{today}` via `onSnapshot`; replace mock import.
-- [ ] `App.jsx` handles missing/thin sections and renders `article`/`dsa_question`/`comic`
-      through the right component (`StoryCard`, `DsaBox`, `ComicPanel`).
-- [ ] `kernel-gazette.service` + `.timer` for 6:30am systemd run.
-- [ ] Idempotency: re-running for an already-published date must not duplicate.
+- [x] Frontend subscribes to `issues/{today}` via `onSnapshot` (`frontend/src/lib/issues.ts`),
+      replacing the mock-only import. The backend `sections/items` doc is adapted to the
+      frontend's `DummyEdition` render model by a pure transformer
+      (`frontend/src/lib/adapter.ts`, unit-tested): section → page template (front /
+      three-column / stack), `importance_rating` 0–10 → `ArticleImportance` 1–5, bodies →
+      paragraphs, `dsa_question`/`comic` items become kickered brief stories on the Misc page,
+      sources derive from item names (known-homepage map). Falls back to `public/dummy.json`
+      (bundled demo edition) while the live doc is missing/unreachable; masthead shows a
+      Live/Demo badge.
+- [x] Thin/missing pages handled by the transformer: a section with no items is omitted, and
+      page numbers re-sequence (matching the Publisher's thin-day folding).
+- [x] `kernel-gazette.service` + `kernel-gazette.timer` — 6:30am daily systemd run
+      (`OnCalendar=*-*-* 06:30:00`, `Persistent=true`), runs `backend/.venv/bin/python run.py`
+      via `EnvironmentFile` (`.env`).
+- [x] Idempotency: Publisher's `_publish` checks `read_issue(date)` first and skips (no
+      duplicate/clobber) when the issue already exists; a failed lookup degrades to "not
+      published" so an offline Firestore never blocks a first write. Unit-tested.
 
 ### Phase 8 — Hardening & polish
+- [x] Firebase service-account wired (`backend/newspaper-ee07b-…-adminsdk-*.json`, git-ignored,
+      referenced from `.env` via `FIREBASE_SERVICE_ACCOUNT`). Live end-to-end demonstrated:
+      full pipeline wrote `issues/2026-08-03` (2 sections, 22 stories, DSA + comic), marked
+      22 `seen_stories`, consumed one DSA question, advanced `comic_state` to day 2. Fixed the
+      Firestore `where` positional-args deprecation (`firebase/dsa.py`).
 - [ ] Graceful degradation when a source is down or a model fails (skip, don't fail the issue).
 - [ ] Cold dips on model providers; call-timeouts and retries per task.
 - [ ] Optional: `--notify` hook / slack webhook when today's issue is ready.

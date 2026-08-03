@@ -19,6 +19,11 @@ TASKS = ("research", "edit", "write", "rate")
 DEFAULT_PROVIDER = os.getenv("DEFAULT_PROVIDER", "gemini").strip() or "gemini"
 DEFAULT_MODEL = os.getenv("DEFAULT_MODEL", "gemini-3.5-flash-lite").strip() or "gemini-3.5-flash-lite"
 
+# Publisher thresholds (env-driven; see .env.example).
+PUBLISHER_CONFIDENCE_THRESHOLD = float(os.getenv("PUBLISHER_CONFIDENCE_THRESHOLD", "0.5"))
+PUBLISHER_MIN_PAGE_ITEMS = int(os.getenv("PUBLISHER_MIN_PAGE_ITEMS", "3"))
+PUBLISHER_IMAGE_IMPORTANCE = float(os.getenv("PUBLISHER_IMAGE_IMPORTANCE", "7.0"))
+
 # provider -> env var holding its API key (ollama needs none)
 API_KEY_ENV = {
     "gemini": "GOOGLE_API_KEY",

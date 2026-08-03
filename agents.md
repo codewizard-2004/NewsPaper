@@ -44,8 +44,8 @@ nodes/
         base.py                 # shared HTTP helpers + SourceRecord
         sources.py              # fetch_all_sources(): runs all 6 in parallel
         hacker_news.py reddit.py devto.py github.py techcrunch.py theverge.py
-        search_tool.py          # journalist fallback only (Phase 5)
-        image_search_tool.py     # publisher-only (Phase 6)
+        search_tool.py          # journalist fallback only: search_web() over DuckDuckGo
+        image_search_tool.py     # publisher-only: search_images() over DuckDuckGo images
     firebase/
       __init__.py               # re-exports all accessors
       firebase.py               # the ONLY module importing firebase_admin; exports firebase/firestore/db + story_hash
@@ -149,6 +149,10 @@ and gets handled downstream. Output: `categorized: Dict[str, List[dict]]`.
 assigned stories, and emits `confidence_rating` and `importance_rating` per article. Each
 calls the Internet Search tool only if the Research node's snippet doesn't give enough to
 write from — not automatically per article, that's a cost control as much as a quality one.
+The trigger is concrete: `research_snippet_sufficient(story)` returns True (enough) when the
+summary has ≥ 8 words, or it's non-empty and ≥ 2 independent outlets cover the event;
+otherwise the journalist may search. A failed article is skipped and logged into
+`state.errors` — it must never fail the whole issue.
 
 - **Misc journalist** has two extra jobs beyond regular articles: the daily DSA question and
   the tech comic. Both need continuity across days, so it reads/writes two dedicated Firestore
@@ -252,11 +256,17 @@ Every LLM call goes through `agent/core/llm.py`:
 ```python
 def call_llm(prompt: str, *, task: str, model: str | None = None, system: str | None = None) -> str:
     ...
+def call_llm_structured(schema, prompt, *, task, model=None, system=None):
+    ...  # validated instance of `schema` via with_structured_output
 ```
 `task` is one of `"research"`, `"edit"`, `"write"`, `"rate"`. `agent/core/config.py` maps each
 task to a default provider. Providers: **Gemini** (Flash-Lite, free tier — good default for
 research/rating), **OpenAI**, **Anthropic (Claude Haiku)**, **Ollama Cloud** (a hosted API,
 not a local model — treat it like any other entry in this table, no RAM implications).
+`call_llm_structured` forces `method="function_calling"` for the ollama provider (its
+`json_schema` default is unreliable against prose-happy models) and `include_raw=True` so a
+parsing failure surfaces as a captured `parsing_error` the caller can handle (Editor falls back
+to a deterministic keyword bucket).
 
 ### Node rules
 
@@ -275,8 +285,8 @@ not a local model — treat it like any other entry in this table, no RAM implic
 
 ```
 uv run backend/run.py            # single run, writes today's issue to Firestore
-uv run backend/run.py --dry-run  # research -> filter -> editor only, prints to stdout,
-                                    # skips journalist/publisher LLM + image spend
+uv run backend/run.py --dry-run  # full graph through the journalists; the Publisher is
+                                    # stubbed (no Firestore write / image spend)
 ```
 
 `kernel-gazette.service` + `.timer` wire this into systemd for the 6:30am run.

@@ -214,6 +214,28 @@
   font-size: 0.8rem;
 }
 
+.edition-source-badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid #b8ada0;
+}
+
+.edition-source-badge--live {
+  color: #1f6b3d;
+  background: #e6f4ea;
+  border-color: #9cc9ab;
+}
+
+.edition-source-badge--dummy {
+  color: #8a5a17;
+  background: #fdf3e0;
+  border-color: #e3c27e;
+}
+
 .meta-label,
 .front-kicker,
 .article-kicker,

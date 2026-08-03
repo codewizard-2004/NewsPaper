@@ -50,7 +50,8 @@ morning read.
 | **LLM access** | LangChain wrappers (Google Gemini, OpenAI, Anthropic, Ollama Cloud) |
 | **Persistence / state** | Firebase Firestore (Admin SDK) |
 | **Source fetching** | Dev.to, Hacker News, GitHub Trending, Reddit, TechCrunch, The Verge |
-| **Search (fallback)** | Tavily / DuckDuckGo — journalists use it only when snippet is thin |
+| **Search (fallback)** | DuckDuckGo (`ddgs`) — journalists use it only when the snippet is thin |
+| **Images (publisher)** | DuckDuckGo images (`ddgs`) — only above the importance threshold |
 | **Package manager** | `uv` (only) |
 | **Frontend** | React + Vite (TypeScript), read-only Firestore subscription |
 | **Scheduling** | systemd `.service` + `.timer` (6:30am daily) |
@@ -210,6 +211,8 @@ kernel-gazette/
         base.py            # shared HTTP helpers + SourceRecord
         sources.py         # fetch_all_sources(): runs all 6 sources in parallel
         hacker_news.py reddit.py devto.py github.py techcrunch.py theverge.py
+        search_tool.py     # journalist fallback: search_web() (DuckDuckGo), thin snippets only
+        image_search_tool.py  # publisher-only: search_images() (DuckDuckGo images)
     firebase/
       firebase.py          # ONLY module importing firebase_admin; exports clients + story_hash
       seen.py              # seen_stories
@@ -222,17 +225,18 @@ kernel-gazette/
     pyproject.toml         # uv only
   frontend/
     src/
-      components/
-        Masthead.jsx
-        Section.jsx
-        StoryCard.jsx
-        DsaBox.jsx
-        ComicPanel.jsx
-        FrontPage.jsx
-      firebase.js         # SDK init + subscribeToIssue(date) — only Firestore touchpoint
-      App.jsx
-      main.jsx
-      dummyData/sampleIssue.js
+      App.tsx              # paper shell: masthead, page layouts, reading modal, settings
+      lib/
+        firebase.ts        # Firebase app/auth/Firestore init — SDK touchpoint
+        issues.ts          # subscribeToIssue(date) via onSnapshot; getLocalISODate
+        adapter.ts         # pure transformIssue(): sections/items -> DummyEdition (unit-tested)
+        settings.ts        # default AppSettings
+        storage.ts         # usePersistentState (localStorage)
+        types.ts           # DummyEdition / EditionPage / ArticleStory / settings / auth
+      main.tsx
+      App.css / index.css
+      public/
+        dummy.json         # bundled demo edition — fallback when no live issue exists
     package.json
     vite.config.ts
 ```
@@ -246,6 +250,8 @@ Every LLM call in the graph flows through `agent/core/llm.py`:
 ```python
 def call_llm(prompt: str, *, task: str, model: str | None = None, system: str | None = None) -> str:
     ...
+def call_llm_structured(schema, prompt, *, task, model=None, system=None):
+    ...  # validated instance of `schema` via with_structured_output
 ```
 
 `task` is one of `"research"`, `"edit"`, `"write"`, `"rate"`. `agent/core/config.py` maps each
@@ -258,8 +264,10 @@ task to a provider + model (env-driven, with per-task overrides). Providers:
 
 **No local model dependency** — every provider, Ollama Cloud included, is a hosted API call.
 
-During development, everything routes through **Ollama Cloud's `minimax-3:cloud`** to keep spend
-low; swap `DEFAULT_PROVIDER` / `DEFAULT_MODEL` once you want hosted providers.
+During development the defaults point at **Gemini `gemini-3.5-flash-lite`** (free tier); switch
+providers per task via env (`AGENT_TASK_<TASK>_PROVIDER` / `_MODEL`) or
+`DEFAULT_PROVIDER` / `DEFAULT_MODEL`. Ollama Cloud (`minimax-m3:cloud`) is an available hosted
+provider for zero-key dev runs — no local model is ever required.
 
 ---
 
@@ -277,7 +285,8 @@ cd backend
 uv sync
 cp .env.example .env   # fill in your keys / Ollama or provider choice
 uv run python run.py --smoke        # one LLM call per task — validates provider access
-uv run python run.py --dry-run     # research → filter → editor only, no writer/spend
+uv run python run.py --dry-run     # full graph through journalists; Publisher degrades its
+                                    # Firestore write to a logged error (no service account)
 uv run python run.py --debug       # run the whole graph with verbose output
 ```
 
@@ -289,17 +298,34 @@ For local dev against Ollama Cloud: ensure `ollama serve` is up and
 ```bash
 cd frontend
 npm install
-npm run dev          # point at dummyData first, then live Firestore
+npm run dev          # subscribes to issues/{today}; falls back to public/dummy.json when
+                     # the live doc is missing or Firestore is unreachable (Live/Demo badge)
+npm run build        # type-check + bundle
+npm run lint         # eslint
 npm run preview      # serves dist/ on localhost:4173 — pin your morning tab here
 ```
 
 The frontend should never call any LLM, source API, or search tool, and needs no rebuild for
-new daily content since it reads Firestore live.
+new daily content since it reads Firestore live. `src/lib/adapter.ts` is a pure function that
+transforms the backend `sections/items` doc into the frontend's `DummyEdition` render model
+(section → page template, 0–10 importance → 1–5, `dsa_question`/`comic` → brief Misc stories).
 
 ### Scheduling
 
 `kernel-gazette.service` + `kernel-gazette.timer` wire the backend into **systemd** for the
-6:30am run. A re-run for an already-published date must not duplicate (idempotent).
+6:30am run:
+
+```bash
+sudo ln -s "$PWD/backend/kernel-gazette.service" /etc/systemd/system/
+sudo ln -s "$PWD/backend/kernel-gazette.timer"   /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now kernel-gazette.timer
+systemctl status kernel-gazette.timer
+journalctl -u kernel-gazette.service -e
+```
+
+The Publisher is **idempotent**: a re-run for an already-published date reads `issues/{date}`
+first and skips the write + seen-marking, so scheduled and manual runs never duplicate.
 
 ---
 
@@ -318,13 +344,13 @@ The canonical architecture lives in **`agents.md`** (which wins over both this f
 | 1 | Backend skeleton + provider abstraction | Done | 100% |
 | 2 | Firestore layer + run entrypoint | Done | 100% |
 | 3 | Research + Filter nodes | Done | 100% |
-| 4 | Editor node | Not started | 0% |
-| 5 | Journalist nodes | Not started | 0% |
-| 6 | Publisher node | Not started | 0% |
-| 7 | Integration & scheduling | Not started | 0% |
-| 8 | Hardening & polish | Not started | 0% |
+| 4 | Editor node | Done | 100% |
+| 5 | Journalist nodes | Done | 100% |
+| 6 | Publisher node | Done | 100% |
+| 7 | Integration & scheduling | Done | 100% |
+| 8 | Hardening & polish | In progress | 25% |
 
-**Overall: ~40%**
+**Overall: ~85%**
 
 ### What's done vs. what's next
 
@@ -337,13 +363,32 @@ The canonical architecture lives in **`agents.md`** (which wins over both this f
 - Phase 3 — Research + Filter live: `agent/tools/` fetches all 6 sources in parallel,
   `research_node` clusters same-event stories (`cluster_sources` → `raw_stories`), and
   `filter_node` dedups against `seen_stories` → `fresh_stories`. `--dry-run` shows real stories.
+- Phase 4 — Editor live: one structured LLM call (task `edit`) selects a **target range per
+  page** and buckets stories into the four pages via `with_structured_output`. The model
+  answers with story indices, so invented stories are impossible; a deterministic keyword
+  fallback covers provider outages. `--dry-run` shows the categorized selection.
+- Phase 5 — Journalists live (parallel fan-out): each writes full articles + ratings via one
+  structured `write` call per story; the search tool (`search_web`, DuckDuckGo) is used *only*
+  when `research_snippet_sufficient()` says the snippet is too thin. The Misc journalist adds
+  the DSA rotation + comic continuity (graceful skip without Firestore). Failures land in
+  `state.errors` and are never fatal. `--dry-run` writes every article.
+- Phase 6 — Publisher live: confidence filter (`PUBLISHER_CONFIDENCE_THRESHOLD`), thin-page
+  folding into Misc (`PUBLISHER_MIN_PAGE_ITEMS`), and images only for articles above
+  `PUBLISHER_IMAGE_IMPORTANCE`. Composes the full `issues/{date}` doc, writes it, and marks
+  each published story seen — all degrading to logged errors when Firestore is unreachable.
+- Phase 7 — Integration & scheduling: Publisher **idempotency** (skips already-published
+  dates; unit-tested), **systemd** 6:30am service + timer, and the **frontend now subscribes**
+  to `issues/{today}` via `onSnapshot` with a pure `adapter.ts` transformer
+  (`sections/items` → `DummyEdition`; section → page template, importance 1–5, DSA/comic →
+  brief Misc stories) plus a bundled `dummy.json` demo fallback and a Live/Demo masthead badge.
+- Phase 8 (started) — a Firebase service account is wired in (`.env` `FIREBASE_SERVICE_ACCOUNT`,
+  key file git-ignored), and the full pipeline now runs **live end-to-end**: a real run wrote
+  `issues/2026-08-03`, marked stories in `seen_stories`, consumed a DSA question, and advanced
+  the comic — verified against Firestore directly.
 
 **⏭️ Next (in priority order)**
-1. Phase 4 — Editor node (ranges, categorization).
-2. Phase 5 — Journalist bodies + DSA/comic continuity for Misc.
-3. Phase 6 — Publisher: confidence filter, thin-page folding, images, publish.
-4. Phase 7 — frontend wiring + systemd scheduling + idempotency.
-5. Phase 8 — hardening (graceful source/model failure, timeouts, optional notify hook).
+1. Phase 8 hardening — graceful source/model failure, provider timeouts/retries, optional
+   `--notify` hook.
 
 ---
 

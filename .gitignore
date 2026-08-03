@@ -1,2 +1,4 @@
 .env
 __pycache__
+# Firebase service-account keys — never commit these (rotating a leaked key is painful).
+*firebase-adminsdk*.json

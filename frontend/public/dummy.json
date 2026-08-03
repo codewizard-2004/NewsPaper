@@ -1,0 +1,263 @@
+{
+  "title": "The Kernel Gazette",
+  "subtitle": "Curated signal, zero noise.",
+  "volume": 1,
+  "issue": 1,
+  "issueDate": "2026-08-03",
+  "sources": [
+    { "id": "hacker-news", "name": "Hacker News", "url": "https://news.ycombinator.com" },
+    { "id": "reddit", "name": "Reddit", "url": "https://www.reddit.com" },
+    { "id": "dev-to", "name": "Dev.to", "url": "https://dev.to" },
+    { "id": "github", "name": "GitHub", "url": "https://github.com" },
+    { "id": "techcrunch", "name": "TechCrunch", "url": "https://techcrunch.com" },
+    { "id": "the-verge", "name": "The Verge", "url": "https://www.theverge.com" }
+  ],
+  "categories": [
+    { "id": "front-page", "title": "Front page" },
+    { "id": "ai-ml", "title": "AI & Machine Learning" },
+    { "id": "security", "title": "Security" },
+    { "id": "misc", "title": "Misc" },
+    { "id": "daily-dsa", "title": "Daily DSA" },
+    { "id": "comic", "title": "Comic" }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "template": "front",
+      "title": "Front page",
+      "articles": [
+        {
+          "id": "demo-front-001",
+          "page": 1,
+          "category": "Front page",
+          "importance": 5,
+          "title": "Open-weight models narrow the gap on closed labs",
+          "subtitle": "New benchmarks show small open models closing in on frontier scale.",
+          "kicker": "Front page",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "This week's releases confirm a trend that has been building for months: openly licensed weights now trail the largest closed models by a single-digit margin on standard reasoning benchmarks.",
+            "Cost curves tell part of the story. Training runs that once required thousands of accelerators are being replicated on smaller, rented clusters, and several teams shared reproducible recipes.",
+            "The practical takeaway for builders is a shift in default advice: many products no longer need a frontier API at all."
+          ],
+          "sourceIds": ["techcrunch", "the-verge"],
+          "sources": [
+            { "name": "TechCrunch", "url": "https://techcrunch.com" },
+            { "name": "The Verge", "url": "https://www.theverge.com" }
+          ],
+          "images": [],
+          "tags": ["ai", "open-source"],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 4,
+          "layoutHint": "hero"
+        },
+        {
+          "id": "demo-front-002",
+          "page": 1,
+          "category": "Front page",
+          "importance": 4,
+          "title": "A post-quantum migration checklist lands for libraries",
+          "subtitle": "Dependency maintainers now have a concrete path to PQC readiness.",
+          "kicker": "Front page",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "A widely-used cryptography library published its migration guide this week, giving maintainers a phased plan that starts with audit tooling rather than key-swapping.",
+            "The guide stresses that algorithm agility in protocol design matters more than any single new primitive."
+          ],
+          "sourceIds": ["hacker-news"],
+          "sources": [{ "name": "Hacker News", "url": "https://news.ycombinator.com" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 3,
+          "layoutHint": "feature"
+        },
+        {
+          "id": "demo-front-003",
+          "page": 1,
+          "category": "Front page",
+          "importance": 3,
+          "title": "Edge caching becomes the default, not the hack",
+          "subtitle": "Platforms are folding regional replication into their base tier.",
+          "kicker": "Front page",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "Two major hosting platforms quietly made edge replication part of their default pricing this month, a shift that removes a whole class of latency hacks.",
+            "Developers on the old model had to reason about cache invalidation as a feature; now the platform handles the plumbing."
+          ],
+          "sourceIds": ["dev-to"],
+          "sources": [{ "name": "Dev.to", "url": "https://dev.to" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 2
+        },
+        {
+          "id": "demo-front-004",
+          "page": 1,
+          "category": "Front page",
+          "importance": 2,
+          "title": "A weekend experiment becomes a company's main pipeline",
+          "subtitle": "A hobby script quietly grew into production infrastructure.",
+          "kicker": "Front page",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "It started as a 40-line script in a developer's weekend log and ended as the ingestion path for three products.",
+            "The lesson, the team says, was keeping the interfaces boring and the internals replaceable."
+          ],
+          "sourceIds": ["reddit"],
+          "sources": [{ "name": "Reddit", "url": "https://www.reddit.com" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 1
+        }
+      ]
+    },
+    {
+      "page": 2,
+      "template": "three-column",
+      "title": "AI & Machine Learning",
+      "articles": [
+        {
+          "id": "demo-aiml-001",
+          "page": 2,
+          "category": "AI & Machine Learning",
+          "importance": 4,
+          "title": "Retrieval pipelines get honest about rerankers",
+          "subtitle": "Teams are reporting that rerankers add less than their latency suggests.",
+          "kicker": "AI & Machine Learning",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "A new evaluation compares two-stage retrieval against a single well-tuned retriever and finds the reranker gains are thin once the first stage is already strong.",
+            "The takeaway: measure before you add a stage, and treat reranking as a tuned optimization rather than a default."
+          ],
+          "sourceIds": ["github"],
+          "sources": [{ "name": "GitHub", "url": "https://github.com" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 3
+        },
+        {
+          "id": "demo-aiml-002",
+          "page": 2,
+          "category": "AI & Machine Learning",
+          "importance": 3,
+          "title": "Smaller context budgets are back in fashion",
+          "subtitle": "Agents that trim their context window are getting cheaper and faster.",
+          "kicker": "AI & Machine Learning",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "Several agent frameworks now ship context-compaction passes that summarize old turns instead of replaying them.",
+            "Benchmarks show only modest quality loss at a fraction of the token cost."
+          ],
+          "sourceIds": ["hacker-news"],
+          "sources": [{ "name": "Hacker News", "url": "https://news.ycombinator.com" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 2
+        },
+        {
+          "id": "demo-aiml-003",
+          "page": 2,
+          "category": "AI & Machine Learning",
+          "importance": 3,
+          "title": "Fine-tuning datasets finally come with provenance",
+          "subtitle": "The 'garbage in, garbage out' problem gets a ledger.",
+          "kicker": "AI & Machine Learning",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "New dataset formats embed licensing and lineage metadata by default, so teams can audit what went into a checkpoint.",
+            "It is a small convention change with an outsized effect on reproducibility."
+          ],
+          "sourceIds": ["dev-to"],
+          "sources": [{ "name": "Dev.to", "url": "https://dev.to" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 2
+        }
+      ]
+    },
+    {
+      "page": 3,
+      "template": "stack",
+      "title": "Miscellany",
+      "articles": [
+        {
+          "id": "demo-misc-001",
+          "page": 3,
+          "category": "Misc",
+          "importance": 2,
+          "title": "Command-line tools get a second life as defaults",
+          "subtitle": "Terminal utilities are quietly winning the adoption war again.",
+          "kicker": "Misc",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "Every few years the industry rediscovers that small, composable command-line tools outlive their GUI replacements.",
+            "This cycle the winners are the ones with honest help output and no config file."
+          ],
+          "sourceIds": ["reddit"],
+          "sources": [{ "name": "Reddit", "url": "https://www.reddit.com" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 1
+        },
+        {
+          "id": "demo-misc-002",
+          "page": 3,
+          "category": "Misc",
+          "importance": 2,
+          "title": "A 4 a.m. deploy, a daylight-savings bug, and a lesson",
+          "subtitle": "The story that keeps reminding us to test for clocks.",
+          "kicker": "Misc",
+          "authors": [{ "name": "Nora Patel", "role": "Reporter", "aiGenerated": true }],
+          "content": [
+            "A service that had run flawlessly for two years broke at 4 a.m. because it assumed a UTC offset would never change.",
+            "The postmortem is a small classic of the genre, and its conclusion is still the right one: store instants, display zones."
+          ],
+          "sourceIds": ["hacker-news"],
+          "sources": [{ "name": "Hacker News", "url": "https://news.ycombinator.com" }],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 1
+        },
+        {
+          "id": "demo-misc-003",
+          "page": 3,
+          "category": "Daily DSA",
+          "importance": 1,
+          "title": "Daily DSA Question",
+          "subtitle": "Difficulty: medium",
+          "kicker": "Daily DSA",
+          "authors": [{ "name": "Nora Patel", "role": "Curator", "aiGenerated": true }],
+          "content": [
+            "Given an array of integers, return the length of the longest increasing subsequence.",
+            "Aim for O(n log n) using a patience-sorting approach, then explain why binary search is valid there."
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 5,
+          "layoutHint": "brief"
+        },
+        {
+          "id": "demo-misc-004",
+          "page": 3,
+          "category": "Comic",
+          "importance": 1,
+          "title": "Today's Comic",
+          "subtitle": "The continuing strip",
+          "kicker": "Comic",
+          "authors": [{ "name": "The Inkwell", "role": "Artist", "aiGenerated": true }],
+          "content": [
+            "Panel three: the engineer removes the 'it works on my machine' sticky note, revealing the fine print: 'and nowhere else.'"
+          ],
+          "sourceIds": [],
+          "sources": [],
+          "images": [],
+          "publishedAt": "2026-08-03T06:30:00Z",
+          "readTimeMin": 1,
+          "layoutHint": "brief"
+        }
+      ]
+    }
+  ]
+}

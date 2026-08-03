@@ -1,0 +1,25 @@
+# The Kernel Gazette — daily pipeline service (oneshot).
+#
+# Install: sudo ln -s "$PWD/backend/kernel-gazette.service" /etc/systemd/system/
+#          sudo ln -s "$PWD/backend/kernel-gazette.timer"   /etc/systemd/system/
+#          sudo systemctl daemon-reload
+#          sudo systemctl enable --now kernel-gazette.timer
+#
+# Inspect:  systemctl status kernel-gazette.timer / kernel-gazette.service
+# Logs:     journalctl -u kernel-gazette.service -e
+
+[Unit]
+Description=The Kernel Gazette daily newspaper pipeline
+Documentation=file:///media/amal/01DCD6CC2E22FE70/NewsPaper/agents.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=amal
+WorkingDirectory=/media/amal/01DCD6CC2E22FE70/NewsPaper/backend
+EnvironmentFile=/media/amal/01DCD6CC2E22FE70/NewsPaper/backend/.env
+# Use the project venv's interpreter directly (uv owns sync; systemd need not).
+ExecStart=/media/amal/01DCD6CC2E22FE70/NewsPaper/backend/.venv/bin/python run.py
+StandardOutput=journal
+StandardError=journal

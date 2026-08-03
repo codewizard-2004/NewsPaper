@@ -7,7 +7,7 @@ from firebase.firebase import db
 
 def get_next_dsa_question() -> dict | None:
     """Return the next unused DSA question, or None if the bank is exhausted."""
-    docs = list(db().collection("dsa_bank").where("used", "==", False).limit(1).stream())
+    docs = list(db().collection("dsa_bank").where(filter=("used", "==", False)).limit(1).stream())
     if not docs:
         return None
     doc = docs[0]

@@ -1,0 +1,17 @@
+# The Kernel Gazette — 6:30am daily timer.
+#
+# Install (see kernel-gazette.service). The timer fires the oneshot service,
+# which must run as root/systemd to run the .service above.
+
+[Unit]
+Description=Run The Kernel Gazette every morning at 6:30am
+After=network-online.target
+
+[Timer]
+OnCalendar=*-*-* 06:30:00
+Persistent=true
+# Add a little jitter so the run doesn't stampede at exactly 6:30:00.
+RandomizedDelaySec=60
+
+[Install]
+WantedBy=timers.target
